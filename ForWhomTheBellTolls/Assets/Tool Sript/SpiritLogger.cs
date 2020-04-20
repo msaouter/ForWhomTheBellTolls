@@ -4,19 +4,11 @@ using UnityEngine;
 using UnityEditor;
 
 
-/*
-public enum CardTypeSupported
-{
-    Fate,
-    Chalenge,
-    Object,
-    Person,
-    Place
-}*/
 public class SpiritLogger : EditorWindow
 {
     string csvFileName = "CSV File Name";
     bool addInScene;
+    int defaltTime = 10;
 
     [MenuItem("Window/CSVSpiritGenerator")]
     public static void ShowWindow()
@@ -28,12 +20,12 @@ public class SpiritLogger : EditorWindow
     {
         GUILayout.Label("File to generate from :");
         csvFileName = EditorGUILayout.TextField("CSV File Name in the Resources Folder", csvFileName);
-        //cardType = (CardTypeSupported)EditorGUILayout.EnumPopup("Card type of the file :", cardType);
+        defaltTime = EditorGUILayout.IntField("Time by defalt", defaltTime);
         addInScene = EditorGUILayout.Toggle("Add in scene", addInScene);
-        CardGenerator generator = (CardGenerator)ScriptableObject.CreateInstance("CardGenerator");
+        SpiritGenerator generator = (SpiritGenerator)ScriptableObject.CreateInstance("SpiritGenerator");
         if (GUILayout.Button("Generate"))
         {
-            generator.Generate(csvFileName, cardType, addInScene);
+            generator.Generate(csvFileName, addInScene, defaltTime);
         }
     }
 

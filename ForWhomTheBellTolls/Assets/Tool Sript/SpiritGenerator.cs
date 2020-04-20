@@ -6,15 +6,16 @@ using UnityEditor;
 
 public class SpiritGenerator : ScriptableObject
 {
-    public bool Generate(string spiritFileName, bool addInScene)
+    
+    public bool Generate(string spiritFileName, bool addInScene, int defaltTime)
     {
         Debug.Log("Generating");
         try
         {
             TextAsset csvFile = Resources.Load<TextAsset>(spiritFileName);
             string[] data = csvFile.text.Split('\n');
-            
-            GameObject prefab = Resources.Load<GameObject>("Prefab/Fatespirit");
+
+            GameObject prefab = Resources.Load<GameObject>("Prefab/A_Spirit");
             for (int i = 1; i < data.Length; ++i)
             {
                 string[] spiritText = data[i].Split(',');
@@ -23,26 +24,21 @@ public class SpiritGenerator : ScriptableObject
                 SpiritScriptable asset = ScriptableObject.CreateInstance<SpiritScriptable>();
                 asset.spiritName = spiritText[0];
                 asset.description = spiritText[1];
-                /*
-                if (i == 1)
-                {
-                    asset.artwork = Resources.Load<Sprite>("ImageTarot/Jean_Dodal_Tarot_trump_Fool");
-                }
-                else
-                {
-                    asset.artwork = Resources.Load<Sprite>("ImageTarot/Jean_Dodal_Tarot_trump_" + (i - 1) / 10 + (i - 1) % 10);
-                }
+                
 
-                if (!LinkspiritToAttributsValue(ref asset.attributValue, StringToValue(spiritText, 2)))
+                if (!LinkspiritToAttributsValue(ref asset.moves, spiritText, 2, defaltTime))
                     Debug.Log("Error on generating the spirit " + spiritText[0]);
-
-                AssetDatabase.CreateAsset(asset, "Assets/spirit/Fate/Generated/" + spiritText[0] + ".asset");
+                
+                AssetDatabase.CreateAsset(asset, "Assets/Spirit/Generated/" + spiritText[0] + ".asset");
+                
                 if (addInScene)
                 {
+                    
                     GameObject gen = Instantiate<GameObject>(prefab);
-                    gen.GetComponent<FatespiritObject>().fate = asset;
+                    gen.GetComponent<SpiritObject>().spirit = asset;
                     gen.name = spiritText[0];
-                }*/
+                    
+                }
             }
 
             AssetDatabase.SaveAssets();
@@ -59,21 +55,49 @@ public class SpiritGenerator : ScriptableObject
     }
 
 
-    /* Chaos - Creation - Eloquence - Knoledge - Logique - Résilience - Secret - Silence - Violence */
-    public bool LinkspiritToAttributsValue(ref List<NextMove> attributValue, int[] atts)
+    /* Arche Statue Maison Cadran Dyson Stele */
+    public bool LinkspiritToAttributsValue(ref List<NextMove> attributValue, string[] s, int offset, int defaltTime)
     {
         try
         {
             attributValue = new List<NextMove>();
-            attributValue.Add(new AttributValue(Attribut.Chaos, atts[0]));
-            attributValue.Add(new AttributValue(Attribut.Creation, atts[1]));
-            attributValue.Add(new AttributValue(Attribut.Eloquence, atts[2]));
-            attributValue.Add(new AttributValue(Attribut.Knowledge, atts[3]));
-            attributValue.Add(new AttributValue(Attribut.Logic, atts[4]));
-            attributValue.Add(new AttributValue(Attribut.Resilience, atts[5]));
-            attributValue.Add(new AttributValue(Attribut.Secret, atts[6]));
-            attributValue.Add(new AttributValue(Attribut.Silence, atts[7]));
-            attributValue.Add(new AttributValue(Attribut.Violence, atts[8]));
+            List<int> arc = StringToValue(s[offset]);
+            List<int> sta = StringToValue(s[offset + 1]);
+            List<int> hou = StringToValue(s[offset + 2]);
+            List<int> sun = StringToValue(s[offset + 3]);
+            List<int> dys = StringToValue(s[offset + 4]);
+            List<int> ste = StringToValue(s[offset + 5]);
+            string[] time = s[offset + 6].Split(';');
+            string[] tol = s[offset + 7].Split(';');
+            int i = 1;
+            List<Bell> toToll;
+            bool conti = true;
+            while (conti)
+            {
+                toToll = new List<Bell>();
+                if (arc.Contains(i))
+                    toToll.Add(Bell.Arch);
+                if (sta.Contains(i))
+                    toToll.Add(Bell.Statue);
+                if (hou.Contains(i))
+                    toToll.Add(Bell.House);
+                if (sun.Contains(i))
+                    toToll.Add(Bell.Sundial);
+                if (dys.Contains(i))
+                    toToll.Add(Bell.Dyson);
+                if (ste.Contains(i))
+                    toToll.Add(Bell.Stele);
+                if(toToll.Count != 0)
+                {
+                    attributValue.Add(new NextMove(toToll, toll(tol,i), timeFor(time, i, defaltTime))) ;
+                    ++i;
+                } else
+                {
+                    conti = false;
+                }
+                    
+            } 
+
             return true;
         }
         catch
@@ -83,20 +107,18 @@ public class SpiritGenerator : ScriptableObject
         }
     }
 
-    public int[] StringToValue(string[] s, int ofset)
+    public List<int> StringToValue(string s)
     {
-        int[] res = new int[9];
+        List<int> res = new List<int> ();
+        string[] vs = s.Split(';');
+
         try
         {
-            for (int i = 0; i < res.Length; ++i)
+            for (int i = 0; i < vs.Length; ++i)
             {
-                if (s[i + ofset] == "" || s[i + ofset] == null)
+                if (!(vs != null || vs[i] == "" || vs[i] == null))
                 {
-                    res[i] = 0;
-                }
-                else
-                {
-                    res[i] = int.Parse(s[i + ofset]);
+                    res.Add(int.Parse(vs[i]));
                 }
             }
         }
@@ -106,5 +128,35 @@ public class SpiritGenerator : ScriptableObject
             Debug.Log(s);
         }
         return res;
+    }
+
+    private int timeFor(string[] s, int i, int defaltTime)
+    {
+        for(int j = 0; j < s.Length; ++j)
+        {
+            if (s[j]!= "" && int.Parse(s[j]) == i)
+                return (int.Parse(s[j + 1]));
+        }
+        return defaltTime;
+    }
+
+    private TypesOfTolls toll (string[] s, int i)
+    {
+        for (int j = 0; j < s.Length; ++j)
+        {
+            if (s[j] != "" && int.Parse(s[j]) == i)
+                switch(s[j + 1])
+                {
+                    case ("o") :
+                        return TypesOfTolls.one;
+                    
+                    case ("v") :
+                        return TypesOfTolls.volley;
+
+                    default :
+                        return TypesOfTolls.one;
+                }
+        }
+        return TypesOfTolls.one;
     }
 }
