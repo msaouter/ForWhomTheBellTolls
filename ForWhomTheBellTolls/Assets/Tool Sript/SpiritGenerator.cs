@@ -6,23 +6,23 @@ using UnityEditor;
 
 public class SpiritGenerator : ScriptableObject
 {
-    public bool Generate(string cardFileName, bool addInScene)
+    public bool Generate(string spiritFileName, bool addInScene)
     {
         Debug.Log("Generating");
         try
         {
-            TextAsset csvFile = Resources.Load<TextAsset>(cardFileName);
+            TextAsset csvFile = Resources.Load<TextAsset>(spiritFileName);
             string[] data = csvFile.text.Split('\n');
             
-            GameObject prefab = Resources.Load<GameObject>("Prefab/FateCard");
+            GameObject prefab = Resources.Load<GameObject>("Prefab/Fatespirit");
             for (int i = 1; i < data.Length; ++i)
             {
-                string[] cardText = data[i].Split(',');
+                string[] spiritText = data[i].Split(',');
 
 
                 SpiritScriptable asset = ScriptableObject.CreateInstance<SpiritScriptable>();
-                asset.spiritName = cardText[0];
-                asset.description = cardText[1];
+                asset.spiritName = spiritText[0];
+                asset.description = spiritText[1];
                 /*
                 if (i == 1)
                 {
@@ -33,15 +33,15 @@ public class SpiritGenerator : ScriptableObject
                     asset.artwork = Resources.Load<Sprite>("ImageTarot/Jean_Dodal_Tarot_trump_" + (i - 1) / 10 + (i - 1) % 10);
                 }
 
-                if (!LinkCardToAttributsValue(ref asset.attributValue, StringToValue(cardText, 2)))
-                    Debug.Log("Error on generating the card " + cardText[0]);
+                if (!LinkspiritToAttributsValue(ref asset.attributValue, StringToValue(spiritText, 2)))
+                    Debug.Log("Error on generating the spirit " + spiritText[0]);
 
-                AssetDatabase.CreateAsset(asset, "Assets/Card/Fate/Generated/" + cardText[0] + ".asset");
+                AssetDatabase.CreateAsset(asset, "Assets/spirit/Fate/Generated/" + spiritText[0] + ".asset");
                 if (addInScene)
                 {
                     GameObject gen = Instantiate<GameObject>(prefab);
-                    gen.GetComponent<FateCardObject>().fate = asset;
-                    gen.name = cardText[0];
+                    gen.GetComponent<FatespiritObject>().fate = asset;
+                    gen.name = spiritText[0];
                 }*/
             }
 
@@ -51,7 +51,7 @@ public class SpiritGenerator : ScriptableObject
         }
         catch
         {
-            Debug.Log("Error on generating the file (probably not able to access " + cardFileName + ")");
+            Debug.Log("Error on generating the file (probably not able to access " + spiritFileName + ")");
             //Debug.Log();
             return false;
         }
@@ -60,11 +60,11 @@ public class SpiritGenerator : ScriptableObject
 
 
     /* Chaos - Creation - Eloquence - Knoledge - Logique - Résilience - Secret - Silence - Violence */
-    public bool LinkCardToAttributsValue(ref List<AttributValue> attributValue, int[] atts)
+    public bool LinkspiritToAttributsValue(ref List<NextMove> attributValue, int[] atts)
     {
         try
         {
-            attributValue = new List<AttributValue>();
+            attributValue = new List<NextMove>();
             attributValue.Add(new AttributValue(Attribut.Chaos, atts[0]));
             attributValue.Add(new AttributValue(Attribut.Creation, atts[1]));
             attributValue.Add(new AttributValue(Attribut.Eloquence, atts[2]));
