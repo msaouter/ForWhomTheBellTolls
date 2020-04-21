@@ -19,8 +19,6 @@ public class SpiritGenerator : ScriptableObject
             for (int i = 1; i < data.Length; ++i)
             {
                 string[] spiritText = data[i].Split(',');
-
-
                 SpiritScriptable asset = ScriptableObject.CreateInstance<SpiritScriptable>();
                 asset.spiritName = spiritText[0];
                 asset.description = spiritText[1];
@@ -87,6 +85,7 @@ public class SpiritGenerator : ScriptableObject
                     toToll.Add(Bell.Dyson);
                 if (ste.Contains(i))
                     toToll.Add(Bell.Stele);
+                Debug.Log(toToll.Count);
                 if(toToll.Count != 0)
                 {
                     attributValue.Add(new NextMove(toToll, toll(tol,i), timeFor(time, i, defaltTime))) ;
@@ -116,8 +115,9 @@ public class SpiritGenerator : ScriptableObject
         {
             for (int i = 0; i < vs.Length; ++i)
             {
-                if (!(vs != null || vs[i] == "" || vs[i] == null))
+                if (!(vs == null || vs[i] == "" || vs[i] == null))
                 {
+
                     res.Add(int.Parse(vs[i]));
                 }
             }
@@ -132,31 +132,49 @@ public class SpiritGenerator : ScriptableObject
 
     private int timeFor(string[] s, int i, int defaltTime)
     {
-        for(int j = 0; j < s.Length; ++j)
+        for(int j = 0; j < s.Length; j+=2)
         {
-            if (s[j]!= "" && int.Parse(s[j]) == i)
-                return (int.Parse(s[j + 1]));
+            if (s[j]!= "" && stringToInt(s[j]) == i)
+                return (stringToInt(s[j + 1]));
         }
         return defaltTime;
     }
 
     private TypesOfTolls toll (string[] s, int i)
     {
-        for (int j = 0; j < s.Length; ++j)
+        try
         {
-            if (s[j] != "" && int.Parse(s[j]) == i)
-                switch(s[j + 1])
-                {
-                    case ("o") :
-                        return TypesOfTolls.one;
-                    
-                    case ("v") :
-                        return TypesOfTolls.volley;
+            for (int j = 0; j < s.Length; ++j)
+            {
+                if (s[j] != null && s[j] != "" && stringToInt(s[j]) == i)
+                    switch (s[j + 1])
+                    {
+                        case ("o"):
+                            return TypesOfTolls.one;
 
-                    default :
-                        return TypesOfTolls.one;
-                }
+                        case ("v"):
+                            return TypesOfTolls.volley;
+
+                        default:
+                            return TypesOfTolls.one;
+                    }
+            }
+        }
+        catch
+        {
+            Debug.Log("Error on Toll");
         }
         return TypesOfTolls.one;
+    }
+
+    private int stringToInt (string s)
+    {
+        try
+        {
+            return int.Parse(s);
+        } catch
+        {
+            return -1;
+        }
     }
 }
