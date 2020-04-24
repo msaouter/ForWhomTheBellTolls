@@ -1,0 +1,4 @@
+Nom,Description,Arche,Statue,Maison,Cadran,Dyson,Stele,Temps particuliers,Sonnage particulier
+Le mort humain,Qui suis-je? Ou vais-je ? Par où ?,3,1,2,,,,,
+Le shinigami,L'âme des morts sera liées au monde spirituel,2,,1;2,,,1,,
+Le cimetière,La maison où les mor... / ...ts sont liés,3,,1,,,2,,
