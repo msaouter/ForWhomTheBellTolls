@@ -32,7 +32,7 @@ public class @BellsInput : IInputActionCollection, IDisposable
                     ""id"": ""3c51f438-1439-46f6-a092-28c1ab17a413"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Stele"",
