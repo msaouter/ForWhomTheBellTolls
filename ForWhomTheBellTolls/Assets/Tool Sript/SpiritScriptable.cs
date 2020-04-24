@@ -2,7 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Bell
+/* Controls :
+ * A : Dyson
+ * B : Statue
+ * Y : Stele 
+ * X : Arch
+ * Left trigger : Sundial
+ * Right trigger : House
+ */
+
+public enum BellName
 {
     Dyson,
     Statue,
@@ -21,19 +30,19 @@ public enum TypesOfTolls
 [System.Serializable]
 public class NextMove
 {
-    public List<Bell> bellToToll;
+    public List<BellName> bellToToll;
     public TypesOfTolls tolls;
     public float timeInBetween;
 
 
-    public NextMove (List<Bell> enu, float i)
+    public NextMove (List<BellName> enu, float i)
     {
         this.bellToToll = enu;
         this.timeInBetween = i;
         this.tolls = TypesOfTolls.one;
     }
 
-    public NextMove(List<Bell> enu, TypesOfTolls toll, float i)
+    public NextMove(List<BellName> enu, TypesOfTolls toll, float i)
     {
         this.bellToToll = enu;
         this.timeInBetween = i;
