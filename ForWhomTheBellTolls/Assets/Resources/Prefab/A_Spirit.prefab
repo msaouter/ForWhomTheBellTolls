@@ -5205,6 +5205,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spirit: {fileID: 0}
+  movesAutoLinkedToTheObject: 0
+  rotateSpeed: 1
+  forwardSpeed: 1
+  movesAutoLinkedToTheScene: 0
+  rotation: 1
+  direction: {x: 0, y: 0, z: 1}
+  selfRotationUp: 0
+  selfRotationSpeedUp: 1
+  selfRotationForward: 0
+  selfRotationSpeedForward: 1
+  delayOnAttTargInSec: 1
+  vfxPointer: {fileID: 7332914735846657346}
 --- !u!1 &7332914736245023528
 GameObject:
   m_ObjectHideFlags: 0
