@@ -23,12 +23,20 @@ public class SpiritObject : MonoBehaviour
     private List<Vector3> lastPosition;
     public Transform vfxPointer;
 
+    public bool upDownMove = true;
+    public float maxY = 2;
+    public float minY = .5f;
+    public float speedUpDown = .5f;
+    private bool up = true;
+
     // Start is called before the first frame update
     void Start()
     {
         delay = delayOnAttTargInSec;
         lastPosition = new List<Vector3>();
-}
+        upDownMove = upDownMove && (minY < maxY);
+
+    }
 
     // Update is called once per frame
     void Update()
@@ -44,6 +52,8 @@ public class SpiritObject : MonoBehaviour
         if (selfRotationForward)
             SelfRotationForward();
         DelayAttractivePropertyTarget();
+        if (upDownMove)
+            UpDownMove();
     }
 
     protected void MouveAutoLinkedToTheObject()
@@ -80,5 +90,18 @@ public class SpiritObject : MonoBehaviour
         }
         else
             delay -= Time.deltaTime;
+    }
+
+    protected void UpDownMove()
+    {
+        if (up && this.transform.position.y < maxY)
+            this.gameObject.transform.position += new Vector3(0, speedUpDown * Time.deltaTime, 0);
+        else if (!up && this.transform.position.y > minY)
+            this.gameObject.transform.position -= new Vector3(0, speedUpDown * Time.deltaTime, 0);
+        else
+        {
+            up = !up;
+            UpDownMove();
+        }
     }
 }
