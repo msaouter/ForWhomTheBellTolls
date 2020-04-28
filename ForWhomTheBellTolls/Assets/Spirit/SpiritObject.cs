@@ -4,10 +4,25 @@ using UnityEngine;
 using UnityEngine.VFX;
 
 
+public class Toll
+{
+    public List<Bell> bellToToll;
+    public TypesOfTolls tolls;
+
+    public Toll(List<Bell> enu, TypesOfTolls i)
+    {
+        this.bellToToll = enu;
+        this.tolls = i;
+    }
+}
+
 public class SpiritObject : MonoBehaviour
 {
 
     public SpiritScriptable spirit;
+    private int currentMove = 0;
+    
+
     public bool movesAutoLinkedToTheObject = false;
     public float rotateSpeed = 1;
     public float forwardSpeed = 1;
@@ -96,15 +111,41 @@ public class SpiritObject : MonoBehaviour
 
     protected void UpDownMove()
     {
-        float slow = Mathf.Pow(((this.transform.position.y - (maxY + minY) / 2)/((maxY-minY)/2)),2) * upAndDownSlowDown;
-        if (up && this.transform.position.y < maxY)
-            this.gameObject.transform.position += new Vector3(0, (speedUpDown - slow)* Time.deltaTime, 0);
-        else if (!up && this.transform.position.y > minY)
-            this.gameObject.transform.position -= new Vector3(0, (speedUpDown - slow) * Time.deltaTime, 0);
+        float slow = 0;
+        if (this.transform.position.y > minY && this.transform.position.y < maxY)
+            slow = Mathf.Pow(((this.transform.position.y - (maxY + minY) / 2) / ((maxY - minY) / 2)), 2) * upAndDownSlowDown;
         else
-        {
-            up = !up;
-            UpDownMove();
-        }
+            up = this.transform.position.y < maxY;
+
+        if (up)
+            this.gameObject.transform.position += new Vector3(0, (speedUpDown - slow)* Time.deltaTime, 0);
+        else
+            this.gameObject.transform.position -= new Vector3(0, (speedUpDown - slow) * Time.deltaTime, 0);
+    }
+
+    public bool IsApaised()
+    {
+        return currentMove > spirit.moves.Capacity;
+    }
+
+    public bool TollBell(Toll t)
+    {
+        if (spirit.moves[currentMove].bellToToll.Capacity == t.bellToToll.Capacity)
+            foreach (Bell b in spirit.moves[currentMove].bellToToll)
+            {
+                if (!t.bellToToll.Contains(b))
+                {
+                    currentMove = 0;
+                    return false;
+                }
+            }
+
+        if (spirit.moves[currentMove].tolls == t.tolls)
+            {
+                ++currentMove;
+                return true;
+            }
+        
+        return false;
     }
 }
