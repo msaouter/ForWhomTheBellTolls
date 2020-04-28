@@ -27,7 +27,9 @@ public class SpiritObject : MonoBehaviour
     public float maxY = 2;
     public float minY = .5f;
     public float speedUpDown = .5f;
+    public float upAndDownSlowDown = 0;
     private bool up = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -94,10 +96,11 @@ public class SpiritObject : MonoBehaviour
 
     protected void UpDownMove()
     {
+        float slow = Mathf.Pow(((this.transform.position.y - (maxY + minY) / 2)/((maxY-minY)/2)),2) * upAndDownSlowDown;
         if (up && this.transform.position.y < maxY)
-            this.gameObject.transform.position += new Vector3(0, speedUpDown * Time.deltaTime, 0);
+            this.gameObject.transform.position += new Vector3(0, (speedUpDown - slow)* Time.deltaTime, 0);
         else if (!up && this.transform.position.y > minY)
-            this.gameObject.transform.position -= new Vector3(0, speedUpDown * Time.deltaTime, 0);
+            this.gameObject.transform.position -= new Vector3(0, (speedUpDown - slow) * Time.deltaTime, 0);
         else
         {
             up = !up;
