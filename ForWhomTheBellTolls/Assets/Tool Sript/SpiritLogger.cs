@@ -10,9 +10,11 @@ public class SpiritLogger : EditorWindow
     bool addInScene;
     int defaltTime = 10;
 
+    /* mettre ce que vous voulez a la place de CSVSpiritGenerator*/
     [MenuItem("Window/CSVSpiritGenerator")]
     public static void ShowWindow()
     {
+        // Mettre le nom de votre classe 
         EditorWindow.GetWindow(typeof(SpiritLogger));
     }
 

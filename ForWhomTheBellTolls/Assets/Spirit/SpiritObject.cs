@@ -45,6 +45,18 @@ public class SpiritObject : MonoBehaviour
     public float upAndDownSlowDown = 0;
     private bool up = true;
 
+    public float minDistanceOfTarget = 3;
+    public float maxAngle = 45;
+    public float speedChase = 1;
+    public float rotationSpeed = 1;
+    public float angleOfRotation = 40;
+    public float slowDownInTurn = .5f;
+    private bool left = true;
+    private Vector3 startingPosition;
+    private bool inChase = false;
+    private bool crossed = true;
+    public bool turn = true;
+    public Transform target;
 
     // Start is called before the first frame update
     void Start()
@@ -52,13 +64,14 @@ public class SpiritObject : MonoBehaviour
         delay = delayOnAttTargInSec;
         lastPosition = new List<Vector3>();
         upDownMove = upDownMove && (minY < maxY);
+        startingPosition = this.gameObject.transform.position;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (movesAutoLinkedToTheObject)
+        /*if (movesAutoLinkedToTheObject)
             MouveAutoLinkedToTheObject();
         else if (movesAutoLinkedToTheScene)
         {
@@ -68,7 +81,8 @@ public class SpiritObject : MonoBehaviour
         }
         if (selfRotationForward)
             SelfRotationForward();
-        DelayAttractivePropertyTarget();
+        DelayAttractivePropertyTarget();*/
+        RandomMovesWithTarget(target.position);
         if (upDownMove)
             UpDownMove();
     }
@@ -139,13 +153,67 @@ public class SpiritObject : MonoBehaviour
                     return false;
                 }
             }
+        else
+        {
+            currentMove = 0;
+            return false;
+        }
 
         if (spirit.moves[currentMove].tolls == t.tolls)
-            {
-                ++currentMove;
-                return true;
-            }
-        
+        {
+            ++currentMove;
+            return true;
+        }
+
+        currentMove = 0;
         return false;
+    }
+
+
+    //testing variable
+    public bool leftSide;
+    /* Wip */
+    public void RandomMovesWithTarget (Vector3 target)
+    {
+        if (turn)
+            Overturn(target, left);
+        else
+            if (Vector3.Distance(target, this.gameObject.transform.position) > minDistanceOfTarget)
+            {
+                leftSide = ((target.x == startingPosition.x) && ((target.y - startingPosition.y)<0 && this.gameObject.transform.position.x < startingPosition.x) || ((target.y - startingPosition.y) > 0 && this.gameObject.transform.position.x > startingPosition.x))
+                    || ((target.x > startingPosition.x) && (this.gameObject.transform.position.y > (this.gameObject.transform.position.x * ((target.y - startingPosition.y) /(target.x - startingPosition.x)) +(target.y - target.x*((target.y - startingPosition.y) / (target.x - startingPosition.x)))))) 
+                    || ((target.x < startingPosition.x) && (this.gameObject.transform.position.y < (this.gameObject.transform.position.x * ((target.y - startingPosition.y) / (target.x - startingPosition.x)) + (target.y - target.x * ((target.y - startingPosition.y) / (target.x - startingPosition.x))))));
+
+                if (Random.Range(0,maxAngle) < Vector3.Angle(target - startingPosition, target - this.gameObject.transform.position) && ((left && !leftSide) || (!left && leftSide)))
+                {
+                    turn = true;
+                    Overturn(target, left);
+                } else
+                {
+                    this.gameObject.transform.position += this.gameObject.transform.forward * speedChase * Time.deltaTime;
+                } 
+                if (Vector3.Angle(target - startingPosition, target - this.gameObject.transform.position) > maxAngle)
+                    left = !left;
+            }
+    }
+
+
+    public float angle;
+    protected void Overturn (Vector3 target, bool left)
+    {
+        if (left)
+            this.gameObject.transform.Rotate(this.gameObject.transform.up * rotationSpeed * Time.deltaTime);
+        else
+            this.gameObject.transform.Rotate(this.gameObject.transform.up * -rotationSpeed * Time.deltaTime);
+
+
+        angle = Vector3.Angle(target - startingPosition, this.gameObject.transform.forward);
+        this.gameObject.transform.position += this.gameObject.transform.forward * ((speedChase - Mathf.Abs((-(1/maxAngle)*angle + 1) * slowDownInTurn)) * Time.deltaTime);
+
+        if (angle > angleOfRotation)
+        {
+            turn = false;
+            left = !left;
+        }
     }
 }
