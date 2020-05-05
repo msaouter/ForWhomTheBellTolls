@@ -68,23 +68,23 @@ public class SpiritGenerator : ScriptableObject
             string[] time = s[offset + 6].Split(';');
             string[] tol = s[offset + 7].Split(';');
             int i = 1;
-            List<Bell> toToll;
+            List<BellName> toToll;
             bool conti = true;
             while (conti)
             {
-                toToll = new List<Bell>();
+                toToll = new List<BellName>();
                 if (arc.Contains(i))
-                    toToll.Add(Bell.Arch);
+                    toToll.Add(BellName.Arch);
                 if (sta.Contains(i))
-                    toToll.Add(Bell.Statue);
+                    toToll.Add(BellName.Statue);
                 if (hou.Contains(i))
-                    toToll.Add(Bell.House);
+                    toToll.Add(BellName.House);
                 if (sun.Contains(i))
-                    toToll.Add(Bell.Sundial);
+                    toToll.Add(BellName.Sundial);
                 if (dys.Contains(i))
-                    toToll.Add(Bell.Dyson);
+                    toToll.Add(BellName.Dyson);
                 if (ste.Contains(i))
-                    toToll.Add(Bell.Stele);
+                    toToll.Add(BellName.Stele);
                 Debug.Log(toToll.Count);
                 if(toToll.Count != 0)
                 {

@@ -736,14 +736,15 @@ MonoBehaviour:
   upAndDownSlowDown: 2.8
   minDistanceOfTarget: 3
   maxAngle: 70
-  speedChase: 5
+  speedChase: 1
+  turnSpeedChase: 0.3
   rotationSpeed: 10
   angleOfRotation: 50
   slowDownInTurn: 4
   turn: 1
   target: {fileID: 1397448570}
-  leftSide: 0
-  angle: 0
+  distanceMinToTarget: 1
+  angleMinToTarget: 5
 --- !u!114 &1380286263
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -898,7 +899,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397448569}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.6, y: 2, z: 91.8}
+  m_LocalPosition: {x: 10, y: 1, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

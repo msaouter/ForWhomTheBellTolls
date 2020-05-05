@@ -6,10 +6,10 @@ using UnityEngine.VFX;
 
 public class Toll
 {
-    public List<Bell> bellToToll;
+    public List<BellName> bellToToll;
     public TypesOfTolls tolls;
 
-    public Toll(List<Bell> enu, TypesOfTolls i)
+    public Toll(List<BellName> enu, TypesOfTolls i)
     {
         this.bellToToll = enu;
         this.tolls = i;
@@ -48,15 +48,19 @@ public class SpiritObject : MonoBehaviour
     public float minDistanceOfTarget = 3;
     public float maxAngle = 45;
     public float speedChase = 1;
+    public float turnSpeedChase = 1;
     public float rotationSpeed = 1;
+    public float forwardTurnSpeed = 1;
     public float angleOfRotation = 40;
     public float slowDownInTurn = .5f;
-    private bool left = true;
     private Vector3 startingPosition;
     private bool inChase = false;
     private bool crossed = true;
     public bool turn = true;
     public Transform target;
+    private List<Vector3> targetList;
+    private int indice = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +69,13 @@ public class SpiritObject : MonoBehaviour
         lastPosition = new List<Vector3>();
         upDownMove = upDownMove && (minY < maxY);
         startingPosition = this.gameObject.transform.position;
-
+        targetList = TransitionnalPointAffectation(5, target.position, 5);
+        GameObject gen;
+        foreach (Vector3 v in targetList)
+        {
+            gen = new GameObject();
+            gen.transform.position = v;
+        }
     }
 
     // Update is called once per frame
@@ -82,9 +92,20 @@ public class SpiritObject : MonoBehaviour
         if (selfRotationForward)
             SelfRotationForward();
         DelayAttractivePropertyTarget();*/
-        RandomMovesWithTarget(target.position);
+        /*RandomMovesWithTarget(target.position);
         if (upDownMove)
-            UpDownMove();
+            UpDownMove();*/
+        if (indice >= targetList.Count)
+            return;
+
+        if (turn)
+        {
+            turn = TurnToTarget(targetList[indice]);
+        } else if (GoToTarget(targetList[indice]))
+        {
+            ++indice;
+            turn = true;
+        }
     }
 
     protected void MouveAutoLinkedToTheObject()
@@ -145,7 +166,7 @@ public class SpiritObject : MonoBehaviour
     public bool TollBell(Toll t)
     {
         if (spirit.moves[currentMove].bellToToll.Capacity == t.bellToToll.Capacity)
-            foreach (Bell b in spirit.moves[currentMove].bellToToll)
+            foreach (BellName b in spirit.moves[currentMove].bellToToll)
             {
                 if (!t.bellToToll.Contains(b))
                 {
@@ -169,10 +190,10 @@ public class SpiritObject : MonoBehaviour
         return false;
     }
 
-
+    /*
     //testing variable
     public bool leftSide;
-    /* Wip */
+     Wip
     public void RandomMovesWithTarget (Vector3 target)
     {
         if (turn)
@@ -215,5 +236,45 @@ public class SpiritObject : MonoBehaviour
             turn = false;
             left = !left;
         }
+    }
+    */
+    public List<Vector3> TransitionnalPointAffectation(int numberOfPoint, Vector3 target, float ecart)
+    {
+        List<Vector3> result = new List<Vector3>();
+        float angle = Mathf.Deg2Rad * Vector2.SignedAngle(Vector2.up, new Vector2(target.x - this.gameObject.transform.position.x, target.z - this.gameObject.transform.position.z));
+        float distance = Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z));
+
+        for (int i = 1; i <= numberOfPoint; ++i)
+        {
+            result.Add(new Vector3(this.gameObject.transform.position.x + (Mathf.Pow(-1,i)  * ecart/i * Mathf.Cos(angle) - i * distance / numberOfPoint * Mathf.Sin(angle)), this.gameObject.transform.position.y, this.gameObject.transform.position.z + (Mathf.Pow(-1, i) * ecart/i * Mathf.Sin(angle) + i * distance / numberOfPoint * Mathf.Cos(angle))));
+        }
+
+        return result;
+    }
+
+
+    public float distanceMinToTarget = 3;
+    public bool GoToTarget (Vector3 target)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target, speedChase * Time.deltaTime);
+
+        if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinToTarget)
+            return true;
+
+        return false;
+    }
+
+
+    public float angleMinToTarget = 10;
+    public bool TurnToTarget (Vector3 target)
+    {
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, target - transform.position, turnSpeedChase * Time.deltaTime, 0.0f));
+        //transform.position += transform.forward * Time.deltaTime * forwardTurnSpeed * Mathf.Sqrt(Mathf.Abs((Vector2.Angle(new Vector2(target.x - this.gameObject.transform.position.x, target.z - this.gameObject.transform.position.z), new Vector2(this.gameObject.transform.forward.x, this.gameObject.transform.forward.z)) / 90 - 1)));
+
+
+        if (Vector2.Angle(new Vector2(target.x - this.gameObject.transform.position.x, target.z - this.gameObject.transform.position.z), new Vector2(this.gameObject.transform.forward.x, this.gameObject.transform.forward.z)) < angleMinToTarget)
+            return false;
+
+        return true;
     }
 }
