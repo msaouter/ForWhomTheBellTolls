@@ -6,8 +6,16 @@ using UnityEngine.InputSystem;
 public class Human : MonoBehaviour
 {
     PlayerInput inputs;
-    public List<Bells> bells;
+    InputAction inputAction;
+    [SerializeField]
+    private List<Bells> bells;
     
+
+    /*void Start()
+    {
+        inputs.GetComponent<PlayerInput>();
+        inputAction = inputs.currentActionMap["Toll"];
+    }*/
 
     /*void Start()
     {
@@ -20,15 +28,19 @@ public class Human : MonoBehaviour
      * the bell that it's actually ringing. Else, tells the bell
      * that it doesn't ring anymore.
      **/
-    void checkBells()
+    public void checkBells()
     {
+        if (Gamepad.current == null)
+        {
+            Debug.LogError("Gamepad missing");
+        }
 
         /*dyson*/
         if (Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
             bells[0].tolled = true;
             bells[0].nbTimeTolled += 1;
-            Debug.Log("dyson");
+            //Debug.Log("dyson");
         }
         else
         {
@@ -41,7 +53,7 @@ public class Human : MonoBehaviour
         {
             bells[1].tolled = true;
             bells[1].nbTimeTolled += 1;
-            Debug.Log("statue");
+            //Debug.Log("statue");
         }
         else
         {
@@ -54,7 +66,7 @@ public class Human : MonoBehaviour
         {
             bells[2].tolled = true;
             bells[2].nbTimeTolled += 1;
-            Debug.Log("stele");
+            //Debug.Log("stele");
         }
         else
         {
@@ -67,7 +79,7 @@ public class Human : MonoBehaviour
         {
             bells[3].tolled = true;
             bells[3].nbTimeTolled += 1;
-            Debug.Log("arch");
+            //Debug.Log("arch");
         }
         else
         {
@@ -80,7 +92,7 @@ public class Human : MonoBehaviour
         {
             bells[4].tolled = true;
             bells[4].nbTimeTolled += 1;
-            Debug.Log("sundial");
+            //Debug.Log("sundial");
         }
         else
         {
@@ -93,7 +105,7 @@ public class Human : MonoBehaviour
         {
             bells[5].tolled = true;
             bells[5].nbTimeTolled += 1;
-            Debug.Log("house");
+            //Debug.Log("house");
         }
         else
         {
@@ -101,6 +113,11 @@ public class Human : MonoBehaviour
             bells[5].nbTimeTolled = 0;
         }
     }
+
+    /*public void cheeckBells()
+    {
+        
+    }*/
 
     void Update()
     {

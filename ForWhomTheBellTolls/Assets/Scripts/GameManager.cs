@@ -15,13 +15,22 @@ public class GameManager : MonoBehaviour
 
 
     public List<GameObject> spirits;
+    public int nbSpirit = 5;
+
     public List<GameObject> spawnPoints;
+    
     public List<GameObject> currentSpirits;
-    public GameObject parent;
+    
+    //public GameObject parent;
     
     public List<Bells> bells;
 
-    public int nbSpirit = 5;
+    [SerializeField]
+    private int volleyLimit;
+
+    private float timer = 0f;
+    //Human human;
+
 
     Toll tolling;
 
@@ -35,16 +44,25 @@ public class GameManager : MonoBehaviour
 
     void generateRandomSpirit(int index)
     {
+        /* Dire qu'un emplacement est déjà occupé pour ne pas spaw 2 esprits au même point */
         rand = Random.Range(0, spirits.Count);
         randPos = Random.Range(0, spawnPoints.Count);
 
-        float x = spawnPoints[randPos].transform.position.x;
-        float y = spawnPoints[randPos].transform.position.y;
-        float z = spawnPoints[randPos].transform.position.z;
+        float x = spirits[index].transform.position.x + spawnPoints[randPos].transform.position.x;
+        float y = spirits[index].transform.position.y + spawnPoints[randPos].transform.position.y;
+        float z = spirits[index].transform.position.z + spawnPoints[randPos].transform.position.z;
 
-        currentSpirits[index] = Instantiate(spirits[index], new Vector3(x, y, z), Quaternion.identity, parent.transform);
+        /*float x = spawnPoints[randPos].transform.position.x;
+        float y = spawnPoints[randPos].transform.position.y;
+        float z = spawnPoints[randPos].transform.position.z;*/
+
+        currentSpirits[index] = Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity);
+
+        currentSpirits[index].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
         //currentSpirits[index].
         /*currentSpirits[index].transform.position = new Vector3();*/
+
+
 
     }
 
@@ -52,6 +70,15 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*human = new Human();*/
+
+        //human.checkBells();
+
+        if(nbSpirit <= 0)
+        {
+            nbSpirit = 1;
+        }
+
         tolledBells = new bool[6];
 
         List<BellName> bellNames = new List<BellName>();
@@ -60,14 +87,26 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < 6; i++)
         {
+            //Debug.Log(i);
             tolledBells[i] = false;
         }
 
         for(int i = 0; i < nbSpirit; i++){
             rand = Random.Range(0, spirits.Count);
+            //Debug.Log(spirits[rand].name);
+
             randPos = Random.Range(0, spawnPoints.Count);
 
-            currentSpirits.Add(Instantiate(spirits[i], spawnPoints[randPos].transform, true));
+            /*Debug.Log(rand);
+            Debug.Log(randPos);*/
+
+            float x = spirits[i].transform.position.x + spawnPoints[randPos].transform.position.x;
+            float y = spirits[i].transform.position.y + spawnPoints[randPos].transform.position.y;
+            float z = spirits[i].transform.position.z + spawnPoints[randPos].transform.position.z;
+
+            currentSpirits.Add(Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity));
+
+            currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
         }
 
     }
@@ -78,12 +117,12 @@ public class GameManager : MonoBehaviour
         
         for(int i = 0; i < bells.Count; i++)
         {
-            if (bells[i].tolled)
+            if (bells[i].tolled && !(bellsTolled.bellToToll.Contains(bells[i].bellName)))
             {
                 bellsTolled.bellToToll.Add(bells[i].bellName);
                 
                 /* Conversion volley/one */
-                if(bells[i].nbTimeTolled > 2)
+                if(bells[i].nbTimeTolled > 15)
                 {
                     bellsTolled.tolls = TypesOfTolls.volley;
                 }
@@ -91,12 +130,6 @@ public class GameManager : MonoBehaviour
                 {
                     bellsTolled.tolls = TypesOfTolls.one;
                 }
-            }
-
-            if(bellsTolled.bellToToll.Count == 0)
-            {
-                bellsTolled.bellToToll.Add(BellName.None);
-                bellsTolled.tolls = TypesOfTolls.one;
             }
         }
 
@@ -110,17 +143,27 @@ public class GameManager : MonoBehaviour
             {
 
             }*/
+            int check = currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled);
             /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
-            if (currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled))
+            if (check == 2)
             {
                 currentSpirits[j].GetComponent<SpiritObject>().target = bells[0].transform;
             }
 
+            /* */
+            /*else if ()
+            {
+
+            }*/
+
+            //Debug.Log("Apaisé ? : " + currentSpirits[j].GetComponent<SpiritObject>().IsApaised());
             if (currentSpirits[j].GetComponent<SpiritObject>().IsApaised())
             {
                 Debug.Log("Spirit apaised");
                 generateRandomSpirit(j);
             }
+
+            
 
         }
 

@@ -1136,14 +1136,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spirits:
   - {fileID: 6257954811971763376, guid: 808bc92bd1dd0a34097bac369e750633, type: 3}
-  - {fileID: 7332914735994962613, guid: 2186bbeb414c54741be827470f4ba0ea, type: 3}
+  - {fileID: 6257954811971763376, guid: 002b6478356758342bf552c972ed0112, type: 3}
+  - {fileID: 6257954811971763376, guid: 70dd3bf2446035c4e8b618be048423ab, type: 3}
+  nbSpirit: 1
   spawnPoints:
   - {fileID: 463739433}
   - {fileID: 1837410946}
   - {fileID: 1187039331}
   - {fileID: 1798683423}
   currentSpirits: []
-  parent: {fileID: 1470456975}
   bells:
   - {fileID: 403581276}
   - {fileID: 620842447}
@@ -1151,7 +1152,7 @@ MonoBehaviour:
   - {fileID: 618881045}
   - {fileID: 281355008}
   - {fileID: 1538705396}
-  nbSpirit: 2
+  volleyLimit: 0
 --- !u!1 &1290076791
 GameObject:
   m_ObjectHideFlags: 0

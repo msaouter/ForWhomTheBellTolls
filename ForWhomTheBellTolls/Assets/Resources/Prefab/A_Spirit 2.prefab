@@ -1021,7 +1021,7 @@ GameObject:
   - component: {fileID: 6257954811971763374}
   - component: {fileID: 8713807962725395878}
   m_Layer: 0
-  m_Name: A_Spirit
+  m_Name: A_Spirit 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1170,7 +1170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3862e2e5989f5344e8593e6b5068bc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spirit: {fileID: 11400000, guid: e31c0d677ff15a64b9ea096d5c460bfa, type: 2}
+  spirit: {fileID: 11400000, guid: ea515b3dd5231e54188bd5c702ff159a, type: 2}
   forwardSpeed: 1
   selfRotationForward: 1
   selfRotationSpeedForward: 50
