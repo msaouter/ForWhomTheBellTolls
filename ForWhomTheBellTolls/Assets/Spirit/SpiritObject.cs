@@ -36,18 +36,20 @@ public class SpiritObject : MonoBehaviour
     /* Detection for right bell */
     public SpiritScriptable spirit;
     private int currentMove = 0;
-    
-    /* vfx delay to follow */
-    public bool movesAutoLinkedToTheObject = false;
+
+    /*public bool movesAutoLinkedToTheObject = false;
     public float rotateSpeed = 1;
-    public float forwardSpeed = 1;
     public bool movesAutoLinkedToTheScene = false;
     public float rotation = 1f;
     public Vector3 direction = Vector3.forward;
     public bool selfRotationUp = false;
     public float selfRotationSpeedUp = 1;
+    */
+
+    public float forwardSpeed = 1;
     public bool selfRotationForward = false;
     public float selfRotationSpeedForward = 1;
+
     public float delayOnAttTargInSec = 1;
     private float delay;
     private List<Vector3> lastPosition;
@@ -61,19 +63,26 @@ public class SpiritObject : MonoBehaviour
     public float upAndDownSlowDown = 0;
     private bool up = true;
 
-    /* Going to target */
-    public float minDistanceOfTarget = 3;
+    public float minDistanceOfTarget = .5f;
+    public float distanceMinToTargetFinal = 3;
     public float maxAngle = 45;
-    public float speedChase = 1;
+    public float speedChase = 6;
+    public float turnSpeedChase = 1;
     public float rotationSpeed = 1;
+    public float forwardTurnSpeed = 1;
     public float angleOfRotation = 40;
     public float slowDownInTurn = .5f;
-    private bool left = true;
-    private Vector3 startingPosition;
-    private bool inChase = false;
-    private bool crossed = true;
+    //private Vector3 startingPosition;
+    public bool inChase = true;
+    //private bool crossed = true;
     public bool turn = true;
     public Transform target;
+    private List<Vector3> targetList;
+    private int indice = 0;
+    //a changer en false en final
+    public bool initialRotation = true;
+    public float roundSpeed = 6;
+
 
     // Start is called before the first frame update
     void Start()
@@ -81,14 +90,23 @@ public class SpiritObject : MonoBehaviour
         delay = delayOnAttTargInSec;
         lastPosition = new List<Vector3>();
         upDownMove = upDownMove && (minY < maxY);
-        startingPosition = this.gameObject.transform.position;
-
+        //startingPosition = this.gameObject.transform.position;
+        targetList = TransitionnalPointAffectation(5, target.position, Vector3.Distance(this.gameObject.transform.position, target.position) / 3);
+        /*
+        GameObject gen;
+        foreach (Vector3 v in targetList)
+        {
+            gen = new GameObject();
+            gen.transform.position = v;
+        }
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*if (movesAutoLinkedToTheObject)
+        /*
+         if (movesAutoLinkedToTheObject)
             MouveAutoLinkedToTheObject();
         else if (movesAutoLinkedToTheScene)
         {
@@ -98,12 +116,40 @@ public class SpiritObject : MonoBehaviour
         }
         if (selfRotationForward)
             SelfRotationForward();
-        DelayAttractivePropertyTarget();*/
-        //RandomMovesWithTarget(target.position);
+        DelayAttractivePropertyTarget();
         if (upDownMove)
             UpDownMove();
+
+        if (inChase && distanceMinToTargetFinal < Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.position.x, target.position.z)))
+        {
+            if (turn)
+            {
+                turn = TurnToTarget(targetList[indice]);
+            }
+            else if (GoToTarget(targetList[indice]))
+            {
+                if (indice + 1 < targetList.Count) {
+                    ++indice;
+                    turn = TurnToTarget(targetList[indice]);
+                }
+                else
+                {
+                    inChase = false;
+                    initialRotation = true;
+                    indice = 0;
+                }
+            }
+        } else if (initialRotation)
+        {
+            upDownMove = false;
+            initialRotation = InitialRotation();
+        } else
+        {
+            TurnAroudnTarget();
+        }
     }
 
+    /*
     protected void MouveAutoLinkedToTheObject()
     {
         this.transform.Rotate(new Vector3(0, rotateSpeed * Time.deltaTime, 0));
@@ -120,12 +166,13 @@ public class SpiritObject : MonoBehaviour
     {
         this.transform.Rotate(new Vector3(0, selfRotationSpeedUp * Time.deltaTime, 0));
     }
+    */
 
     protected void SelfRotationForward()
     {
         this.transform.Rotate(new Vector3(0, 0, selfRotationSpeedForward * Time.deltaTime));
     }
-    
+
 
     //Regler le retard property attractive tareget
     protected void DelayAttractivePropertyTarget()
@@ -145,12 +192,12 @@ public class SpiritObject : MonoBehaviour
     {
         float slow = 0;
         if (this.transform.position.y > minY && this.transform.position.y < maxY)
-            slow = Mathf.Pow(((this.transform.position.y - (maxY + minY) / 2) / ((maxY - minY) / 2)), 2) * upAndDownSlowDown;
+            slow = Mathf.Sqrt(Mathf.Abs((this.transform.position.y - (maxY + minY) / 2) / ((maxY - minY) / 2))) * upAndDownSlowDown;
         else
             up = this.transform.position.y < maxY;
 
         if (up)
-            this.gameObject.transform.position += new Vector3(0, (speedUpDown - slow)* Time.deltaTime, 0);
+            this.gameObject.transform.position += new Vector3(0, (speedUpDown - slow) * Time.deltaTime, 0);
         else
             this.gameObject.transform.position -= new Vector3(0, (speedUpDown - slow) * Time.deltaTime, 0);
     }
@@ -229,10 +276,10 @@ public class SpiritObject : MonoBehaviour
         return false;*/
     }
 
-
+    /*
     //testing variable
     public bool leftSide;
-    /* Wip */
+     Wip
     public void RandomMovesWithTarget (Vector3 target)
     {
         if (turn)
@@ -275,5 +322,74 @@ public class SpiritObject : MonoBehaviour
             turn = false;
             left = !left;
         }
+    }
+    */
+    public List<Vector3> TransitionnalPointAffectation(int numberOfPoint, Vector3 target, float ecart)
+    {
+        List<Vector3> result = new List<Vector3>();
+        float angle = Mathf.Deg2Rad * Vector2.SignedAngle(Vector2.up, new Vector2(target.x - this.gameObject.transform.position.x, target.z - this.gameObject.transform.position.z));
+        float distance = Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z));
+
+        for (int i = 1; i < numberOfPoint; ++i)
+        {
+            result.Add(new Vector3(this.gameObject.transform.position.x + (Mathf.Pow(-1, i) * ecart / i * Mathf.Cos(angle) - i * distance / numberOfPoint * Mathf.Sin(angle)), this.gameObject.transform.position.y, this.gameObject.transform.position.z + (Mathf.Pow(-1, i) * ecart / i * Mathf.Sin(angle) + i * distance / numberOfPoint * Mathf.Cos(angle))));
+        }
+
+        result.Add(target);
+
+        return result;
+    }
+
+
+    public float distanceMinToTarget = 1;
+    public bool GoToTarget(Vector3 target)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target, speedChase * Time.deltaTime);
+
+        if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinToTarget)
+            return true;
+
+        return false;
+    }
+
+
+    public float angleMinToTarget = 10;
+    public bool TurnToTarget(Vector3 target)
+    {
+        transform.position += transform.forward * Time.deltaTime * forwardTurnSpeed /* * Mathf.Sqrt(Mathf.Abs((Vector2.Angle(new Vector2(target.x - this.gameObject.transform.position.x, target.z - this.gameObject.transform.position.z), new Vector2(this.gameObject.transform.forward.x, this.gameObject.transform.forward.z)) / 90 - 0.6f)))*/;
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, target - transform.position, turnSpeedChase * Time.deltaTime, 0.0f));
+
+
+        if (Vector2.Angle(new Vector2(target.x - this.gameObject.transform.position.x, target.z - this.gameObject.transform.position.z), new Vector2(this.gameObject.transform.forward.x, this.gameObject.transform.forward.z)) < angleMinToTarget)
+            return false;
+
+        return true;
+    }
+
+    protected bool InitialRotation()
+    {
+        if (Vector2.Angle(new Vector2(this.transform.forward.x, this.transform.forward.z), new Vector2(target.position.x - this.transform.position.x, target.position.z - this.transform.position.z)) == 90)
+            return true;
+
+        this.transform.position += (this.transform.forward * forwardSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target.position - transform.position).z, 0, (target.position - transform.position).x), turnSpeedChase * Time.deltaTime, 0.0f));
+
+
+        return false;
+    }
+
+    void TurnAroudnTarget()
+    {
+        this.gameObject.transform.position += (this.transform.forward * roundSpeed * Time.deltaTime);
+        this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target.position - transform.position).z, 0, (target.position - transform.position).x), 100, 0.0f));
+    }
+
+    public void SetTarget(Transform tar) {
+        this.target = tar;
+        targetList = TransitionnalPointAffectation(4, target.position, Vector3.Distance(this.gameObject.transform.position, target.position) / 3);
+        inChase = true;
+        initialRotation = true;
+        indice = 0;
+        turn = true;
     }
 }
