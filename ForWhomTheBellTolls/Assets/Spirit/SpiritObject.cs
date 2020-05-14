@@ -4,12 +4,27 @@ using UnityEngine;
 using UnityEngine.VFX;
 
 
+/* Controls :
+ * A : Dyson
+ * B : Statue
+ * Y : Stele 
+ * X : Arch
+ * Left trigger : Sundial
+ * Right trigger : House
+ */
+
+/* Needed function :
+ * destructor -> Destruct the spirit
+ * */
+
+
+/* Bells to toll for this spirit */
 public class Toll
 {
-    public List<Bell> bellToToll;
+    public List<BellName> bellToToll;
     public TypesOfTolls tolls;
 
-    public Toll(List<Bell> enu, TypesOfTolls i)
+    public Toll(List<BellName> enu, TypesOfTolls i)
     {
         this.bellToToll = enu;
         this.tolls = i;
@@ -18,11 +33,11 @@ public class Toll
 
 public class SpiritObject : MonoBehaviour
 {
-
+    /* Detection for right bell */
     public SpiritScriptable spirit;
     private int currentMove = 0;
     
-
+    /* vfx delay to follow */
     public bool movesAutoLinkedToTheObject = false;
     public float rotateSpeed = 1;
     public float forwardSpeed = 1;
@@ -38,6 +53,7 @@ public class SpiritObject : MonoBehaviour
     private List<Vector3> lastPosition;
     public Transform vfxPointer;
 
+    /* Up & down move */
     public bool upDownMove = true;
     public float maxY = 2;
     public float minY = .5f;
@@ -45,6 +61,7 @@ public class SpiritObject : MonoBehaviour
     public float upAndDownSlowDown = 0;
     private bool up = true;
 
+    /* Going to target */
     public float minDistanceOfTarget = 3;
     public float maxAngle = 45;
     public float speedChase = 1;
@@ -82,7 +99,7 @@ public class SpiritObject : MonoBehaviour
         if (selfRotationForward)
             SelfRotationForward();
         DelayAttractivePropertyTarget();*/
-        RandomMovesWithTarget(target.position);
+        //RandomMovesWithTarget(target.position);
         if (upDownMove)
             UpDownMove();
     }
@@ -123,6 +140,7 @@ public class SpiritObject : MonoBehaviour
             delay -= Time.deltaTime;
     }
 
+    /* Spirit move up & down */
     protected void UpDownMove()
     {
         float slow = 0;
@@ -137,36 +155,78 @@ public class SpiritObject : MonoBehaviour
             this.gameObject.transform.position -= new Vector3(0, (speedUpDown - slow) * Time.deltaTime, 0);
     }
 
+
     public bool IsApaised()
     {
         return currentMove > spirit.moves.Capacity;
     }
 
-    public bool TollBell(Toll t)
+
+    /* Check if all right bells have been tolled & if the current bells tolling are the right ones */
+    public bool TollBell(Toll toll)
     {
-        if (spirit.moves[currentMove].bellToToll.Capacity == t.bellToToll.Capacity)
-            foreach (Bell b in spirit.moves[currentMove].bellToToll)
+        /* Check for every bell needed to be tolled if it has been tolled */
+        if (spirit.moves[currentMove].bellToToll.Count == toll.bellToToll.Count)
+            foreach (BellName b in spirit.moves[currentMove].bellToToll)
             {
-                if (!t.bellToToll.Contains(b))
+                if (!toll.bellToToll.Contains(b))
                 {
+                    Debug.Log("Wrong Bell");
                     currentMove = 0;
                     return false;
                 }
             }
         else
         {
+            Debug.Log("Not enough Bell");
             currentMove = 0;
             return false;
         }
 
-        if (spirit.moves[currentMove].tolls == t.tolls)
+        /* check type of tolling : one ring or swinging */
+        /* Checker temps que ça fait que la/les cloche/s sonnent pour le type de toll */
+
+        if(spirit.moves[currentMove].tolls == TypesOfTolls.volley)
         {
-            ++currentMove;
-            return true;
+            if(toll.tolls == TypesOfTolls.volley)
+            {
+                Debug.Log("Volley ok");
+                ++currentMove;
+                return true;
+            }
+
+        /* return false but don't restart current move at 0 as the volley needs at least
+         * 2 pull on the rope */
+            else
+            {
+                Debug.Log("Volley on hold");
+                return false;
+            }
         }
 
-        currentMove = 0;
-        return false;
+        /* if (spirit.moves[currentMove].tolls == TypesOfTolls.one) */
+        else
+        {
+            if (toll.tolls == TypesOfTolls.one)
+            {
+                Debug.Log("One toll ok");
+                ++currentMove;
+                return true;
+            }
+
+            /* Donn't have to wait here, if player tolls the bell 2 times instead of one
+             * that's wrong */
+            else
+            {
+                Debug.Log("One toll wrong");
+                currentMove = 0;
+                return false;
+
+            }
+        }
+
+        /*currentMove = 0;
+        return false;*/
     }
 
 
@@ -197,7 +257,7 @@ public class SpiritObject : MonoBehaviour
             }
     }
 
-
+    /* turn left to turn around right bell */
     public float angle;
     protected void Overturn (Vector3 target, bool left)
     {

@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+/* class to define each virtual bell */
 public class Bells : MonoBehaviour
 {
     public BellName bellName;
 
     /*public List<string> bellsTolling;*/
     
-    public bool toll;
+    public bool tolled;
+    public int nbTimeTolled;
+    //public Toll toll;
+
     public Material changing;
     public Material defaultM;
 
@@ -21,9 +26,9 @@ public class Bells : MonoBehaviour
      * 
      */
 
-    bool isTolling()
+    public bool isTolling()
     {
-        if (toll)
+        if (tolled)
         {
             //Debug.Log("Toll");
             StartCoroutine(routine());
@@ -49,7 +54,7 @@ public class Bells : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isTolling();
+        //isTolling();
         
         /*if (isTolling())
         {

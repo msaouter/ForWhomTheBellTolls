@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* Controls :
- * A : Dyson
- * B : Statue
- * Y : Stele 
- * X : Arch
- * Left trigger : Sundial
- * Right trigger : House
- */
 
 public enum BellName
 {
@@ -18,7 +10,8 @@ public enum BellName
     Stele,
     Arch,
     Sundial,
-    House
+    House,
+    None
 }
 
 public enum TypesOfTolls
