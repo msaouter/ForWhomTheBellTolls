@@ -23,23 +23,22 @@ public class GameManager : MonoBehaviour
     
     //public GameObject parent;
     
-    public List<Bells> bells;
+    //public List<Bells> bells;
 
-    [SerializeField]
-    private int volleyLimit;
+    /*[SerializeField]
+    private int volleyLimit;*/
 
     private float timer = 0f;
-    //Human human;
+    Human human;
 
-
-    Toll tolling;
-
-    bool[] tolledBells;
+    //Toll tolling;
 
     int rand = 0;
     int randPos = 0;
 
     Toll bellsTolled;
+
+    //Human human;
 
 
     void generateRandomSpirit(int index)
@@ -79,17 +78,17 @@ public class GameManager : MonoBehaviour
             nbSpirit = 1;
         }
 
-        tolledBells = new bool[6];
+        //tolledBells = new bool[6];
 
         List<BellName> bellNames = new List<BellName>();
         bellsTolled = new Toll(bellNames, TypesOfTolls.one);
 
 
-        for(int i = 0; i < 6; i++)
+        /*for(int i = 0; i < 6; i++)
         {
             //Debug.Log(i);
             tolledBells[i] = false;
-        }
+        }*/
 
         for(int i = 0; i < nbSpirit; i++){
             rand = Random.Range(0, spirits.Count);
@@ -111,61 +110,61 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    IEnumerator checkingSpirits()
+    {
+        for (int j = 0; j < currentSpirits.Count; j++)
+        {
+            /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
+            if (currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled))
+            {
+                //currentSpirits[j].GetComponent<SpiritObject>().target = [une des bonnes cloches sonnées]
+            }
+            else
+            {
+                //currentSpirits[j].GetComponent<SpiritObject>().target = [un des spawn points]
+            }
+
+
+            if (currentSpirits[j].GetComponent<SpiritObject>().IsApaised())
+            {
+                Debug.Log("Spirit apaised");
+                generateRandomSpirit(j);
+            }
+        }
+        yield return new WaitForSeconds(5);
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        
-        for(int i = 0; i < bells.Count; i++)
+        /* Rajouter coroutine */
+        /*for(int i = 0; i < bells.Count; i++)
         {
             if (bells[i].tolled && !(bellsTolled.bellToToll.Contains(bells[i].bellName)))
             {
                 bellsTolled.bellToToll.Add(bells[i].bellName);
                 
                 /* Conversion volley/one */
-                if(bells[i].nbTimeTolled > 15)
-                {
-                    bellsTolled.tolls = TypesOfTolls.volley;
-                }
-                else
-                {
-                    bellsTolled.tolls = TypesOfTolls.one;
-                }
-            }
-        }
-
-        for(int j = 0; j < currentSpirits.Count; j++)
+        /*if(bells[i].nbTimeTolled > 15)
         {
-
-            /* Val pour les moves de l'esprit à récup ici */
-            //Debug.Log(bellsTolled.bellToToll[0]);
-
-            /*if(!(bellsTolled.bellToToll[0] == BellName.None))
-            {
-
-            }*/
-            int check = currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled);
-            /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
-            if (check == 2)
-            {
-                currentSpirits[j].GetComponent<SpiritObject>().target = bells[0].transform;
-            }
-
-            /* */
-            /*else if ()
-            {
-
-            }*/
-
-            //Debug.Log("Apaisé ? : " + currentSpirits[j].GetComponent<SpiritObject>().IsApaised());
-            if (currentSpirits[j].GetComponent<SpiritObject>().IsApaised())
-            {
-                Debug.Log("Spirit apaised");
-                generateRandomSpirit(j);
-            }
-
-            
-
+            bellsTolled.tolls = TypesOfTolls.volley;
         }
+        else
+        {
+            bellsTolled.tolls = TypesOfTolls.one;
+        }
+    }
+}*/
+
+        //human.checkBells();
+
+        human.checkBells(bellsTolled);
+
+        StartCoroutine("checkingSpirits");
+
+        
 
 
         /* Clear de la liste à chaque frame pour ne pas regarder les moves précédents */

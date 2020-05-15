@@ -230,103 +230,49 @@ public class SpiritObject : MonoBehaviour
      Returns :
      0 if wrong bell or not enough have been rang
      1 if right bell have been rang but not enough times (volley/one difference)
-     2 if the right bell have been rang with the right type of toll */
-    public int TollBell(Toll toll)
+     2 if the right bell have been rang with the right type of toll 
+     */
+    public bool TollBell(Toll t)
     {
-        Debug.Log("Current Move : " + currentMove);
-        if(currentMove >= 1)
+        /*if(currentMove >= 1)
         {
             timer += Time.deltaTime;
         }
 
-        /*Debug.Log("Timer dépassé ? : " + (timer > spirit.moves[currentMove].timeInBetween));
-        Debug.Log("Current Move >= 1 ? : " + (currentMove >= 1));*/
         if (currentMove >= 1 && timer > spirit.moves[currentMove].timeInBetween)
         {
-            //Debug.Log("condition timer : " + (currentMove >= 1 && timer > spirit.moves[currentMove].timeInBetween));
             currentMove = 0;
-            timer = 0;
-            return 0;
-        }
+            //timer = 0;
+            return false;
+        }*/
 
-
-        //Debug.Log("spirit.moves[currentMove] : " + spirit.moves[currentMove].bellToToll.Count);
-        //Debug.Log("toll.bellToToll : " + toll.bellToToll.Count);
-
-        //Debug.Log("Current Move : " + currentMove);
-
-
-        /* Check for every bell needed to be tolled if it has been tolled */
-        if (spirit.moves[currentMove].bellToToll.Count == toll.bellToToll.Count)
+        if (spirit.moves[currentMove].bellToToll.Capacity == t.bellToToll.Capacity)
             foreach (BellName b in spirit.moves[currentMove].bellToToll)
             {
-                //Debug.Log("Current Spirit : "+ spirit.name);
-                Debug.Log(b);
-                if (!toll.bellToToll.Contains(b))
+                if (!t.bellToToll.Contains(b))
                 {
-                    //Debug.Log("Wrong Bell, bell to ring is : " + b);
                     currentMove = 0;
-                    return 0;
+                    //timer = 0;
+                    return false;
                 }
             }
         else
         {
-            //Debug.Log("Not enough Bell");
             currentMove = 0;
-            return 0;
+            //timer = 0;
+            return false;
         }
 
-        /* check type of tolling : one ring or swinging */
-        if(spirit.moves[currentMove].tolls == TypesOfTolls.volley)
+        if (spirit.moves[currentMove].tolls == t.tolls)
         {
-            if(toll.tolls == TypesOfTolls.volley)
-            {
-                //Debug.Log("Volley ok");
-                ++currentMove;
-                timer = 0;
-                //Debug.Log("CurrentMove after volley checked : " + currentMove);
-                return 2;
-            }
-
-        /* return false but don't restart current move at 0 as the volley needs at least
-         * 2 pull on the rope */
-            else
-            {
-                //Debug.Log("Volley on hold");
-                /* timer continue to elapse in this case */
-                //Debug.Log("CurrentMove after volley on hold : " + currentMove);
-                return 1;
-            }
+            ++currentMove;
+            //timer = 0;
+            return true;
         }
 
-        /* if (spirit.moves[currentMove].tolls == TypesOfTolls.one) */
-        else
-        {
-            //Debug.Log("CurrentMove : " + currentMove);
-            if (toll.tolls == TypesOfTolls.one)
-            {
-                //Debug.Log("One toll ok");
-                ++currentMove;
-                timer = 0;
-                //Debug.Log("CurrentMove after on toll ok : " + currentMove);
-                return 2;
-            }
-
-            /* Donn't have to wait here, if player tolls the bell 2 times instead of one
-             * that's wrong */
-            else
-            {
-                //Debug.Log("One toll wrong");
-                currentMove = 0;
-                timer = 0;
-                //Debug.Log("CurrentMove after one toll not ok : " + currentMove);
-                return 0;
-
-            }
-        }
-
-        /*currentMove = 0;
-        return false;*/
+        currentMove = 0;
+        //timer = 0;
+        return false;
     }
 
     /*
@@ -357,6 +303,7 @@ public class SpiritObject : MonoBehaviour
             }
     }
     */
+
     /* turn left to turn around right bell */
     public float angle;
     protected void Overturn (Vector3 target, bool left)
