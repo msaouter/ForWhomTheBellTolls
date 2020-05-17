@@ -13,6 +13,33 @@ public class GameManager : MonoBehaviour
      * 4. Esprit apaisé, on remet un nouvel esprit
      * */
 
+    public static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<GameManager>();
+                if(_instance == null)
+                {
+                    GameObject gameobj = new GameObject("GameManager");
+                    _instance = gameobj.AddComponent<GameManager>();
+                }
+            }
+            return _instance;
+
+        }
+
+    }
+
+    private bool OnGame = true;
+    private int i = 0;
+
+    private float timer = 0f;
+    
+    [SerializeField]
+    private float gameDuration = 480f;
 
     public List<GameObject> spirits;
     public int nbSpirit = 5;
@@ -28,17 +55,18 @@ public class GameManager : MonoBehaviour
     /*[SerializeField]
     private int volleyLimit;*/
 
-    private float timer = 0f;
-    Human human;
+    /*private float timer = 0f;
+    Human human;*/
 
     //Toll tolling;
 
     int rand = 0;
     int randPos = 0;
 
+    Toll intermediateList;
     Toll bellsTolled;
 
-    private WaitForSeconds waitSeconds;
+    private WaitForSeconds waitSeconds = new WaitForSeconds(10f);
 
     //Human human;
 
@@ -74,8 +102,6 @@ public class GameManager : MonoBehaviour
         /*human = new Human();*/
 
         //human.checkBells();
-
-        waitSeconds = new WaitForSeconds(10);
 
         if (nbSpirit <= 0)
         {
@@ -117,7 +143,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    IEnumerator checkingSpirits()
+    void checkingSpirits()
     {
         for (int j = 0; j < currentSpirits.Count; j++)
         {
@@ -125,7 +151,6 @@ public class GameManager : MonoBehaviour
             if (currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled))
             {
                 Debug.Log("Right bells rang");
-                bellsTolled.bellToToll.Clear(); //clear as the moves were right, we consumed them
                 //currentSpirits[j].GetComponent<SpiritObject>().target = [une des bonnes cloches sonnées]
             }
             else
@@ -141,30 +166,69 @@ public class GameManager : MonoBehaviour
                 generateRandomSpirit(j);
             }
         }
-        yield return waitSeconds;
+        //yield return new WaitForSeconds(waitSeconds) /*null*/;
+    }
+
+    private int countItem(List<BellName> bellNames, BellName bellToCount)
+    {
+        int count = 0;
+
+        foreach(BellName b in bellNames)
+        {
+            if(b == bellToCount)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 
 
     public void registerBell(BellName bellName)
     {
-        if (bellsTolled.bellToToll.Contains(bellName))
+        /* Séparation volley/one à faire */
+        intermediateList.bellToToll.Add(bellName);
+
+
+        /*if (countItem(intermediateList))
         {
             bellsTolled.tolls = TypesOfTolls.volley;
             //Debug.Log(bellsTolled.tolls);
-        }
-        else
+        }*/
+        /*else
         {
             bellsTolled.bellToToll.Add(bellName);
             bellsTolled.tolls = TypesOfTolls.one;
             /*Debug.Log(bellsTolled.bellToToll.Contains(bellName));
-            Debug.Log(bellsTolled.tolls);*/
+            Debug.Log(bellsTolled.tolls);
+        }*/
+    }
+
+
+        /* Check if gameDuration time have been spend in game */
+       private bool isGameOver()
+    {
+        //Debug.Log(timer);
+        if(timer >= gameDuration)
+        {
+            return true;
         }
+
+        timer += Time.deltaTime;
+        return false;
     }
 
     private IEnumerator gameloop()
     {
-        yield return StartCoroutine("checkingSpirits");
-
+        while (!isGameOver()) {
+            checkingSpirits();
+            //Debug.Log("boucle");
+            bellsTolled.bellToToll.Clear(); 
+            yield return waitSeconds;
+        
+        }
+        
+        yield return null;
     }
 
     // Update is called once per frame
@@ -190,13 +254,6 @@ public class GameManager : MonoBehaviour
 }*/
 
         //human.checkBells();
-
-        
-
-
-        
-
-
         /* Clear de la liste à chaque frame pour ne pas regarder les moves précédents */
         //bellsTolled.bellToToll.Clear();
 

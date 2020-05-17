@@ -1115,13 +1115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c195d783f7836c34b8d04e3fc7848878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bells:
-  - {fileID: 403581276}
-  - {fileID: 620842447}
-  - {fileID: 1178984968}
-  - {fileID: 618881045}
-  - {fileID: 281355008}
-  - {fileID: 1538705396}
 --- !u!114 &1234020080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1134,6 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 463e6361e981a114a94e19d4661574a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameDuration: 60
   spirits:
   - {fileID: 6257954811971763376, guid: 808bc92bd1dd0a34097bac369e750633, type: 3}
   - {fileID: 6257954811971763376, guid: 002b6478356758342bf552c972ed0112, type: 3}
@@ -1145,14 +1139,6 @@ MonoBehaviour:
   - {fileID: 1187039331}
   - {fileID: 1798683423}
   currentSpirits: []
-  bells:
-  - {fileID: 403581276}
-  - {fileID: 620842447}
-  - {fileID: 1178984968}
-  - {fileID: 618881045}
-  - {fileID: 281355008}
-  - {fileID: 1538705396}
-  volleyLimit: 0
 --- !u!1 &1290076791
 GameObject:
   m_ObjectHideFlags: 0

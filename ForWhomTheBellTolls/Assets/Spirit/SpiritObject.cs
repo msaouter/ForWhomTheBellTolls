@@ -259,6 +259,7 @@ public class SpiritObject : MonoBehaviour
         //checkList(t);
 
         
+        Debug.Log(t.tolls);
         if (spirit.moves[currentMove].bellToToll.Count == t.bellToToll.Count)
             foreach (BellName b in spirit.moves[currentMove].bellToToll)
             {
