@@ -6,10 +6,11 @@ using UnityEngine.InputSystem;
 public class Human : MonoBehaviour
 {
     PlayerInput inputs;
+    public static GameManager gameManager;
     //InputAction inputAction;
     //[SerializeField]
     //public Toll toll;
-    
+
 
     /*void Start()
     {
@@ -34,7 +35,15 @@ public class Human : MonoBehaviour
         inputs = new PlayerInput();
     }*/
 
-    public void checkBells(Toll toll)
+    void Start()
+    {
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+    }
+
+    public void checkBells()
     {
         if (Gamepad.current == null)
         {
@@ -46,7 +55,10 @@ public class Human : MonoBehaviour
         /*dyson*/
         if (Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
-            if (toll.bellToToll.Contains(BellName.Dyson)){
+            Debug.Log("Dyson");
+            gameManager.registerBell(BellName.Dyson);
+
+            /*if (toll.bellToToll.Contains(BellName.Dyson)){
                 toll.tolls = TypesOfTolls.volley;
                 Debug.Log("dyson volley");
             }
@@ -56,22 +68,17 @@ public class Human : MonoBehaviour
                 toll.tolls = TypesOfTolls.one;
                 Debug.Log("dyson one");
 
-            }
-            /*bells[0].tolled = true;
-            bells[0].nbTimeTolled += 1;*/
-        }
-        /*else
-        {
-            bells[0].tolled = false;
-            bells[0].nbTimeTolled = 0;
-        }*/
+            }*/
 
-        //inputs.currentActionMap["Toll"].
+        }
 
         /*statue*/
         if (Gamepad.current.buttonEast.wasPressedThisFrame)
         {
-            if (toll.bellToToll.Contains(BellName.Statue))
+            Debug.Log("Statue");
+            gameManager.registerBell(BellName.Statue);
+
+            /*if (toll.bellToToll.Contains(BellName.Statue))
             {
                 toll.tolls = TypesOfTolls.volley;
                 Debug.Log("statue volley");
@@ -82,20 +89,16 @@ public class Human : MonoBehaviour
                 toll.tolls = TypesOfTolls.one;
                 Debug.Log("statue one");
 
-            }
-            /*bells[1].tolled = true;
-            bells[1].nbTimeTolled += 1;*/
+            }*/
         }
-        /*else
-        {
-            bells[1].tolled = false;
-            bells[1].nbTimeTolled = 0;
-        }*/
-
+       
         /*stele*/
         if (Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
-            if (toll.bellToToll.Contains(BellName.Stele))
+            Debug.Log("Stele");
+            gameManager.registerBell(BellName.Stele);
+            
+            /*if (toll.bellToToll.Contains(BellName.Stele))
             {
                 toll.tolls = TypesOfTolls.volley;
                 Debug.Log("stele volley");
@@ -106,21 +109,16 @@ public class Human : MonoBehaviour
                 toll.tolls = TypesOfTolls.one;
                 Debug.Log("stele one");
 
-            }
-            
-            /*bells[2].tolled = true;
-            bells[2].nbTimeTolled += 1;*/
+            }*/
         }
-        /*else
-        {
-            bells[2].tolled = false;
-            bells[2].nbTimeTolled = 0;
-        }*/
 
         /*arch*/
         if (Gamepad.current.buttonWest.wasPressedThisFrame)
         {
-            if (toll.bellToToll.Contains(BellName.Arch))
+            Debug.Log("Arch");
+            gameManager.registerBell(BellName.Arch);
+            
+            /*if (toll.bellToToll.Contains(BellName.Arch))
             {
                 toll.tolls = TypesOfTolls.volley;
                 Debug.Log("arch volley");
@@ -131,20 +129,16 @@ public class Human : MonoBehaviour
                 toll.tolls = TypesOfTolls.one;
                 Debug.Log("arch one");
 
-            }
-            /*bells[3].tolled = true;
-            bells[3].nbTimeTolled += 1;*/
+            }*/
         }
-        /*else
-        {
-            bells[3].tolled = false;
-            bells[3].nbTimeTolled = 0;
-        }*/
-
+        
         /*sundial*/
        if (Gamepad.current.leftTrigger.wasPressedThisFrame)
         {
-            if (toll.bellToToll.Contains(BellName.Sundial))
+            Debug.Log("Sundial");
+            gameManager.registerBell(BellName.Sundial);
+            
+            /*if (toll.bellToToll.Contains(BellName.Sundial))
             {
                 toll.tolls = TypesOfTolls.volley;
                 Debug.Log("sundial volley");
@@ -155,20 +149,17 @@ public class Human : MonoBehaviour
                 toll.tolls = TypesOfTolls.one;
                 Debug.Log("sundial one");
 
-            }
-            /*bells[4].tolled = true;
-            bells[4].nbTimeTolled += 1;*/
+            }*/
         }
-        /*else
-        {
-            bells[4].tolled = false;
-            bells[4].nbTimeTolled = 0;
-        }*/
+        
 
         /*house*/
         if (Gamepad.current.rightTrigger.wasPressedThisFrame)
         {
-            if (toll.bellToToll.Contains(BellName.House))
+            Debug.Log("House");
+            gameManager.registerBell(BellName.House);
+            
+            /*if (toll.bellToToll.Contains(BellName.House))
             {
                 toll.tolls = TypesOfTolls.volley;
                 Debug.Log("house volley");
@@ -179,19 +170,12 @@ public class Human : MonoBehaviour
                 toll.tolls = TypesOfTolls.one;
                 Debug.Log("house one");
 
-            }
-            /*bells[5].tolled = true;
-            bells[5].nbTimeTolled += 1;*/
+            }*/
         }
-        /*else
-        {
-            bells[5].tolled = false;
-            bells[5].nbTimeTolled = 0;
-        }*/
     }
 
     void Update()
     {
-        //checkBells(be);
+        checkBells();
     }
 }

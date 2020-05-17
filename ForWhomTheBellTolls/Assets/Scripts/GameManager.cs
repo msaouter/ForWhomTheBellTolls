@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     Toll bellsTolled;
 
+    private WaitForSeconds waitSeconds;
+
     //Human human;
 
 
@@ -73,7 +75,9 @@ public class GameManager : MonoBehaviour
 
         //human.checkBells();
 
-        if(nbSpirit <= 0)
+        waitSeconds = new WaitForSeconds(10);
+
+        if (nbSpirit <= 0)
         {
             nbSpirit = 1;
         }
@@ -108,6 +112,8 @@ public class GameManager : MonoBehaviour
             currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
         }
 
+        StartCoroutine(gameloop());
+
     }
 
 
@@ -118,10 +124,13 @@ public class GameManager : MonoBehaviour
             /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
             if (currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled))
             {
+                Debug.Log("Right bells rang");
+                bellsTolled.bellToToll.Clear(); //clear as the moves were right, we consumed them
                 //currentSpirits[j].GetComponent<SpiritObject>().target = [une des bonnes cloches sonnées]
             }
             else
             {
+                //Debug.Log("Wrong bells rang");
                 //currentSpirits[j].GetComponent<SpiritObject>().target = [un des spawn points]
             }
 
@@ -132,13 +141,35 @@ public class GameManager : MonoBehaviour
                 generateRandomSpirit(j);
             }
         }
-        yield return new WaitForSeconds(5);
+        yield return waitSeconds;
     }
 
 
-    // Update is called once per frame
-    void Update()
+    public void registerBell(BellName bellName)
     {
+        if (bellsTolled.bellToToll.Contains(bellName))
+        {
+            bellsTolled.tolls = TypesOfTolls.volley;
+            //Debug.Log(bellsTolled.tolls);
+        }
+        else
+        {
+            bellsTolled.bellToToll.Add(bellName);
+            bellsTolled.tolls = TypesOfTolls.one;
+            /*Debug.Log(bellsTolled.bellToToll.Contains(bellName));
+            Debug.Log(bellsTolled.tolls);*/
+        }
+    }
+
+    private IEnumerator gameloop()
+    {
+        yield return StartCoroutine("checkingSpirits");
+
+    }
+
+    // Update is called once per frame
+    /*void Update()
+    {*/
         /* Rajouter coroutine */
         /*for(int i = 0; i < bells.Count; i++)
         {
@@ -160,15 +191,14 @@ public class GameManager : MonoBehaviour
 
         //human.checkBells();
 
-        human.checkBells(bellsTolled);
+        
 
-        StartCoroutine("checkingSpirits");
 
         
 
 
         /* Clear de la liste à chaque frame pour ne pas regarder les moves précédents */
-        bellsTolled.bellToToll.Clear();
+        //bellsTolled.bellToToll.Clear();
 
-    }
+    //}
 }

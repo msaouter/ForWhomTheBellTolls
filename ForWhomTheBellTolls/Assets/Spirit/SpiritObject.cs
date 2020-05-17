@@ -211,8 +211,8 @@ public class SpiritObject : MonoBehaviour
 
     public bool IsApaised()
     {
-        /*Debug.Log("current Move : " + currentMove);
-        Debug.Log("spirit.moves.Count : " + spirit.moves.Count);*/
+        Debug.Log("current Move : " + currentMove);
+        Debug.Log("spirit.moves.Count : " + spirit.moves.Count);
         return currentMove >= spirit.moves.Count;
     }
 
@@ -225,6 +225,15 @@ public class SpiritObject : MonoBehaviour
  * Right trigger : House
  */
 
+    public void checkList(Toll toll)
+    {
+        Debug.Log("Count : " + toll.bellToToll.Count);
+        foreach(BellName b in toll.bellToToll)
+        {
+            Debug.Log(b);
+        }
+    }
+
     /* Check if all right bells have been tolled & if the current bells tolling are the right ones
      * 
      Returns :
@@ -234,7 +243,8 @@ public class SpiritObject : MonoBehaviour
      */
     public bool TollBell(Toll t)
     {
-        /*if(currentMove >= 1)
+        //Debug.Log("currentMove : " + currentMove);
+        if(currentMove >= 1)
         {
             timer += Time.deltaTime;
         }
@@ -244,13 +254,17 @@ public class SpiritObject : MonoBehaviour
             currentMove = 0;
             //timer = 0;
             return false;
-        }*/
+        }
 
-        if (spirit.moves[currentMove].bellToToll.Capacity == t.bellToToll.Capacity)
+        //checkList(t);
+
+        
+        if (spirit.moves[currentMove].bellToToll.Count == t.bellToToll.Count)
             foreach (BellName b in spirit.moves[currentMove].bellToToll)
             {
                 if (!t.bellToToll.Contains(b))
                 {
+                    Debug.Log("Doesn't contain right bell");
                     currentMove = 0;
                     //timer = 0;
                     return false;
@@ -258,6 +272,7 @@ public class SpiritObject : MonoBehaviour
             }
         else
         {
+            Debug.Log("Capacity !=");
             currentMove = 0;
             //timer = 0;
             return false;
@@ -265,11 +280,13 @@ public class SpiritObject : MonoBehaviour
 
         if (spirit.moves[currentMove].tolls == t.tolls)
         {
+            Debug.Log("Right move");
             ++currentMove;
             //timer = 0;
             return true;
         }
 
+        Debug.Log("Wrong type of toll");
         currentMove = 0;
         //timer = 0;
         return false;
