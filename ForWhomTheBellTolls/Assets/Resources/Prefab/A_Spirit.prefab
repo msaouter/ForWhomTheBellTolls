@@ -472,7 +472,7 @@ Transform:
   - {fileID: 6748446733133030777}
   - {fileID: 5945523112432097920}
   m_Father: {fileID: 6257954811971763375}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2066663809458391083
 MonoBehaviour:
@@ -585,6 +585,24 @@ TrailRenderer:
         value: 0.08741853
         inSlope: -0.04993293
         outSlope: -0.04993293
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.27979302
+        value: 0.04026682
+        inSlope: -0.11249973
+        outSlope: -0.11249973
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5045142
+        value: 0.05379928
+        inSlope: -0.078806706
+        outSlope: -0.078806706
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -719,9 +737,54 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.10593587
+        value: 0
         inSlope: 0
         outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.12534711
+        value: 0.11297763
+        inSlope: -0.040607654
+        outSlope: -0.040607654
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.2352824
+        value: 0.052301556
+        inSlope: -0.11414622
+        outSlope: -0.11414622
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.40667364
+        value: 0.08996517
+        inSlope: -0.059849042
+        outSlope: -0.059849042
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.5592772
+        value: 0.036401484
+        inSlope: -0.19369164
+        outSlope: -0.19369164
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.70607597
+        value: 0.03752659
+        inSlope: -0.13275793
+        outSlope: -0.13275793
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -802,13 +865,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6257954810842205427}
-  m_LocalRotation: {x: -0.7660445, y: -0.6427876, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6257954811971763375}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: -80}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6257954810842205424
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -899,7 +962,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6257954811971763375}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &6257954811335889332
 VisualEffect:
@@ -1004,7 +1067,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6257954811971763375}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6257954811971763376
 GameObject:
@@ -1038,6 +1101,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 601328596623668598}
   - {fileID: 6257954810842205423}
   - {fileID: 6257954811335889331}
   - {fileID: 6257954812259491116}
@@ -1045,7 +1109,6 @@ Transform:
   - {fileID: 6257954811861201735}
   - {fileID: 4290099046443434394}
   - {fileID: 4061847512394830935}
-  - {fileID: 601328596623668598}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1228,7 +1291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6257954811971763375}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &6257954812259491114
 VisualEffect:
@@ -1335,7 +1398,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6257954811971763375}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &6257954812583067050
 VisualEffect:
@@ -1389,7 +1452,7 @@ VFXRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RenderingLayerMask: 1
-  m_RendererPriority: 0
+  m_RendererPriority: 10
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1442,7 +1505,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6257954811971763375}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &7964311305328731767
 VisualEffect:
@@ -1499,7 +1562,7 @@ VFXRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RenderingLayerMask: 1
-  m_RendererPriority: 0
+  m_RendererPriority: -10
   m_Materials:
   - {fileID: 0}
   m_StaticBatchInfo:
@@ -1533,6 +1596,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plasma Smudge 03 Green Sludge Mobile Lite
       objectReference: {fileID: 0}
+    - target: {fileID: 1436781255850920, guid: 9c87bf0b0ad2b6746a40f3547ea8db82, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4588829797484684, guid: 9c87bf0b0ad2b6746a40f3547ea8db82, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1563,7 +1630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4588829797484684, guid: 9c87bf0b0ad2b6746a40f3547ea8db82, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4588829797484684, guid: 9c87bf0b0ad2b6746a40f3547ea8db82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1602,17 +1669,17 @@ PrefabInstance:
     - target: {fileID: 198904006467928596, guid: 9c87bf0b0ad2b6746a40f3547ea8db82,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0
+      value: 0.3679245
       objectReference: {fileID: 0}
     - target: {fileID: 198904006467928596, guid: 9c87bf0b0ad2b6746a40f3547ea8db82,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0
+      value: 0.3679245
       objectReference: {fileID: 0}
     - target: {fileID: 198904006467928596, guid: 9c87bf0b0ad2b6746a40f3547ea8db82,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
+      value: 0.3679245
       objectReference: {fileID: 0}
     - target: {fileID: 198904006467928596, guid: 9c87bf0b0ad2b6746a40f3547ea8db82,
         type: 3}
@@ -1857,6 +1924,16 @@ PrefabInstance:
     - target: {fileID: 199606544765060724, guid: 9c87bf0b0ad2b6746a40f3547ea8db82,
         type: 3}
       propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199606544765060724, guid: 9c87bf0b0ad2b6746a40f3547ea8db82,
+        type: 3}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199606544765060724, guid: 9c87bf0b0ad2b6746a40f3547ea8db82,
+        type: 3}
+      propertyPath: m_UseCustomVertexStreams
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
