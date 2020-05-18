@@ -211,19 +211,8 @@ public class SpiritObject : MonoBehaviour
 
     public bool IsApaised()
     {
-        //Debug.Log("current Move : " + currentMove);
-        //Debug.Log("spirit.moves.Count : " + spirit.moves.Count);
         return currentMove >= spirit.moves.Count;
     }
-
-    /* Controls :
- * A : Dyson
- * B : Statue
- * Y : Stele 
- * X : Arch
- * Left trigger : Sundial
- * Right trigger : House
- */
 
     public void checkList(Toll toll, string listName)
     {
@@ -231,7 +220,7 @@ public class SpiritObject : MonoBehaviour
         listString += listName + " ";
 
         listString += " Count : " + toll.bellToToll.Count + " ";
-        //Debug.Log("Count : " + toll.bellToToll.Count);
+
         foreach (BellName b in toll.bellToToll)
         {
             listString += b;
@@ -247,7 +236,7 @@ public class SpiritObject : MonoBehaviour
         listString += listName + " ";
 
         listString += " Count : " + spiritMoves.Count + " ";
-        //Debug.Log("Count : " + toll.bellToToll.Count);
+
         foreach (BellName b in spiritMoves)
         {
             listString += b;
@@ -257,17 +246,9 @@ public class SpiritObject : MonoBehaviour
         Debug.Log(listString);
     }
 
-    /* Check if all right bells have been tolled & if the current bells tolling are the right ones
-     * 
-     Returns :
-     0 if wrong bell or not enough have been rang
-     1 if right bell have been rang but not enough times (volley/one difference)
-     2 if the right bell have been rang with the right type of toll 
-     */
+    /* Check if all right bells have been tolled & if the current bells tolling are the right ones */
     public bool TollBell(Toll t)
     {
-        //Debug.Log("Current Move : " + currentMove);
-        //Debug.Log("currentMove : " + currentMove);
         if(currentMove >= 1)
         {
             timer += Time.deltaTime;
@@ -282,8 +263,6 @@ public class SpiritObject : MonoBehaviour
         }
 
         //checkList(t);
-        
-        //Debug.Log(t.tolls);
 
         if (spirit.moves[currentMove].bellToToll.Count == t.bellToToll.Count)
             foreach (BellName b in spirit.moves[currentMove].bellToToll)
@@ -298,14 +277,9 @@ public class SpiritObject : MonoBehaviour
             }
         else
         {
-            //Debug.Log("t list : ");
-            checkList(t, "t");
+            //checkList(t, "t");
+            //checkSpiritMoves(spirit.moves[currentMove].bellToToll, "spiritMoves");
 
-            //Debug.Log("spirit.moves count : " + spirit.moves[currentMove].bellToToll.Count);
-            checkSpiritMoves(spirit.moves[currentMove].bellToToll, "spiritMoves");
-
-            /*Debug.Log("Spirit moves cap : " + spirit.moves[currentMove].bellToToll.Count);
-            Debug.Log("t bell to toll cap : " + t.bellToToll.Count);*/
             Debug.Log("Capacity !=");
             currentMove = 0;
             //timer = 0;
