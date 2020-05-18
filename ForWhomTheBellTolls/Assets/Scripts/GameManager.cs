@@ -57,6 +57,37 @@ public class GameManager : MonoBehaviour
     private WaitForSeconds waitSeconds = new WaitForSeconds(5f);
 
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (nbSpirit <= 0)
+        {
+            nbSpirit = 1;
+        }
+
+        List<BellName> bellNames = new List<BellName>();
+        List<BellName> bellNamesInter = new List<BellName>();
+
+        intermediateList = new Toll(bellNamesInter, TypesOfTolls.one);
+        bellsTolled = new Toll(bellNames, TypesOfTolls.one);
+
+        for(int i = 0; i < nbSpirit; i++){
+            rand = Random.Range(0, spirits.Count);
+
+            randPos = Random.Range(0, spawnPoints.Count);
+
+            float x = spirits[i].transform.position.x + spawnPoints[randPos].transform.position.x;
+            float y = spirits[i].transform.position.y + spawnPoints[randPos].transform.position.y;
+            float z = spirits[i].transform.position.z + spawnPoints[randPos].transform.position.z;
+
+            currentSpirits.Add(Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity));
+
+            currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
+        }
+
+        StartCoroutine(gameloop());
+
+    }
 
     void generateRandomSpirit(int index)
     {
@@ -77,38 +108,6 @@ public class GameManager : MonoBehaviour
         currentSpirits[index].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
 
 
-
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (nbSpirit <= 0)
-        {
-            nbSpirit = 1;
-        }
-
-        List<BellName> bellNames = new List<BellName>();
-
-        intermediateList = new Toll(bellNames, TypesOfTolls.one);
-        bellsTolled = new Toll(bellNames, TypesOfTolls.one);
-
-        for(int i = 0; i < nbSpirit; i++){
-            rand = Random.Range(0, spirits.Count);
-
-            randPos = Random.Range(0, spawnPoints.Count);
-
-            float x = spirits[i].transform.position.x + spawnPoints[randPos].transform.position.x;
-            float y = spirits[i].transform.position.y + spawnPoints[randPos].transform.position.y;
-            float z = spirits[i].transform.position.z + spawnPoints[randPos].transform.position.z;
-
-            currentSpirits.Add(Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity));
-
-            currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
-        }
-
-        StartCoroutine(gameloop());
 
     }
 
@@ -173,14 +172,19 @@ public class GameManager : MonoBehaviour
         if (!bellsTolled.bellToToll.Contains(bellName))
         {
             bellsTolled.bellToToll.Add(bellName);
+            //checkList(bellsTolled, "bellsTolled");
         }
+
+        /*if(countItem(bellsTolled.bellToToll, bellName) > 1)
+        {
+            Debug.LogError("Bell entered twice");
+        }*/
 
     }
 
     /* Check if gameDuration time have been spend in game */
     private bool isGameOver()
     {
-        //Debug.Log(timer);
         if(timer >= gameDuration)
         {
             return true;
@@ -208,7 +212,7 @@ public class GameManager : MonoBehaviour
     {
         while (!isGameOver()) {
             //Debug.Log("BellsTolled list : ");
-            checkList(bellsTolled, "bellsTolled");
+            //checkList(bellsTolled, "bellsTolled");
             checkingSpirits();
 
             /* Reset list after every check */
