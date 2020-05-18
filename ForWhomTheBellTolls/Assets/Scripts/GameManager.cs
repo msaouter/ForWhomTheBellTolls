@@ -111,6 +111,8 @@ public class GameManager : MonoBehaviour
         //tolledBells = new bool[6];
 
         List<BellName> bellNames = new List<BellName>();
+
+        intermediateList = new Toll(bellNames, TypesOfTolls.one);
         bellsTolled = new Toll(bellNames, TypesOfTolls.one);
 
 
@@ -186,10 +188,32 @@ public class GameManager : MonoBehaviour
 
     public void registerBell(BellName bellName)
     {
-        /* Séparation volley/one à faire */
+        /* Add every input return to an intermediate list */
         intermediateList.bellToToll.Add(bellName);
 
+        /* Séparation volley/one à faire */
+         /* si + 3 fois même cloche dans la liste -> volley
+          * sinon one */
 
+        if(countItem(intermediateList.bellToToll, bellName) > 3)
+        {
+            bellsTolled.tolls = TypesOfTolls.volley;
+        }
+
+        else
+        {
+            bellsTolled.tolls = TypesOfTolls.one;
+        }
+
+        if (!bellsTolled.bellToToll.Contains(bellName))
+        {
+            bellsTolled.bellToToll.Add(bellName);
+            Debug.Log("Bell registered");
+        }
+
+         
+
+        
         /*if (countItem(intermediateList))
         {
             bellsTolled.tolls = TypesOfTolls.volley;
@@ -223,7 +247,8 @@ public class GameManager : MonoBehaviour
         while (!isGameOver()) {
             checkingSpirits();
             //Debug.Log("boucle");
-            bellsTolled.bellToToll.Clear(); 
+            bellsTolled.bellToToll.Clear();
+            Debug.Log("list clean");
             yield return waitSeconds;
         
         }

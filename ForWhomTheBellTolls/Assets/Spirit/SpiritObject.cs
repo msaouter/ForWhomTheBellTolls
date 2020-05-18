@@ -211,8 +211,8 @@ public class SpiritObject : MonoBehaviour
 
     public bool IsApaised()
     {
-        Debug.Log("current Move : " + currentMove);
-        Debug.Log("spirit.moves.Count : " + spirit.moves.Count);
+        //Debug.Log("current Move : " + currentMove);
+        //Debug.Log("spirit.moves.Count : " + spirit.moves.Count);
         return currentMove >= spirit.moves.Count;
     }
 
@@ -243,6 +243,7 @@ public class SpiritObject : MonoBehaviour
      */
     public bool TollBell(Toll t)
     {
+        Debug.Log("Current Move : " + currentMove);
         //Debug.Log("currentMove : " + currentMove);
         if(currentMove >= 1)
         {
@@ -273,6 +274,8 @@ public class SpiritObject : MonoBehaviour
             }
         else
         {
+            /*Debug.Log("Spirit moves cap : " + spirit.moves[currentMove].bellToToll.Count);
+            Debug.Log("t bell to toll cap : " + t.bellToToll.Count);*/
             Debug.Log("Capacity !=");
             currentMove = 0;
             //timer = 0;
@@ -281,7 +284,7 @@ public class SpiritObject : MonoBehaviour
 
         if (spirit.moves[currentMove].tolls == t.tolls)
         {
-            Debug.Log("Right move");
+           // Debug.Log("Right move");
             ++currentMove;
             //timer = 0;
             return true;
