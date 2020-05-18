@@ -55,7 +55,7 @@ public class Human : MonoBehaviour
         /*dyson*/
         if (Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
-            Debug.Log("Dyson");
+            //Debug.Log("Dyson");
             gameManager.registerBell(BellName.Dyson);
 
             /*if (toll.bellToToll.Contains(BellName.Dyson)){
@@ -75,7 +75,7 @@ public class Human : MonoBehaviour
         /*statue*/
         if (Gamepad.current.buttonEast.wasPressedThisFrame)
         {
-            Debug.Log("Statue");
+            //Debug.Log("Statue");
             gameManager.registerBell(BellName.Statue);
 
             /*if (toll.bellToToll.Contains(BellName.Statue))
@@ -95,7 +95,7 @@ public class Human : MonoBehaviour
         /*stele*/
         if (Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
-            Debug.Log("Stele");
+            //Debug.Log("Stele");
             gameManager.registerBell(BellName.Stele);
             
             /*if (toll.bellToToll.Contains(BellName.Stele))
@@ -115,7 +115,7 @@ public class Human : MonoBehaviour
         /*arch*/
         if (Gamepad.current.buttonWest.wasPressedThisFrame)
         {
-            Debug.Log("Arch");
+            //Debug.Log("Arch");
             gameManager.registerBell(BellName.Arch);
             
             /*if (toll.bellToToll.Contains(BellName.Arch))
@@ -135,7 +135,7 @@ public class Human : MonoBehaviour
         /*sundial*/
        if (Gamepad.current.leftTrigger.wasPressedThisFrame)
         {
-            Debug.Log("Sundial");
+            //Debug.Log("Sundial");
             gameManager.registerBell(BellName.Sundial);
             
             /*if (toll.bellToToll.Contains(BellName.Sundial))
@@ -156,7 +156,7 @@ public class Human : MonoBehaviour
         /*house*/
         if (Gamepad.current.rightTrigger.wasPressedThisFrame)
         {
-            Debug.Log("House");
+            //Debug.Log("House");
             gameManager.registerBell(BellName.House);
             
             /*if (toll.bellToToll.Contains(BellName.House))

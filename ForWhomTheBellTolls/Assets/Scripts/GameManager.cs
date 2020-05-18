@@ -66,13 +66,17 @@ public class GameManager : MonoBehaviour
     Toll intermediateList;
     Toll bellsTolled;
 
-    private WaitForSeconds waitSeconds = new WaitForSeconds(10f);
+    private WaitForSeconds waitSeconds = new WaitForSeconds(5f);
 
     //Human human;
 
 
     void generateRandomSpirit(int index)
     {
+        /* destroy the spirit apaised */
+        Destroy(currentSpirits[index]);
+
+        /* LIGNE COM SUIVANTE A IMPLEMENTER */
         /* Dire qu'un emplacement est déjà occupé pour ne pas spaw 2 esprits au même point */
         rand = Random.Range(0, spirits.Count);
         randPos = Random.Range(0, spawnPoints.Count);
@@ -80,10 +84,6 @@ public class GameManager : MonoBehaviour
         float x = spirits[index].transform.position.x + spawnPoints[randPos].transform.position.x;
         float y = spirits[index].transform.position.y + spawnPoints[randPos].transform.position.y;
         float z = spirits[index].transform.position.z + spawnPoints[randPos].transform.position.z;
-
-        /*float x = spawnPoints[randPos].transform.position.x;
-        float y = spawnPoints[randPos].transform.position.y;
-        float z = spawnPoints[randPos].transform.position.z;*/
 
         currentSpirits[index] = Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity);
 
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
             /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
             if (currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled))
             {
-                Debug.Log("Right bells rang");
+                //Debug.Log("Right bells rang");
                 //currentSpirits[j].GetComponent<SpiritObject>().target = [une des bonnes cloches sonnées]
             }
             else
@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
 
             if (currentSpirits[j].GetComponent<SpiritObject>().IsApaised())
             {
-                Debug.Log("Spirit apaised");
+                //Debug.Log("Spirit apaised");
                 generateRandomSpirit(j);
             }
         }
@@ -188,8 +188,14 @@ public class GameManager : MonoBehaviour
 
     public void registerBell(BellName bellName)
     {
+        //Debug.Log("COUCOU");
+        //intermediateList.bellToToll.Clear();
+
         /* Add every input return to an intermediate list */
         intermediateList.bellToToll.Add(bellName);
+
+        //checkList(intermediateList);
+        //Debug.Log(intermediateList.bellToToll.Contains(bellName));
 
         /* Séparation volley/one à faire */
          /* si + 3 fois même cloche dans la liste -> volley
@@ -205,15 +211,17 @@ public class GameManager : MonoBehaviour
             bellsTolled.tolls = TypesOfTolls.one;
         }
 
+        //Debug.Log("Current bell already in bellsTolled : " + bellsTolled.bellToToll.Contains(bellName));
+        //Debug.Log(bellName + " not in bellsTolled : " + !bellsTolled.bellToToll.Contains(bellName));
+
         if (!bellsTolled.bellToToll.Contains(bellName))
         {
             bellsTolled.bellToToll.Add(bellName);
-            Debug.Log("Bell registered");
+            //Debug.Log(" BellsTolled list size " + bellsTolled.bellToToll.Count);
+            //Debug.Log("Bell added : " + bellName);
+            //Debug.Log("Bell registered");
         }
 
-         
-
-        
         /*if (countItem(intermediateList))
         {
             bellsTolled.tolls = TypesOfTolls.volley;
@@ -242,13 +250,33 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    public void checkList(Toll toll, string listName)
+    {
+        string listString = "";
+        listString += listName + " ";
+        listString += " Count : " + toll.bellToToll.Count + " ";
+        foreach (BellName b in toll.bellToToll)
+        {
+            listString += b;
+            listString += ", ";
+        }
+
+        Debug.Log(listString);
+    }
+
     private IEnumerator gameloop()
     {
         while (!isGameOver()) {
+            //Debug.Log("BellsTolled list : ");
+            checkList(bellsTolled, "bellsTolled");
             checkingSpirits();
-            //Debug.Log("boucle");
+
+            /* Reset list after every check */
             bellsTolled.bellToToll.Clear();
-            Debug.Log("list clean");
+            bellsTolled.tolls = TypesOfTolls.one;
+
+            intermediateList.bellToToll.Clear();
+
             yield return waitSeconds;
         
         }
