@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using FMODUnity;
 public class GameManager : MonoBehaviour
 {
     /*
@@ -33,8 +33,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private bool OnGame = true;
-    private int i = 0;
+    public Camera camera;
+
+    //private bool OnGame = true;
+    //private int i = 0;
 
     private float timer = 0f;
     
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
     
     public List<GameObject> currentSpirits;
 
+    public List<GameObject> bells;
+
     int rand = 0;
     int randPos = 0;
 
@@ -56,10 +60,26 @@ public class GameManager : MonoBehaviour
 
     private WaitForSeconds waitSeconds = new WaitForSeconds(5f);
 
+    FMOD.Studio.EventInstance soundevent;
+    [FMODUnity.EventRef, SerializeField]
+    private string dysonRing;
+    [FMODUnity.EventRef, SerializeField]
+    private string steleRing;
+    [FMODUnity.EventRef, SerializeField]
+    private string statueRing;
+    [FMODUnity.EventRef, SerializeField]
+    private string sundialRing;
+    [FMODUnity.EventRef, SerializeField]
+    private string archRing;
+    [FMODUnity.EventRef, SerializeField]
+    private string houseRing;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        /* Init spirit */
         if (nbSpirit <= 0)
         {
             nbSpirit = 1;
@@ -83,9 +103,14 @@ public class GameManager : MonoBehaviour
             currentSpirits.Add(Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity));
 
             currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
+
         }
 
-        StartCoroutine(gameloop());
+        /* Init sound */
+         //soundevent = FMODUnity.RuntimeManager.CreateInstance(houseRing);
+
+
+    StartCoroutine(gameloop());
 
     }
 
@@ -208,12 +233,54 @@ public class GameManager : MonoBehaviour
         Debug.Log(listString);
     }
 
+    public void ringBells()
+    {
+        //int index;
+        foreach(BellName b in bellsTolled.bellToToll)
+        {
+            /* remettre instructions pour sonner les cloches */
+            switch (b)
+            {
+                case BellName.Dyson:
+                    Debug.Log("Dyson distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position, camera.transform.position));
+                    RuntimeManager.PlayOneShot(dysonRing, bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position);
+                    break;
+
+                case BellName.Arch:
+                    Debug.Log("Arch distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position, camera.transform.position));
+                    RuntimeManager.PlayOneShot(archRing, bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position);
+                    break;
+
+                case BellName.House:
+                    Debug.Log("House distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Temple").transform.position, camera.transform.position));
+                    RuntimeManager.PlayOneShot(houseRing, bells.Find(x => x.name == "S_VBell_Temple").transform.position);
+                    break;
+
+                case BellName.Statue:
+                    Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position, camera.transform.position));
+                    RuntimeManager.PlayOneShot(statueRing, bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position);
+                    break;
+
+                case BellName.Stele:
+                    Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position, camera.transform.position));
+                    RuntimeManager.PlayOneShot(steleRing, bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position);
+                    break;
+
+                case BellName.Sundial:
+                    Debug.Log("Sundial distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position, camera.transform.position));
+                    RuntimeManager.PlayOneShot(sundialRing, bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position);
+                    break;
+            }
+        }
+    }
+
     private IEnumerator gameloop()
     {
         while (!isGameOver()) {
-            //Debug.Log("BellsTolled list : ");
-            //checkList(bellsTolled, "bellsTolled");
             checkingSpirits();
+
+            /* Pour chaque cloche présente dans la liste, activer son son */
+            ringBells();
 
             /* Reset list after every check */
             bellsTolled.bellToToll.Clear();
