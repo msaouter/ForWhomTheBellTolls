@@ -15172,6 +15172,8 @@ MonoBehaviour:
   sundialRing: event:/Bells/Bell_Temple
   archRing: event:/Bells/Bell_Arch
   houseRing: event:/Bells/Bell_Temple
+  apaisedSpirit: event:/Esprit/Apaise
+  newSpirit: event:/Esprit/Nouveau
 --- !u!114 &1242559926
 MonoBehaviour:
   m_ObjectHideFlags: 0

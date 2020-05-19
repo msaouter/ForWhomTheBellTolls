@@ -73,6 +73,10 @@ public class GameManager : MonoBehaviour
     private string archRing;
     [FMODUnity.EventRef, SerializeField]
     private string houseRing;
+    [FMODUnity.EventRef, SerializeField]
+    private string apaisedSpirit;
+    [FMODUnity.EventRef, SerializeField]
+    private string newSpirit;
 
 
 
@@ -132,6 +136,7 @@ public class GameManager : MonoBehaviour
 
         currentSpirits[index].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
 
+        RuntimeManager.PlayOneShot(newSpirit, currentSpirits[index].transform.position);
 
 
     }
@@ -155,6 +160,7 @@ public class GameManager : MonoBehaviour
             if (currentSpirits[j].GetComponent<SpiritObject>().IsApaised())
             {
                 Debug.Log("Spirit apaised");
+                RuntimeManager.PlayOneShot(apaisedSpirit, currentSpirits[j].transform.position);
                 generateRandomSpirit(j);
             }
         }
@@ -242,32 +248,32 @@ public class GameManager : MonoBehaviour
             switch (b)
             {
                 case BellName.Dyson:
-                    Debug.Log("Dyson distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position, camera.transform.position));
+                    //Debug.Log("Dyson distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(dysonRing, bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position);
                     break;
 
                 case BellName.Arch:
-                    Debug.Log("Arch distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position, camera.transform.position));
+                    //Debug.Log("Arch distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(archRing, bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position);
                     break;
 
                 case BellName.House:
-                    Debug.Log("House distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Temple").transform.position, camera.transform.position));
+                    //Debug.Log("House distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Temple").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(houseRing, bells.Find(x => x.name == "S_VBell_Temple").transform.position);
                     break;
 
                 case BellName.Statue:
-                    Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position, camera.transform.position));
+                    //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(statueRing, bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position);
                     break;
 
                 case BellName.Stele:
-                    Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position, camera.transform.position));
+                    //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(steleRing, bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position);
                     break;
 
                 case BellName.Sundial:
-                    Debug.Log("Sundial distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position, camera.transform.position));
+                    //Debug.Log("Sundial distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(sundialRing, bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position);
                     break;
             }
