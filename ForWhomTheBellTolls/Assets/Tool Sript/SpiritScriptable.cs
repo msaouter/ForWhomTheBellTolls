@@ -9,8 +9,7 @@ public enum BellName
     Stele,
     Arch,
     Sundial,
-    House,
-    None
+    House
 }
 
 public enum TypesOfTolls
