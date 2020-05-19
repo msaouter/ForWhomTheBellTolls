@@ -3,7 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
+using Unity.Jobs;
 
+
+/* Controls :
+ * A : Dyson
+ * B : Statue
+ * Y : Stele 
+ * X : Arch
+ * Left trigger : Sundial
+ * Right trigger : House
+ */
+
+/* Needed function :
+ * destructor -> Destruct the spirit
+ * */
+
+/* Bells to toll for this spirit */
 public class Toll
 {
     public List<BellName> bellToToll;
@@ -18,10 +34,13 @@ public class Toll
 
 public class SpiritObject : MonoBehaviour
 {
-
+    /* Detection for right bell */
     public SpiritScriptable spirit;
-    private int currentMove = 0;
 
+    [SerializeField]
+    int currentMove = 0;
+
+    private float timer = 0f;
 
     /*public bool movesAutoLinkedToTheObject = false;
     public float rotateSpeed = 1;
@@ -41,6 +60,7 @@ public class SpiritObject : MonoBehaviour
     private List<Vector3> lastPosition;
     public Transform vfxPointer;
 
+    /* Up & down move */
     public bool upDownMove = true;
     public float maxY = 2;
     public float minY = .5f;
@@ -57,7 +77,7 @@ public class SpiritObject : MonoBehaviour
     public float forwardTurnSpeed = 1;
     public float angleOfRotation = 40;
     public float slowDownInTurn = .5f;
-    //private Vector3 startingPosition;
+    private Vector3 startingPosition;
     public bool inChase = true;
     //private bool crossed = true;
     public bool turn = true;
@@ -102,8 +122,6 @@ public class SpiritObject : MonoBehaviour
         if (selfRotationForward)
             SelfRotationForward();
         DelayAttractivePropertyTarget();
-        RandomMovesWithTarget(target.position);
-        */
         if (upDownMove)
             UpDownMove();
 
@@ -154,6 +172,7 @@ public class SpiritObject : MonoBehaviour
         this.transform.Rotate(new Vector3(0, selfRotationSpeedUp * Time.deltaTime, 0));
     }
     */
+    }
 
     protected void SelfRotationForward()
     {
@@ -174,6 +193,7 @@ public class SpiritObject : MonoBehaviour
             delay -= Time.deltaTime;
     }
 
+    /* Spirit move up & down */
     protected void UpDownMove()
     {
         float slow = 0;
@@ -188,35 +208,95 @@ public class SpiritObject : MonoBehaviour
             this.gameObject.transform.position -= new Vector3(0, (speedUpDown - slow) * Time.deltaTime, 0);
     }
 
+
     public bool IsApaised()
     {
-        return currentMove > spirit.moves.Capacity;
+        return currentMove >= spirit.moves.Count;
     }
 
+    public void checkList(Toll toll, string listName)
+    {
+        string listString = "";
+        listString += listName + " ";
+
+        listString += " Count : " + toll.bellToToll.Count + " ";
+
+        foreach (BellName b in toll.bellToToll)
+        {
+            listString += b;
+            listString += ", ";
+        }
+
+        Debug.Log(listString);
+    }
+
+    public void checkSpiritMoves(List<BellName> spiritMoves, string listName)
+    {
+        string listString = "";
+        listString += listName + " ";
+
+        listString += " Count : " + spiritMoves.Count + " ";
+
+        foreach (BellName b in spiritMoves)
+        {
+            listString += b;
+            listString += ", ";
+        }
+
+        Debug.Log(listString);
+    }
+
+    /* Check if all right bells have been tolled & if the current bells tolling are the right ones */
     public bool TollBell(Toll t)
     {
-        if (spirit.moves[currentMove].bellToToll.Capacity == t.bellToToll.Capacity)
+        if(currentMove >= 1)
+        {
+            timer += Time.deltaTime;
+        }
+
+        if (currentMove >= 1 && timer > spirit.moves[currentMove].timeInBetween)
+        {
+            Debug.Log("Timer over");
+            currentMove = 0;
+            //timer = 0;
+            return false;
+        }
+
+        //checkList(t);
+
+        if (spirit.moves[currentMove].bellToToll.Count == t.bellToToll.Count)
             foreach (BellName b in spirit.moves[currentMove].bellToToll)
             {
                 if (!t.bellToToll.Contains(b))
                 {
+                    Debug.Log("Doesn't contain right bell");
                     currentMove = 0;
+                    //timer = 0;
                     return false;
                 }
             }
         else
         {
+            //checkList(t, "t");
+            //checkSpiritMoves(spirit.moves[currentMove].bellToToll, "spiritMoves");
+
+            Debug.Log("Capacity !=");
             currentMove = 0;
+            //timer = 0;
             return false;
         }
 
         if (spirit.moves[currentMove].tolls == t.tolls)
         {
+            Debug.Log("Right move");
             ++currentMove;
+            //timer = 0;
             return true;
         }
 
+        Debug.Log("Wrong type of toll");
         currentMove = 0;
+        //timer = 0;
         return false;
     }
 
@@ -247,8 +327,9 @@ public class SpiritObject : MonoBehaviour
                     left = !left;
             }
     }
+    */
 
-
+    /* turn left to turn around right bell */
     public float angle;
     protected void Overturn (Vector3 target, bool left)
     {
@@ -267,7 +348,7 @@ public class SpiritObject : MonoBehaviour
             left = !left;
         }
     }
-    */
+    
     public List<Vector3> TransitionnalPointAffectation(int numberOfPoint, Vector3 target, float ecart)
     {
         List<Vector3> result = new List<Vector3>();
@@ -335,5 +416,10 @@ public class SpiritObject : MonoBehaviour
         initialRotation = true;
         indice = 0;
         turn = true;
+    }
+
+    ~SpiritObject()
+    {
+
     }
 }
