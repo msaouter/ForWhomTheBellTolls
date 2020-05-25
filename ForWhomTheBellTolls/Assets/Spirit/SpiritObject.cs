@@ -6,6 +6,8 @@ using UnityEngine.VFX;
 using Unity.Jobs;
 
 
+/* Supprimer ~SpiritObject en bas */
+
 /* Controls :
  * A : Dyson
  * B : Statue
