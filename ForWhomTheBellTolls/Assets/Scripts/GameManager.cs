@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     private float timer = 0f;
     private float timerInput = 0f;
 
+    [SerializeField]
     private float detectionTime = 2f;
 
     private bool inputDetected = false;
