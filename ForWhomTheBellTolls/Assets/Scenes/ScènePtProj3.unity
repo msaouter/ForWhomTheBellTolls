@@ -15169,7 +15169,7 @@ MonoBehaviour:
   dysonRing: event:/Bells/Bell_Sphere
   steleRing: event:/Bells/Bell_Stele
   statueRing: event:/Bells/Bell_Statue
-  sundialRing: event:/Bells/Bell_Temple
+  sundialRing: event:/Bells/Bell_Sundial
   archRing: event:/Bells/Bell_Arch
   houseRing: event:/Bells/Bell_Temple
   apaisedSpirit: event:/Esprit/Apaise

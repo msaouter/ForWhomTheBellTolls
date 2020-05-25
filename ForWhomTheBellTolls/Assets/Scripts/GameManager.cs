@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
     //private int i = 0;
 
     private float timer = 0f;
+    private float timerInput = 0f;
+
+    private float detectionTime = 2f;
+
+    private bool inputDetected = false;
     
     [SerializeField]
     private float gameDuration = 480f;
@@ -114,11 +119,11 @@ public class GameManager : MonoBehaviour
          //soundevent = FMODUnity.RuntimeManager.CreateInstance(houseRing);
 
 
-    StartCoroutine(gameloop());
+    //StartCoroutine(gameloop());
 
     }
 
-    void generateRandomSpirit(int index)
+    IEnumerator generateRandomSpirit(int index)
     {
         /* destroy the spirit apaised */
         Destroy(currentSpirits[index]);
@@ -136,7 +141,9 @@ public class GameManager : MonoBehaviour
 
         currentSpirits[index].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
 
+        yield return new WaitForSeconds(4f);
         RuntimeManager.PlayOneShot(newSpirit, currentSpirits[index].transform.position);
+        yield return new WaitForSeconds(4f);
 
 
     }
@@ -183,6 +190,9 @@ public class GameManager : MonoBehaviour
 
     public void registerBell(BellName bellName)
     {
+        /* Lancer timer pour capter les autres touches */
+        inputDetected = true;
+
         /* Add every input return to an intermediate list */
         intermediateList.bellToToll.Add(bellName);
 
@@ -250,54 +260,74 @@ public class GameManager : MonoBehaviour
                 case BellName.Dyson:
                     //Debug.Log("Dyson distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(dysonRing, bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position);
+                    //yield return new WaitForSeconds(1f);
                     break;
 
                 case BellName.Arch:
                     //Debug.Log("Arch distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(archRing, bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position);
+                    //yield return new WaitForSeconds(1f);
                     break;
 
                 case BellName.House:
                     //Debug.Log("House distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Temple").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(houseRing, bells.Find(x => x.name == "S_VBell_Temple").transform.position);
+                    //yield return new WaitForSeconds(4f);
                     break;
 
                 case BellName.Statue:
                     //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(statueRing, bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position);
+                    //yield return new WaitForSeconds(4f);
                     break;
 
                 case BellName.Stele:
                     //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position, camera.transform.position));
                     RuntimeManager.PlayOneShot(steleRing, bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position);
+                    //yield return new WaitForSeconds(4f);
                     break;
 
                 case BellName.Sundial:
                     //Debug.Log("Sundial distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position, camera.transform.position));
+                    //yield return new WaitForSeconds(4f);
                     RuntimeManager.PlayOneShot(sundialRing, bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position);
                     break;
             }
         }
     }
 
-    private IEnumerator gameloop()
+    void Update()
     {
-        while (!isGameOver()) {
-            checkingSpirits();
 
-            /* Pour chaque cloche présente dans la liste, activer son son */
-            ringBells();
+        /* Enlever coroutine */
+        //while (!isGameOver()) {
 
-            /* Reset list after every check */
-            bellsTolled.bellToToll.Clear();
-            bellsTolled.tolls = TypesOfTolls.one;
+            Debug.Log(timerInput);
 
-            intermediateList.bellToToll.Clear();
+            if (inputDetected)
+            {
+                timerInput += Time.deltaTime;
+            }
 
-            yield return waitSeconds;
+            if(timerInput >= detectionTime)
+            {
+                inputDetected = false;
+                timerInput = 0f;
+                checkingSpirits();
+                /* Pour chaque cloche présente dans la liste, activer son son */
+                ringBells();
+                
+                /* Reset list after every check */
+                bellsTolled.bellToToll.Clear();
+                bellsTolled.tolls = TypesOfTolls.one;
+                
+                intermediateList.bellToToll.Clear();
+
+            }
+            /* Enfermer boucle dans un if timer == 2 et repasser ça en update ? */
         
-        }
+        //}
         
-        yield return null;
+        //yield return null;
     }
 }
