@@ -17,10 +17,10 @@ MonoBehaviour:
   moves:
   - bellToToll: 01000000
     tolls: 0
-    timeInBetween: 10
+    timeInBetween: 20
   - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 10
+    timeInBetween: 20
   - bellToToll: 03000000
     tolls: 0
-    timeInBetween: 10
+    timeInBetween: 20

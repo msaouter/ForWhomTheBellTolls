@@ -81,7 +81,7 @@ public class SpiritObject : MonoBehaviour
     public bool inChase = true;
     //private bool crossed = true;
     public bool turn = true;
-    public Transform target;
+    public Vector3 target;
     private List<Vector3> targetList;
     private int indice = 0;
     //a changer en false en final
@@ -95,16 +95,8 @@ public class SpiritObject : MonoBehaviour
         delay = delayOnAttTargInSec;
         lastPosition = new List<Vector3>();
         upDownMove = upDownMove && (minY < maxY);
-        //startingPosition = this.gameObject.transform.position;
-        targetList = TransitionnalPointAffectation(5, target.position, Vector3.Distance(this.gameObject.transform.position, target.position) / 3);
-        /*
-        GameObject gen;
-        foreach (Vector3 v in targetList)
-        {
-            gen = new GameObject();
-            gen.transform.position = v;
-        }
-        */
+        startingPosition = this.gameObject.transform.position;
+        SetTargetInitial();
     }
 
     // Update is called once per frame
@@ -118,14 +110,30 @@ public class SpiritObject : MonoBehaviour
             MovesAutoLinkedToTheScene();
             if (selfRotationUp)
                 SelfRotationUp();
+        }*/
+
+        if (currentMove >= 1)
+        {
+            timer += Time.deltaTime;
         }
+
+        if (currentMove >= 1 && timer > spirit.moves[currentMove].timeInBetween)
+        {
+            Debug.Log("Timer over");
+            currentMove = 0;
+            timer = 0;
+            SetTargetInitial();
+            //resetFx ?
+        }
+
+
         if (selfRotationForward)
             SelfRotationForward();
         DelayAttractivePropertyTarget();
         if (upDownMove)
             UpDownMove();
 
-        if (inChase && distanceMinToTargetFinal < Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.position.x, target.position.z)))
+        if (inChase && distanceMinToTargetFinal < Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)))
         {
             if (turn)
             {
@@ -171,8 +179,9 @@ public class SpiritObject : MonoBehaviour
     {
         this.transform.Rotate(new Vector3(0, selfRotationSpeedUp * Time.deltaTime, 0));
     }
-    */
-    }
+    */    
+    
+    
 
     protected void SelfRotationForward()
     {
@@ -249,18 +258,7 @@ public class SpiritObject : MonoBehaviour
     /* Check if all right bells have been tolled & if the current bells tolling are the right ones */
     public bool TollBell(Toll t)
     {
-        if(currentMove >= 1)
-        {
-            timer += Time.deltaTime;
-        }
-
-        if (currentMove >= 1 && timer > spirit.moves[currentMove].timeInBetween)
-        {
-            Debug.Log("Timer over");
-            currentMove = 0;
-            //timer = 0;
-            return false;
-        }
+        
 
         //checkList(t);
 
@@ -331,7 +329,7 @@ public class SpiritObject : MonoBehaviour
 
     /* turn left to turn around right bell */
     public float angle;
-    protected void Overturn (Vector3 target, bool left)
+    /*protected void Overturn (Vector3 target, bool left)
     {
         if (left)
             this.gameObject.transform.Rotate(this.gameObject.transform.up * rotationSpeed * Time.deltaTime);
@@ -347,7 +345,7 @@ public class SpiritObject : MonoBehaviour
             turn = false;
             left = !left;
         }
-    }
+    }*/
     
     public List<Vector3> TransitionnalPointAffectation(int numberOfPoint, Vector3 target, float ecart)
     {
@@ -393,11 +391,11 @@ public class SpiritObject : MonoBehaviour
 
     protected bool InitialRotation()
     {
-        if (Vector2.Angle(new Vector2(this.transform.forward.x, this.transform.forward.z), new Vector2(target.position.x - this.transform.position.x, target.position.z - this.transform.position.z)) == 90)
+        if (Vector2.Angle(new Vector2(this.transform.forward.x, this.transform.forward.z), new Vector2(target.x - this.transform.position.x, target.z - this.transform.position.z)) == 90)
             return true;
 
         this.transform.position += (this.transform.forward * forwardSpeed * Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target.position - transform.position).z, 0, (target.position - transform.position).x), turnSpeedChase * Time.deltaTime, 0.0f));
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target - transform.position).z, 0, (target - transform.position).x), turnSpeedChase * Time.deltaTime, 0.0f));
 
 
         return false;
@@ -406,16 +404,21 @@ public class SpiritObject : MonoBehaviour
     void TurnAroudnTarget()
     {
         this.gameObject.transform.position += (this.transform.forward * roundSpeed * Time.deltaTime);
-        this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target.position - transform.position).z, 0, (target.position - transform.position).x), 100, 0.0f));
+        this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target - transform.position).z, 0, (target - transform.position).x), 100, 0.0f));
     }
 
-    public void SetTarget(Transform tar) {
+    public void SetTarget(Vector3 tar) {
         this.target = tar;
-        targetList = TransitionnalPointAffectation(4, target.position, Vector3.Distance(this.gameObject.transform.position, target.position) / 3);
+        targetList = TransitionnalPointAffectation(4, target, Vector3.Distance(this.gameObject.transform.position, target) / 3);
         inChase = true;
         initialRotation = true;
         indice = 0;
         turn = true;
+    }
+
+    public void SetTargetInitial()
+    {
+        SetTarget(startingPosition);
     }
 
     ~SpiritObject()

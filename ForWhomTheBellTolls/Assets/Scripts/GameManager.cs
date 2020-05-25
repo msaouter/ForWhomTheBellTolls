@@ -50,6 +50,13 @@ public class GameManager : MonoBehaviour
     
     public List<GameObject> currentSpirits;
 
+    /* 0 Arche
+     * 1 Statue
+     * 2 Maison
+     * 3 Cadran
+     * 4 Dyson
+     * 5 Stele
+     */
     public List<GameObject> bells;
 
     int rand = 0;
@@ -106,7 +113,7 @@ public class GameManager : MonoBehaviour
 
             currentSpirits.Add(Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity));
 
-            currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
+            currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform.position;
 
         }
 
@@ -134,7 +141,7 @@ public class GameManager : MonoBehaviour
 
         currentSpirits[index] = Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity);
 
-        currentSpirits[index].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
+        currentSpirits[index].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform.position;
 
         RuntimeManager.PlayOneShot(newSpirit, currentSpirits[index].transform.position);
 
@@ -149,11 +156,11 @@ public class GameManager : MonoBehaviour
             /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
             if (currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled))
             {
-                //currentSpirits[j].GetComponent<SpiritObject>().target = [une des bonnes cloches sonnées]
+                currentSpirits[j].GetComponent<SpiritObject>().SetTarget(bells[BellNameToIndex(bellsTolled.bellToToll[0])].transform.position);
             }
             else
             {
-                //currentSpirits[j].GetComponent<SpiritObject>().target = [un des spawn points]
+                currentSpirits[j].GetComponent<SpiritObject>().SetTargetInitial();
             }
 
 
@@ -299,5 +306,25 @@ public class GameManager : MonoBehaviour
         }
         
         yield return null;
+    }
+
+    private int BellNameToIndex(BellName name)
+    {
+        switch (name)
+        {
+            case BellName.Arch:
+                return 0;
+            case BellName.Statue:
+                return 1;
+            case BellName.House:
+                return 2;
+            case BellName.Sundial:
+                return 3;
+            case BellName.Dyson:
+                return 4;
+            case BellName.Stele:
+                return 5;
+        }
+        return -1;
     }
 }

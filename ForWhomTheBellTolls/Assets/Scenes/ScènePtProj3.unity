@@ -738,6 +738,12 @@ PrefabInstance:
       propertyPath: selfRotationSpeedForward
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 8713807962725395878, guid: 808bc92bd1dd0a34097bac369e750633,
+        type: 3}
+      propertyPath: spirit
+      value: 
+      objectReference: {fileID: 11400000, guid: ea515b3dd5231e54188bd5c702ff159a,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 2066663809458391083, guid: 808bc92bd1dd0a34097bac369e750633, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 808bc92bd1dd0a34097bac369e750633, type: 3}
@@ -15160,12 +15166,12 @@ MonoBehaviour:
   - {fileID: 489874817}
   currentSpirits: []
   bells:
-  - {fileID: 1333588904}
   - {fileID: 751613990}
-  - {fileID: 577458586}
-  - {fileID: 1141731716}
-  - {fileID: 1898848990}
+  - {fileID: 1333588904}
   - {fileID: 634688861}
+  - {fileID: 577458586}
+  - {fileID: 1898848990}
+  - {fileID: 1141731716}
   dysonRing: event:/Bells/Bell_Sphere
   steleRing: event:/Bells/Bell_Stele
   statueRing: event:/Bells/Bell_Statue
