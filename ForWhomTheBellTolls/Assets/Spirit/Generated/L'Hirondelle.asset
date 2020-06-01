@@ -23,12 +23,12 @@ MonoBehaviour:
     d'entre nous ferons aussi ce voyage; inscrit dans leurs g\xE8nes; parcourant
     les fronti\xE8res; sans avoir jamais une fois dout\xE9."
   moves:
-  - bellToToll: 05000000
+  - bellToToll: 02000000
     tolls: 0
-    timeInBetween: 20
-  - bellToToll: 00000000
+    timeInBetween: 30
+  - bellToToll: 04000000
     tolls: 0
-    timeInBetween: 20
-  - bellToToll: 0300000000000000
+    timeInBetween: 30
+  - bellToToll: 0000000004000000
     tolls: 0
-    timeInBetween: 20
+    timeInBetween: 30

@@ -15,14 +15,14 @@ MonoBehaviour:
   spiritName: "La grand m\xE8re "
   description: "Faites beaucoup de bruit mes petits enfants; je n'arrive pas \xE0
     vous voir.../ J'aimerais tant vous transmettre tous ce que je sais.../ Lorsque
-    vous n'aurez plus besoin de moi sonnez la cloche de ma demeure..."
+    vous n'aurez plus besoin de moi sonnez la cloche de ma derni\xE8re demeure..."
   moves:
   - bellToToll: 01000000
-    tolls: 1
-    timeInBetween: 20
-  - bellToToll: 0300000000000000
     tolls: 0
-    timeInBetween: 20
-  - bellToToll: 05000000
+    timeInBetween: 30
+  - bellToToll: 0000000004000000
     tolls: 0
-    timeInBetween: 20
+    timeInBetween: 30
+  - bellToToll: 02000000
+    tolls: 0
+    timeInBetween: 30

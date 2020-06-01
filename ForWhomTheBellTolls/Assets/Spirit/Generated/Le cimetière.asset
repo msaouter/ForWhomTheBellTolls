@@ -15,12 +15,12 @@ MonoBehaviour:
   spiritName: "Le cimeti\xE8re"
   description: "La maison o\xF9 les mor... / ...ts sont li\xE9s"
   moves:
-  - bellToToll: 05000000
-    tolls: 0
-    timeInBetween: 20
   - bellToToll: 02000000
     tolls: 0
-    timeInBetween: 20
-  - bellToToll: 03000000
+    timeInBetween: 30
+  - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 20
+    timeInBetween: 30
+  - bellToToll: 00000000
+    tolls: 0
+    timeInBetween: 30

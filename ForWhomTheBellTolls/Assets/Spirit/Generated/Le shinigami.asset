@@ -15,9 +15,9 @@ MonoBehaviour:
   spiritName: Le shinigami
   description: "L'\xE2me des morts sera li\xE9es au monde spirituel"
   moves:
-  - bellToToll: 0500000002000000
+  - bellToToll: 0200000005000000
     tolls: 0
-    timeInBetween: 20
-  - bellToToll: 0300000005000000
+    timeInBetween: 30
+  - bellToToll: 0000000002000000
     tolls: 0
-    timeInBetween: 20
+    timeInBetween: 30
