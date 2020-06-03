@@ -93,6 +93,7 @@ public class SpiritObject : MonoBehaviour
     public float distanceMinOfRotation = 4;
     public float distanceSwitchRotation = -.1f;
     public float distanceMinOfDance = 20;
+    public VisualEffect visual;
 
     public bool doTheDance = false;
 
@@ -100,13 +101,14 @@ public class SpiritObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        delay = delayOnAttTargInSec;
+        //delay = delayOnAttTargInSec;
         lastPosition = new List<Vector3>();
         upDownMove = upDownMove && (minY < maxY);
         startingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        
+        this.transform.position += new Vector3(distanceMinOfRotation,0,0);
         SetTargetInitialRound();
-        
+        visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
+
     }
 
     // Update is called once per frame
@@ -121,6 +123,7 @@ public class SpiritObject : MonoBehaviour
             if (selfRotationUp)
                 SelfRotationUp();
         }*/
+        MoveOfVfx();
         if (!doTheDance)
         {
             TimerManagement();
@@ -128,7 +131,7 @@ public class SpiritObject : MonoBehaviour
 
             if (selfRotationForward)
                 SelfRotationForward();
-            DelayAttractivePropertyTarget();
+            //DelayAttractivePropertyTarget();
             if (upDownMove)
                 UpDownMove();
 
@@ -192,6 +195,11 @@ public class SpiritObject : MonoBehaviour
             }
             TurnAroudnTarget();
         }
+    }
+
+    protected void MoveOfVfx()
+    {
+        visual.gameObject.transform.localPosition = visual.GetFloat("Corruption Amount") * new Vector3 (Mathf.Sin(Time.time),0,0);
     }
     /*
     protected void MouveAutoLinkedToTheObject()
@@ -291,11 +299,8 @@ public class SpiritObject : MonoBehaviour
     /* Check if all right bells have been tolled & if the current bells tolling are the right ones */
     public bool TollBell(Toll t)
     {
-        
-
-        //checkList(t);
-
-        if (spirit.moves[currentMove].bellToToll.Count == t.bellToToll.Count)
+        if (spirit.moves[currentMove].bellToToll.Count == t.bellToToll.Count && spirit.moves[currentMove].tolls == t.tolls)
+        {
             foreach (BellName b in spirit.moves[currentMove].bellToToll)
             {
                 if (!t.bellToToll.Contains(b))
@@ -303,35 +308,25 @@ public class SpiritObject : MonoBehaviour
                     Debug.Log("Doesn't contain right bell");
                     Frangipane();
                     currentMove = 0;
+                    visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
                     //timer = 0;
                     return false;
                 }
             }
-        else
-        {
-            //checkList(t, "t");
-            //checkSpiritMoves(spirit.moves[currentMove].bellToToll, "spiritMoves");
-
-            Debug.Log("Capacity !=");
-            Frangipane();
-            currentMove = 0;
-            //timer = 0;
-            return false;
-        }
-
-        if (spirit.moves[currentMove].tolls == t.tolls)
-        {
             Debug.Log("Right move");
             ++currentMove;
+            visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
             //timer = 0;
             return true;
         }
-
-        Debug.Log("Wrong type of toll");
-        Frangipane();
-        currentMove = 0;
-        //timer = 0;
-        return false;
+        else
+        {
+            Frangipane();
+            currentMove = 0;
+            visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
+            //timer = 0;
+            return false;
+        }
     }
 
     /*
@@ -551,6 +546,7 @@ public class SpiritObject : MonoBehaviour
         target = new Vector3();
     }
 
+    public float danceSpeed = 20;
     public void TurnAroudnCenter()
     {
 
@@ -562,7 +558,7 @@ public class SpiritObject : MonoBehaviour
         }
         else
         {
-            transform.RotateAround(target, Vector3.up, roundSpeed * Time.deltaTime);
+            transform.RotateAround(target, Vector3.up, danceSpeed * Time.deltaTime);
             //this.gameObject.transform.position += (this.transform.forward * roundSpeed * Time.deltaTime);
             this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target - transform.position).z, 0, (target - transform.position).x), 100, 0.0f));
             
