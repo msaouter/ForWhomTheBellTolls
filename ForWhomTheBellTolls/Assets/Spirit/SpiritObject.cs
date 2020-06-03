@@ -73,7 +73,7 @@ public class SpiritObject : MonoBehaviour
 
     public float minDistanceOfTarget = .5f;
     public float distanceMinToTargetFinal = 3;
-    public float speedChase = 6;
+    public float speedChase = 3;
     public float turnSpeedChase = 1;
     public float forwardTurnSpeed = 1;
     //public float maxAngle = 45;
@@ -91,8 +91,8 @@ public class SpiritObject : MonoBehaviour
     public bool initialRotation = true;
     public float roundSpeed = 40;
     public float distanceMinOfRotation = 4;
-    public float distanceSwitchRotation = .3f;
-    public float distanceMinOfDance = 10;
+    public float distanceSwitchRotation = -.1f;
+    public float distanceMinOfDance = 20;
 
     public bool doTheDance = false;
 
@@ -149,9 +149,9 @@ public class SpiritObject : MonoBehaviour
         if (currentMove >= 1 && timer > spirit.moves[currentMove].timeInBetween)
         {
             Debug.Log("Timer over");
+            Frangipane();
             currentMove = 0;
             timer = 0;
-            Reset();
             //resetFx ?
         }
     }
@@ -254,6 +254,7 @@ public class SpiritObject : MonoBehaviour
         return currentMove >= spirit.moves.Count;
     }
 
+    /*
     public void checkList(Toll toll, string listName)
     {
         string listString = "";
@@ -285,6 +286,7 @@ public class SpiritObject : MonoBehaviour
 
         Debug.Log(listString);
     }
+    */
 
     /* Check if all right bells have been tolled & if the current bells tolling are the right ones */
     public bool TollBell(Toll t)
@@ -299,6 +301,7 @@ public class SpiritObject : MonoBehaviour
                 if (!t.bellToToll.Contains(b))
                 {
                     Debug.Log("Doesn't contain right bell");
+                    Frangipane();
                     currentMove = 0;
                     //timer = 0;
                     return false;
@@ -310,6 +313,7 @@ public class SpiritObject : MonoBehaviour
             //checkSpiritMoves(spirit.moves[currentMove].bellToToll, "spiritMoves");
 
             Debug.Log("Capacity !=");
+            Frangipane();
             currentMove = 0;
             //timer = 0;
             return false;
@@ -324,6 +328,7 @@ public class SpiritObject : MonoBehaviour
         }
 
         Debug.Log("Wrong type of toll");
+        Frangipane();
         currentMove = 0;
         //timer = 0;
         return false;
@@ -481,7 +486,7 @@ public class SpiritObject : MonoBehaviour
         SetTargetRound(startingPosition, i);
     }
 
-    public void Reset()
+    public void Frangipane()
     {
         Debug.Log("reset");
         if (currentMove != 0)
@@ -500,36 +505,37 @@ public class SpiritObject : MonoBehaviour
         return result;
     }
 
-    public float bug;
+    //public float bug;
     protected void RoundMovementManagement()
     {
-        if (indice + 1 < targetList.Count)
+        /*if (indice + 1 < targetList.Count)
         bug = Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(targetList[indice].x, targetList[indice].z))
-                - Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(targetList[indice + 1].x, targetList[indice + 1].z));
+                - Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(targetList[indice + 1].x, targetList[indice + 1].z));*/
         if (inChase && distanceMinToTargetFinal < Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)))
         {
             transform.RotateAround(targetList[indice], Vector3.up,Mathf.Pow(-1,indice) * roundSpeed * Time.deltaTime);
             this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, Mathf.Pow(-1, indice) * new Vector3(-(targetList[indice] - transform.position).z, 0, (targetList[indice] - transform.position).x), 100, 0.0f));
-            if (indice + 1 < targetList.Count && bug
-                >distanceSwitchRotation)
+            if (indice + 1 < targetList.Count && Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(targetList[indice].x, targetList[indice].z))
+                - Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(targetList[indice + 1].x, targetList[indice + 1].z))
+                > distanceSwitchRotation)
             {
                 ++indice;
                 transform.RotateAround(targetList[indice], Vector3.up, Mathf.Pow(-1, indice) * roundSpeed * Time.deltaTime);
                 this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, Mathf.Pow(-1, indice) * new Vector3(-(targetList[indice] - transform.position).z, 0, (targetList[indice] - transform.position).x), 100, 0.0f));
                 
             }
-        }
+        }/*
         else if (initialRotation)
         {
             inChase = false;
             initialRotation = InitialRotation();
-        }
+        }*/
         else
         {
             inChase = false;
             if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinOfRotation)
             {
-                this.transform.Translate(this.transform.forward * speedChase * Time.deltaTime);
+                this.transform.position += (new Vector3(this.gameObject.transform.position.x - target.x, 0, this.gameObject.transform.position.z - target.z).normalized * speedChase * Time.deltaTime);
                 //this.transform.Translate((this.transform.position - target).normalized * speedChase * Time.deltaTime); 
             } else
             {
@@ -540,15 +546,18 @@ public class SpiritObject : MonoBehaviour
 
     public void DoTheDance()
     {
+        Debug.Log("do the dance");
         doTheDance = true;
         target = new Vector3();
     }
 
     public void TurnAroudnCenter()
     {
+
         if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinOfDance)
         {
-            this.transform.Translate(this.transform.forward * speedChase * Time.deltaTime);
+            this.transform.position +=(new Vector3(this.gameObject.transform.position.x - target.x, 0 , this.gameObject.transform.position.z - target.z).normalized * speedChase * Time.deltaTime);
+            
             //this.transform.Translate((this.transform.position - target).normalized * speedChase * Time.deltaTime); 
         }
         else
@@ -556,6 +565,7 @@ public class SpiritObject : MonoBehaviour
             transform.RotateAround(target, Vector3.up, roundSpeed * Time.deltaTime);
             //this.gameObject.transform.position += (this.transform.forward * roundSpeed * Time.deltaTime);
             this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target - transform.position).z, 0, (target - transform.position).x), 100, 0.0f));
+            
         }
     }
 

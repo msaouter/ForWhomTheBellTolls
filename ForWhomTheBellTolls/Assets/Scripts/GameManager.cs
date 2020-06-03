@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                currentSpirits[j].SetTargetInitialRound(2);
+                //currentSpirits[j].SetTargetInitialRound(2);
             }
 
 

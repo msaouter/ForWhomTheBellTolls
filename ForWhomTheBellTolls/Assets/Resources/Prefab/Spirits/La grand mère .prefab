@@ -5820,7 +5820,7 @@ MonoBehaviour:
   speedUpDown: 0.5
   upAndDownSlowDown: 0
   minDistanceOfTarget: 0.5
-  distanceMinToTargetFinal: 3
+  distanceMinToTargetFinal: 4
   speedChase: 6
   turnSpeedChase: 1
   forwardTurnSpeed: 1
@@ -5833,11 +5833,10 @@ MonoBehaviour:
   roundSpeed: 40
   distanceMinOfRotation: 4
   distanceSwitchRotation: -0.01
-  distanceMinOfDance: 10
+  distanceMinOfDance: 30
   doTheDance: 0
   distanceMinToTarget: 1
   angleMinToTarget: 10
-  bug: 0
 --- !u!1 &8205728423455447459
 GameObject:
   m_ObjectHideFlags: 0
