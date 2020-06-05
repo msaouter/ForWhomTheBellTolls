@@ -14853,6 +14853,7 @@ MonoBehaviour:
   gameDuration: 480
   spirits:
   - {fileID: 8970836984764763259, guid: cac889368df76c249ba54f5feaaabdf4, type: 3}
+  - {fileID: 6555172003332859304, guid: 4ba539ab8e61f004ab64d2809e06d64b, type: 3}
   spawnPoints:
   - {fileID: 1735965290}
   - {fileID: 1595071816}
@@ -14894,7 +14895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242559924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6815863, y: 4.125635, z: -0.40301895}
+  m_LocalPosition: {x: 0, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -16861,7 +16862,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595071815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.4, y: 0, z: -0.8}
+  m_LocalPosition: {x: 6.84, y: 0, z: 1.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2111111600}
