@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14399322773846404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.411, y: -0.128, z: -0.3}
+  m_LocalPosition: {x: -0.411, y: -0.128, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4290099046443434394}
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270874357768450903}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 0.32, z: -0.2}
+  m_LocalPosition: {x: 0.12, y: 0.32, z: -0.14999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4290099046443434394}
@@ -317,7 +317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691784909526922702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.19, y: -0.41, z: 0.23}
+  m_LocalPosition: {x: -0.19, y: -0.41, z: 0.28000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4290099046443434394}
@@ -518,7 +518,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3897169324650560474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.386, y: 0.054, z: -0.2}
+  m_LocalPosition: {x: 0.386, y: 0.054, z: -0.14999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4290099046443434394}
@@ -682,7 +682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5903657800616813677}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.221, y: 0.31, z: 0.2}
+  m_LocalPosition: {x: -0.221, y: 0.31, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4290099046443434394}
@@ -1132,7 +1132,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: -0.04000008, z: -3.2399998}
+      - m_Value: {x: 0, y: -0.04000008, z: -4.33}
         m_Name: AttractiveTargetPosition
         m_Overridden: 1
     m_Vector4f:
@@ -1235,7 +1235,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spirit: {fileID: 11400000, guid: e31c0d677ff15a64b9ea096d5c460bfa, type: 2}
   currentMove: 0
+<<<<<<< HEAD
   selfRotationForward: 0
+=======
+  forwardSpeed: 1
+  selfRotationForward: 1
+>>>>>>> master
   selfRotationSpeedForward: 50
   delayOnAttTargInSec: 1
   vfxPointer: {fileID: 6257954811861201735}
