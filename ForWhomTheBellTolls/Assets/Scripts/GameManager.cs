@@ -33,10 +33,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public Camera camera;
+
 
     //private bool OnGame = true;
     //private int i = 0;
+    public bool inTutorial = true;
 
     private float timer = 0f;
     private float timerInput = 0f;
@@ -152,6 +153,7 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Spirit apaised");
                 RuntimeManager.PlayOneShot(apaisedSpirit, currentSpirits[j].transform.position);
+                currentSpirits[j].playApaised();
                 currentSpirits[j].DoTheDance();
                 currentSpirits.RemoveAt(j);
                 j--;
@@ -258,33 +260,30 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (inputDetected)
+        {
+            timerInput += Time.deltaTime;
+        }
 
-        /* Enlever coroutine */
-        //while (!isGameOver()) {
-
-            //Debug.Log(timerInput);
-
-            if (inputDetected)
+        if(timerInput >= detectionTime)
+        {
+            inputDetected = false;
+            timerInput = 0f;
+            if (inTutorial)
             {
-                timerInput += Time.deltaTime;
-            }
-
-            if(timerInput >= detectionTime)
+                if (bellsTolled.bellToToll.Count != 1)
+                    TutorialCinematic();
+                else
+                    TutorialCinematic(bellsTolled.bellToToll[0]);
+            } else
             {
-                inputDetected = false;
-                timerInput = 0f;
                 checkingSpirits();
                 
                 /* Reset list after every check */
                 bellsTolled.bellToToll.Clear();
                 bellsTolled.tolls = TypesOfTolls.one;
-
             }
-            /* Enfermer boucle dans un if timer == 2 et repasser ça en update ? */
-        
-        //}
-        
-        //yield return null;
+        }
     }
 
     private int BellNameToIndex(BellName name)
@@ -305,5 +304,13 @@ public class GameManager : MonoBehaviour
                 return 5;
         }
         return -1;
+    }
+    private void TutorialCinematic(BellName name) {
+        ; 
+    }
+
+    private void TutorialCinematic()
+    {
+        ;
     }
 }
