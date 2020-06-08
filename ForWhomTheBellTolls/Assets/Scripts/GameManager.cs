@@ -65,6 +65,18 @@ public class GameManager : MonoBehaviour
      */
     public List<GameObject> bells;
 
+    public GameObject CM_vcam1_Main;
+    public GameObject CM_vcam1_Statue;
+    public GameObject CM_vcam1_DysonSphere;
+    public GameObject CM_vcam1_Sundial;
+    public GameObject CM_vcam1_Arch;
+    public GameObject CM_vcam1_Stele;
+    public GameObject CM_vcam1_Temple;
+
+    public float timeCameraTutorial = 3;
+    private float tutotime = -1;
+    private bool[] tutoBell;
+
     Toll bellsTolled;
 
     private WaitForSeconds waitSeconds = new WaitForSeconds(5f);
@@ -87,7 +99,7 @@ public class GameManager : MonoBehaviour
     [FMODUnity.EventRef, SerializeField]
     private string newSpirit;
 
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -102,10 +114,14 @@ public class GameManager : MonoBehaviour
             else
                 currentSpirits.Add(Instantiate(spirits[i].gameObject, new Vector3(), Quaternion.identity).GetComponent<SpiritObject>());
         }
+
+        tutoBell = new bool[6];
+        for  (int i = 0; i< tutoBell.Length;++i)
+             tutoBell[i]= false;
         /* Init sound */
         //soundevent = FMODUnity.RuntimeManager.CreateInstance(houseRing);
 
-    //StartCoroutine(gameloop());
+        //StartCoroutine(gameloop());
 
     }
 
@@ -256,6 +272,8 @@ public class GameManager : MonoBehaviour
                 RuntimeManager.PlayOneShot(sundialRing, bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position);
                 break;
         }
+
+        bells[BellNameToIndex(b)].GetComponentInChildren<ParticleSystem>().Play();
     }
 
     void Update()
@@ -265,6 +283,16 @@ public class GameManager : MonoBehaviour
             timerInput += Time.deltaTime;
         }
 
+        if (tutotime>-1)
+        {
+            tutotime += Time.deltaTime;
+            if (tutotime > timeCameraTutorial)
+            {
+                TutorialCinematic();
+                tutotime = -1;
+            }
+        }
+
         if(timerInput >= detectionTime)
         {
             inputDetected = false;
@@ -272,9 +300,22 @@ public class GameManager : MonoBehaviour
             if (inTutorial)
             {
                 if (bellsTolled.bellToToll.Count != 1)
+                {
                     TutorialCinematic();
-                else
+                    bellsTolled.bellToToll.Clear();
+                }
+                else 
+                { 
                     TutorialCinematic(bellsTolled.bellToToll[0]);
+                    tutotime = 0;
+                    tutoBell[BellNameToIndex(bellsTolled.bellToToll[0])] = true;
+                    bellsTolled.bellToToll.Clear();
+                    inTutorial = !(tutoBell[0] && tutoBell[1] && tutoBell[2] && tutoBell[3] && tutoBell[4] && tutoBell[5]);
+                    if (!inTutorial)
+                    {
+                        //event fin de tutorial
+                    }
+                }
             } else
             {
                 checkingSpirits();
@@ -305,12 +346,91 @@ public class GameManager : MonoBehaviour
         }
         return -1;
     }
+    
+
+    
     private void TutorialCinematic(BellName name) {
-        ; 
+        if (name == BellName.Dyson) // Dysonsphere
+        {
+            CM_vcam1_DysonSphere.SetActive(true);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.Statue) // Statue
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(true);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.Stele) // Stele
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(true);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.House) // Temple
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(true);
+            return;
+        }
+
+        if (name == BellName.Arch) // Arch
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(true);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.Sundial) // Sundial
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(true);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
     }
 
     private void TutorialCinematic()
     {
-        ;
+        CM_vcam1_DysonSphere.SetActive(false);
+        CM_vcam1_Main.SetActive(true);
+        CM_vcam1_Statue.SetActive(false);
+        CM_vcam1_Sundial.SetActive(false);
+        CM_vcam1_Arch.SetActive(false);
+        CM_vcam1_Stele.SetActive(false);
+        CM_vcam1_Temple.SetActive(false);
     }
 }
