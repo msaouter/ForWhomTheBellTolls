@@ -74,6 +74,17 @@ public class GameManager : MonoBehaviour
     public GameObject CM_vcam1_Stele;
     public GameObject CM_vcam1_Temple;
 
+    /* Grand mère
+     * Hiver
+     * Etoile
+     * Mort Humain
+     * Cimetiere
+     * Hirondelles
+     * Table
+     * Roi
+     * DiviniteOubliee
+     * Musique
+     */
     public bool[] spiritToSpawn;
 
     public float timeCameraTutorial = 3;
@@ -103,7 +114,7 @@ public class GameManager : MonoBehaviour
     [FMODUnity.EventRef, SerializeField]
     private string newSpirit;
 
-    
+    public GameObject canva;
 
     // Start is called before the first frame update
     void Start()
@@ -115,10 +126,6 @@ public class GameManager : MonoBehaviour
         tutoBell = new bool[6];
 
         spiritToSpawn = new bool[spirits.Count];
-        spiritToSpawn[0] = true;
-        spiritToSpawn[1] = true;
-
-        TutorialStart();
     }
 
     
@@ -412,12 +419,13 @@ public class GameManager : MonoBehaviour
         CM_vcam1_Temple.SetActive(false);
     }
 
-    private void TutorialStart()
+    public void TutorialStart()
     {
         tutotime = -1;
         for (int i = 0; i < tutoBell.Length; ++i)
             tutoBell[i] = false;
         inTutorial = true;
+        canva.SetActive(false);
     }
 
     public void Restart()
@@ -428,11 +436,11 @@ public class GameManager : MonoBehaviour
         foreach (SpiritObject s in appaisedSpirits)
             Destroy(s.gameObject);
 
+        currentSpirits.Clear();
+        appaisedSpirits.Clear();
         timer = 0f;
         timerInput = 0f;
-        
-
-        TutorialStart();
+        canva.SetActive(true);
     }
 
 
