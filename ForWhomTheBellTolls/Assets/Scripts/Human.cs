@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Human : MonoBehaviour
 {
-    PlayerInput inputs;
+
     public static GameManager gameManager;
 
     /* If button associated with the bell have been pressed, register it on the buffer
@@ -64,6 +64,12 @@ public class Human : MonoBehaviour
         if (Gamepad.current.rightTrigger.wasPressedThisFrame)
         {
             gameManager.registerBell(BellName.House);
+        }
+
+        /* Reset la partie */
+        if (Gamepad.current.startButton.wasPressedThisFrame)
+        {
+            gameManager.Restart();
         }
     }
 

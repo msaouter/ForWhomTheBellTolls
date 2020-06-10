@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     private float gameDuration = 480f;
 
     public List<GameObject> spirits;
+    private List<SpiritObject> appaisedSpirits = new List<SpiritObject>();
 
     public List<Transform> spawnPoints;
     
@@ -73,9 +74,12 @@ public class GameManager : MonoBehaviour
     public GameObject CM_vcam1_Stele;
     public GameObject CM_vcam1_Temple;
 
+    public bool[] spiritToSpawn;
+
     public float timeCameraTutorial = 3;
     private float tutotime = -1;
     private bool[] tutoBell;
+
 
     Toll bellsTolled;
 
@@ -108,47 +112,38 @@ public class GameManager : MonoBehaviour
         
         bellsTolled = new Toll(bellNames, TypesOfTolls.one);
 
-        for (int i = 0; i < spirits.Count; i++) {
-            if (i < spawnPoints.Count)
-                currentSpirits.Add(Instantiate(spirits[i].gameObject, spawnPoints[i].position, Quaternion.identity).GetComponent<SpiritObject>());
-            else
-                currentSpirits.Add(Instantiate(spirits[i].gameObject, new Vector3(), Quaternion.identity).GetComponent<SpiritObject>());
-        }
-
         tutoBell = new bool[6];
-        for  (int i = 0; i< tutoBell.Length;++i)
-             tutoBell[i]= false;
-        /* Init sound */
-        //soundevent = FMODUnity.RuntimeManager.CreateInstance(houseRing);
 
-        //StartCoroutine(gameloop());
+        spiritToSpawn = new bool[spirits.Count];
+        spiritToSpawn[0] = true;
+        spiritToSpawn[1] = true;
 
+        TutorialStart();
     }
 
     
-    IEnumerator generateRandomSpirit(int index)
+
+    IEnumerator GenerateSpirit(float timeWated)
     {
-        /* destroy the spirit apaised */
-        Destroy(currentSpirits[index]);
+        int i = 0;
+        for (int IndexToSpawn = 0;IndexToSpawn < spirits.Count;++IndexToSpawn)
+        {
+            if (spiritToSpawn[IndexToSpawn]) { 
+                yield return new WaitForSeconds(timeWated);
+                /* LIGNE COM SUIVANTE A IMPLEMENTER */
+                if (i < spawnPoints.Count)
+                {
+                    currentSpirits.Add(Instantiate(spirits[IndexToSpawn].gameObject, spawnPoints[i].position, Quaternion.identity).GetComponent<SpiritObject>());
+                    ++i;
+                }
+                else
+                    currentSpirits.Add(Instantiate(spirits[IndexToSpawn].gameObject, new Vector3(), Quaternion.identity).GetComponent<SpiritObject>());
 
-        /* LIGNE COM SUIVANTE A IMPLEMENTER */
-        /* Dire qu'un emplacement est déjà occupé pour ne pas spaw 2 esprits au même point */
-        int rand = Random.Range(0, spirits.Count);
-        int randPos = Random.Range(0, spawnPoints.Count);
-
-        float x = spirits[index].transform.position.x + spawnPoints[randPos].transform.position.x;
-        float y = spirits[index].transform.position.y + spawnPoints[randPos].transform.position.y;
-        float z = spirits[index].transform.position.z + spawnPoints[randPos].transform.position.z;
-
-        Instantiate(spirits[rand].gameObject, new Vector3(x, y, z), Quaternion.identity);
-
-        currentSpirits[index].SetTargetInitial();
-
-        yield return new WaitForSeconds(4f);
-        RuntimeManager.PlayOneShot(newSpirit, currentSpirits[index].transform.position);
-        yield return new WaitForSeconds(4f);
+                RuntimeManager.PlayOneShot(newSpirit, currentSpirits[IndexToSpawn].transform.position);
+            }
+        }
+        yield break;
     }
-
 
     void checkingSpirits()
     {
@@ -158,38 +153,20 @@ public class GameManager : MonoBehaviour
             if (currentSpirits[j].TollBell(bellsTolled))
             {
                 currentSpirits[j].SetTargetRound(bells[BellNameToIndex(bellsTolled.bellToToll[0])].transform.position);
-            }
-            else
-            {
-                //currentSpirits[j].SetTargetInitialRound(2);
-            }
-
-
-            if (currentSpirits[j].IsApaised())
-            {
-                Debug.Log("Spirit apaised");
-                RuntimeManager.PlayOneShot(apaisedSpirit, currentSpirits[j].transform.position);
-                currentSpirits[j].playApaised();
-                currentSpirits[j].DoTheDance();
-                currentSpirits.RemoveAt(j);
-                j--;
+                if (currentSpirits[j].IsApaised())
+                {
+                    Debug.Log("Spirit apaised");
+                    RuntimeManager.PlayOneShot(apaisedSpirit, currentSpirits[j].transform.position);
+                    currentSpirits[j].playApaised();
+                    currentSpirits[j].DoTheDance();
+                    appaisedSpirits.Add(currentSpirits[j]);
+                    currentSpirits.RemoveAt(j);
+                    j--;
+                }
             }
         }
     }
 
-    private int countItem(List<BellName> bellNames, BellName bellToCount)
-    {
-        int count = 0;
-
-        foreach(BellName b in bellNames)
-        {
-            if(b == bellToCount)
-            {
-                count++;
-            }
-        }
-        return count;
-    }
 
 
     public void registerBell(BellName bellName)
@@ -314,6 +291,7 @@ public class GameManager : MonoBehaviour
                     if (!inTutorial)
                     {
                         //event fin de tutorial
+                        StartGame();
                     }
                 }
             } else
@@ -432,5 +410,37 @@ public class GameManager : MonoBehaviour
         CM_vcam1_Arch.SetActive(false);
         CM_vcam1_Stele.SetActive(false);
         CM_vcam1_Temple.SetActive(false);
+    }
+
+    private void TutorialStart()
+    {
+        tutotime = -1;
+        for (int i = 0; i < tutoBell.Length; ++i)
+            tutoBell[i] = false;
+        inTutorial = true;
+    }
+
+    public void Restart()
+    {
+        Debug.Log("StartGame");
+        foreach (SpiritObject s in currentSpirits)
+            Destroy(s.gameObject);
+        foreach (SpiritObject s in appaisedSpirits)
+            Destroy(s.gameObject);
+
+        timer = 0f;
+        timerInput = 0f;
+        
+
+        TutorialStart();
+    }
+
+
+    public float timeBeteweenSpawn = 2f;
+    private void StartGame()
+    {
+        Debug.Log("StartGame");
+        
+        StartCoroutine(GenerateSpirit(timeBeteweenSpawn));
     }
 }
