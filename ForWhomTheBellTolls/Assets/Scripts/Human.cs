@@ -26,8 +26,6 @@ public class Human : MonoBehaviour
             Debug.LogError("Gamepad missing");
         }
 
-        /* Remettre un Toll */
-
         /*dyson*/
         if (Gamepad.current.buttonSouth.wasPressedThisFrame)
         {
