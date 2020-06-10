@@ -16,7 +16,7 @@ MonoBehaviour:
   Min: 0
   Max: 4
   Default: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &-8286331497187359919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   lastModified: 637254266802723775
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &-7097691167970856876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,13 +50,13 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Sphere
   guid: fc94f47a49d14347b89ffc0c7b45a000
   Banks:
-  - {fileID: -8286331497187359919}
+  - {fileID: -5858927337155961461}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 30
   Length: 4006
 --- !u!114 &-6878303130458496856
 MonoBehaviour:
@@ -73,14 +73,49 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Statue
   guid: 9063eee246f07845a10a9dabc7c8a06e
   Banks:
-  - {fileID: -8286331497187359919}
+  - {fileID: -5858927337155961461}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 30
   Length: 3992
+--- !u!114 &-6176494957895455993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Couche_Esprit/Nombre Esprit
+  m_EditorClassIdentifier: 
+  Name: Nombre Esprit
+  Min: 0
+  Max: 4
+  Default: 0
+  Exists: 1
+--- !u!114 &-5858927337155961461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Bells.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/Bells.bank
+  SubDir: 
+  lastModified: 637260111859642337
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-5786494474384948927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +153,7 @@ MonoBehaviour:
   FileSizes:
   - Name: Desktop
     Value: 1412
-  Exists: 1
+  Exists: 0
 --- !u!114 &-5140338197136664408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +193,7 @@ MonoBehaviour:
   lastModified: 637254266802983023
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &-1271527142462510359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +209,7 @@ MonoBehaviour:
   Path: event:/Esprit/Nouveau
   guid: 91b85bfba5128e4d8128fe3cbcd1697e
   Banks:
-  - {fileID: -2402478689864805398}
+  - {fileID: 5795045807105149945}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -197,13 +232,13 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Arch
   guid: bd01f9a813ed5f44a99451eba55bed2d
   Banks:
-  - {fileID: -8286331497187359919}
+  - {fileID: -5858927337155961461}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 60
   Length: 3992
 --- !u!114 &-113189186357941757
 MonoBehaviour:
@@ -222,7 +257,7 @@ MonoBehaviour:
   lastModified: 637254266803122650
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &-105080607841188967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,12 +273,12 @@ MonoBehaviour:
   Path: event:/Ambiance/Couche_Esprit
   guid: 60a9236e7c9f6845add387959980e142
   Banks:
-  - {fileID: 1356494874048628954}
+  - {fileID: 5525838833844925305}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -9052174361623138856}
+  - {fileID: -6176494957895455993}
   MinDistance: 0
   MaxDistance: 0
   Length: 0
@@ -260,11 +295,11 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -5361540113817259472}
-  - {fileID: 1356494874048628954}
-  - {fileID: -8286331497187359919}
-  - {fileID: -2402478689864805398}
-  - {fileID: -113189186357941757}
+  - {fileID: 2188497472452666186}
+  - {fileID: 5525838833844925305}
+  - {fileID: -5858927337155961461}
+  - {fileID: 5795045807105149945}
+  - {fileID: 3961160496695170403}
   EditorEvents:
   - {fileID: 6078719622790783916}
   - {fileID: 8420079630551466120}
@@ -278,10 +313,10 @@ MonoBehaviour:
   - {fileID: -1271527142462510359}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -113189186357941757}
+  - {fileID: 3961160496695170403}
   StringsBanks:
-  - {fileID: -5361540113817259472}
-  stringsBankWriteTime: 637254266803272260
+  - {fileID: 2188497472452666186}
+  stringsBankWriteTime: 637260111860122004
   cacheVersion: 3
 --- !u!114 &563220618885003682
 MonoBehaviour:
@@ -298,13 +333,13 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Temple
   guid: 21fd1ccbb18d45449a82a6fce3fb9e17
   Banks:
-  - {fileID: -8286331497187359919}
+  - {fileID: -5858927337155961461}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 55
   Length: 3992
 --- !u!114 &1356494874048628954
 MonoBehaviour:
@@ -323,7 +358,7 @@ MonoBehaviour:
   lastModified: 637254266805187131
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &1461075142055235298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +396,7 @@ MonoBehaviour:
   Path: event:/Esprit/Apaise
   guid: 3775633ddae54d4ab136f6f9b3564e4e
   Banks:
-  - {fileID: -2402478689864805398}
+  - {fileID: 5795045807105149945}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -369,6 +404,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4692
+--- !u!114 &2188497472452666186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/Master.strings.bank
+  SubDir: 
+  lastModified: 637260111860122004
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 1412
+  Exists: 1
 --- !u!114 &3118069472676452415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +442,60 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 0
+--- !u!114 &3961160496695170403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637260111860002088
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &5525838833844925305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/AMB.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/AMB.bank
+  SubDir: 
+  lastModified: 637260111861331490
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &5795045807105149945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Esprit.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/Esprit.bank
+  SubDir: 
+  lastModified: 637260111859592343
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &6078719622790783916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,13 +511,13 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Sundial
   guid: 031156d571906b4fa614cdd5ea823aa7
   Banks:
-  - {fileID: -8286331497187359919}
+  - {fileID: -5858927337155961461}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 45
   Length: 3992
 --- !u!114 &6867855493432748432
 MonoBehaviour:
@@ -443,13 +552,13 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Stele
   guid: 084be84bf4702f4493d1ce3d52305c1a
   Banks:
-  - {fileID: -8286331497187359919}
+  - {fileID: -5858927337155961461}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 40
   Length: 3992
 --- !u!114 &9083681973143231879
 MonoBehaviour:
@@ -466,7 +575,7 @@ MonoBehaviour:
   Path: event:/Ambiance/AMB_Fixe
   guid: 48820007ce243749a15338bf6e26a4c7
   Banks:
-  - {fileID: 1356494874048628954}
+  - {fileID: 5525838833844925305}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87bcb59c6b85bfa41b2fc4b411a417e3, type: 3}
+  m_Name: "L'\xE9toile"
+  m_EditorClassIdentifier: 
+  spiritName: "L'\xE9toile"
+  description: "J'ai v\xE9cu des milliers d'ann\xE9es; plus brillante que jamais;/
+    vous m'observiez \xE0 travers votre lunette; cherchant \xE0 percer le moindre
+    de mes myst\xE8res. Mais aujourd'hui je vous offrirais le plus beau des spectacles;/
+    je vous montrerais tout ce que peux faire une derni\xE8re fois avant de moi-m\xEAme
+    rendre mon dernier souffle."
+  moves:
+  - bellToToll: 03000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 04000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 05000000
+    tolls: 0
+    timeInBetween: 30

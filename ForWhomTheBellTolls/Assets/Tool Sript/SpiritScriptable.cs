@@ -4,12 +4,12 @@ using UnityEngine;
 
 public enum BellName
 {
-    Dyson,
-    Statue,
-    Stele,
     Arch,
+    Statue,
+    House,
     Sundial,
-    House
+    Dyson,
+    Stele
 }
 
 public enum TypesOfTolls

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87bcb59c6b85bfa41b2fc4b411a417e3, type: 3}
+  m_Name: L'Hirondelle
+  m_EditorClassIdentifier: 
+  spiritName: L'Hirondelle
+  description: "Mon histoire commence avec une coquille. Ma premi\xE8re demeure.
+    La douceur et la chaleur m'ont toujours tenue compagnie jusqu'\xE0 ce que mon
+    impatience de voir le monde me la fase quitter./ Arriva ensuite le grand saut
+    dans l'inconnu... Je ressens encore mes ailes qui se d\xE9ploient et la r\xE9sistance
+    de l'air qui lisse mes plumes. Les distances que j'imaginais depuis mon nids
+    sont d\xE9sormais transcend\xE9es.Je peux voler partout l\xE0 ou je le souhaite./
+    Le cycle se perp\xE9tue continuellement. Il est bon de savoir que les plus jeunes
+    d'entre nous ferons aussi ce voyage; inscrit dans leurs g\xE8nes; parcourant
+    les fronti\xE8res; sans avoir jamais une fois dout\xE9."
+  moves:
+  - bellToToll: 02000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 04000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 0000000004000000
+    tolls: 0
+    timeInBetween: 30

@@ -402,14 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a63158a6ac0c1242b9d53f855ebee53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plusX:
-    x: 0
-    y: 0
-    z: 0
-  minusX:
-    x: 0
-    y: 0
-    z: 0
 --- !u!4 &134211929
 Transform:
   m_ObjectHideFlags: 0
@@ -418,7 +410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134211927}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.033798, y: 5.55418, z: 15.292948}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5896,6 +5888,7 @@ GameObject:
   - component: {fileID: 1789953365}
   - component: {fileID: 1789953364}
   - component: {fileID: 1789953363}
+  - component: {fileID: 1789953369}
   m_Layer: 0
   m_Name: Le mort humain
   m_TagString: Untagged
@@ -5916,8 +5909,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spirit: {fileID: 0}
-  forwardSpeed: 1
-  selfRotationForward: 1
+  currentMove: 0
+  selfRotationForward: 0
   selfRotationSpeedForward: 50
   delayOnAttTargInSec: 1
   vfxPointer: {fileID: 126652044}
@@ -5926,20 +5919,22 @@ MonoBehaviour:
   minY: 0.5
   speedUpDown: 2
   upAndDownSlowDown: 1.4
-  minDistanceOfTarget: 3
+  minDistanceOfTarget: 1
   distanceMinToTargetFinal: 3
-  maxAngle: 45
-  speedChase: 6
-  turnSpeedChase: 1
-  rotationSpeed: 1
-  forwardTurnSpeed: 5
-  angleOfRotation: 40
-  slowDownInTurn: 0.5
-  inChase: 1
-  turn: 1
-  target: {fileID: 1397448570}
+  speedChase: 3
+  turnSpeedChase: 2
+  forwardTurnSpeed: 2
+  inChase: 0
+  turn: 0
+  target: {x: 0, y: 0, z: 0}
+  targetList: []
+  indice: 0
   initialRotation: 1
-  roundSpeed: 4
+  roundSpeed: 60
+  distanceMinOfRotation: 0.5
+  distanceSwitchRotation: -0.01
+  distanceMinOfDance: 10
+  doTheDance: 0
   distanceMinToTarget: 2
   angleMinToTarget: 10
 --- !u!114 &1789953364
@@ -6032,7 +6027,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: -0.97, z: -4.33}
+      - m_Value: {x: 0, y: -1.97, z: -4.33}
         m_Name: AttractiveTargetPosition
         m_Overridden: 1
     m_Vector4f:
@@ -6059,7 +6054,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789953362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 644173298}
@@ -6073,6 +6068,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1789953369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789953362}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c2ab4a71abcd54390306159d8a50c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1914728078
 GameObject:
   m_ObjectHideFlags: 0
