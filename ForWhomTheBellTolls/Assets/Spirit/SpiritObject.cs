@@ -565,6 +565,11 @@ public class SpiritObject : MonoBehaviour
         }
     }
 
+    public void playApaised()
+    {
+        visual.SendEvent("OnCalm");
+    }
+
 
     ~SpiritObject()
     {
