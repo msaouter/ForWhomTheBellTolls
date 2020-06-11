@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
      * 4. Esprit apaisé, on remet un nouvel esprit
      * */
 
+     /* Pour scale utiser le scale + strenth 
+      * lightnig * 2
+      * FarLightning
+      * Particule de l'expension
+      */
+
     public static GameManager _instance;
     public static GameManager Instance
     {
@@ -141,12 +147,12 @@ public class GameManager : MonoBehaviour
                 if (i < spawnPoints.Count)
                 {
                     currentSpirits.Add(Instantiate(spirits[IndexToSpawn].gameObject, spawnPoints[i].position, Quaternion.identity).GetComponent<SpiritObject>());
-                    ++i;
                 }
                 else
                     currentSpirits.Add(Instantiate(spirits[IndexToSpawn].gameObject, new Vector3(), Quaternion.identity).GetComponent<SpiritObject>());
 
-                RuntimeManager.PlayOneShot(newSpirit, currentSpirits[IndexToSpawn].transform.position);
+                RuntimeManager.PlayOneShot(newSpirit, currentSpirits[i].transform.position);
+                ++i;
             }
         }
         yield break;

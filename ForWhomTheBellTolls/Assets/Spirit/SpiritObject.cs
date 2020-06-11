@@ -54,14 +54,14 @@ public class SpiritObject : MonoBehaviour
     */
 
     //public float forwardSpeed = 1;
-    public bool selfRotationForward = false;
-    public float selfRotationSpeedForward = 1;
+    /*public bool selfRotationForward = false;
+    public float selfRotationSpeedForward = 1;*/
 
     /* Delay of the attractive target for vfx */
-    public float delayOnAttTargInSec = 1;
+    /*public float delayOnAttTargInSec = 1;
     private float delay;
     private List<Vector3> lastPosition;
-    public Transform vfxPointer;
+    public Transform vfxPointer;*/
 
     /* Up & down move */
     public bool upDownMove = true;
@@ -94,6 +94,7 @@ public class SpiritObject : MonoBehaviour
     public float distanceSwitchRotation = -.1f;
     public float distanceMinOfDance = 20;
     public VisualEffect visual;
+    public GameObject wave;
 
     public bool doTheDance = false;
 
@@ -102,7 +103,7 @@ public class SpiritObject : MonoBehaviour
     void Start()
     {
         //delay = delayOnAttTargInSec;
-        lastPosition = new List<Vector3>();
+        //lastPosition = new List<Vector3>();
         upDownMove = upDownMove && (minY < maxY);
         startingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         this.transform.position += new Vector3(distanceMinOfRotation,0,0);
@@ -128,10 +129,11 @@ public class SpiritObject : MonoBehaviour
         {
             TimerManagement();
 
-
+            /*
             if (selfRotationForward)
                 SelfRotationForward();
-            //DelayAttractivePropertyTarget();
+            DelayAttractivePropertyTarget();
+            */
             if (upDownMove)
                 UpDownMove();
 
@@ -147,15 +149,14 @@ public class SpiritObject : MonoBehaviour
         if (currentMove >= 1)
         {
             //timer += Time.deltaTime;
-        }
-
-        if (currentMove >= 1 && timer > spirit.moves[currentMove].timeInBetween)
-        {
-            Debug.Log("Timer over");
-            Frangipane();
-            currentMove = 0;
-            timer = 0;
-            //resetFx ?
+            if (timer > spirit.moves[currentMove].timeInBetween)
+            {
+                Debug.Log("Timer over");
+                Frangipane();
+                currentMove = 0;
+                timer = 0;
+                //resetFx ?
+            }
         }
     }
 
@@ -221,12 +222,11 @@ public class SpiritObject : MonoBehaviour
     */    
     
     
-
+/*
     protected void SelfRotationForward()
     {
         this.transform.Rotate(new Vector3(0, 0, selfRotationSpeedForward * Time.deltaTime));
     }
-
 
     //Regler le retard property attractive tareget
     protected void DelayAttractivePropertyTarget()
@@ -240,6 +240,7 @@ public class SpiritObject : MonoBehaviour
         else
             delay -= Time.deltaTime;
     }
+    */
 
     /* Spirit move up & down */
     protected void UpDownMove()
@@ -316,6 +317,8 @@ public class SpiritObject : MonoBehaviour
             Debug.Log("Right move");
             ++currentMove;
             visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
+            wave.SetActive(false);
+            wave.SetActive(true);
             //timer = 0;
             return true;
         }
