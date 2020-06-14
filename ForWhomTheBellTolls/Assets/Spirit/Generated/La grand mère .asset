@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: "La grand m\xE8re "
   m_EditorClassIdentifier: 
   spiritName: "La grand m\xE8re "
-  description: "Faites beaucoup de bruit mes petits enfants; je n'arrive pas \xE0
-    vous voir.../ J'aimerais tant vous transmettre tous ce que je sais.../ Lorsque
-    vous n'aurez plus besoin de moi sonnez la cloche de ma derni\xE8re demeure..."
+  description: "O\xF9 \xEAtes-vous mes petits-enfants ?; je n'arrive pas \xE0 vous
+    voir.../ J'ai peur de ne pas vous avoir transmis tout mon savoir.../ Sonnez la
+    cloche de ma derni\xE8re demeure pour que vos anc\xEAtres vous restent en m\xE9moire..."
   moves:
   - bellToToll: 01000000
     tolls: 0

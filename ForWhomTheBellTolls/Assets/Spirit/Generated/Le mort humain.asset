@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Le mort humain
   m_EditorClassIdentifier: 
   spiritName: Le mort humain
-  description: "Qui suis-je?/ Ou vais-je ?/ Par o\xF9 ?"
+  description: "Qui suis-je?/ O\xF9 suis-je ?/ Que m'est il arriv\xE9 ?"
   moves:
   - bellToToll: 01000000
     tolls: 0
@@ -21,6 +21,6 @@ MonoBehaviour:
   - bellToToll: 02000000
     tolls: 0
     timeInBetween: 30
-  - bellToToll: 00000000
+  - bellToToll: 05000000
     tolls: 0
     timeInBetween: 30
