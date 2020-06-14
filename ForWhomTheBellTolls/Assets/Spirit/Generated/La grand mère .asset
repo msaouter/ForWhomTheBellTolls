@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87bcb59c6b85bfa41b2fc4b411a417e3, type: 3}
+  m_Name: "La grand m\xE8re "
+  m_EditorClassIdentifier: 
+  spiritName: "La grand m\xE8re "
+  description: "O\xF9 \xEAtes-vous mes petits-enfants ?; je n'arrive pas \xE0 vous
+    voir.../ J'ai peur de ne pas vous avoir transmis tout mon savoir.../ Sonnez la
+    cloche de ma derni\xE8re demeure pour que vos anc\xEAtres vous restent en m\xE9moire..."
+  moves:
+  - bellToToll: 01000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 0000000004000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 02000000
+    tolls: 0
+    timeInBetween: 30

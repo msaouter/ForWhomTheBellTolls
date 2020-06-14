@@ -1235,8 +1235,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spirit: {fileID: 11400000, guid: e31c0d677ff15a64b9ea096d5c460bfa, type: 2}
   currentMove: 0
+<<<<<<< HEAD
+  selfRotationForward: 0
+=======
   forwardSpeed: 1
   selfRotationForward: 1
+>>>>>>> master
   selfRotationSpeedForward: 50
   delayOnAttTargInSec: 1
   vfxPointer: {fileID: 6257954811861201735}
@@ -1247,19 +1251,20 @@ MonoBehaviour:
   upAndDownSlowDown: 0
   minDistanceOfTarget: 0.5
   distanceMinToTargetFinal: 3
-  maxAngle: 45
   speedChase: 6
   turnSpeedChase: 1
-  rotationSpeed: 1
   forwardTurnSpeed: 1
-  angleOfRotation: 40
-  slowDownInTurn: 0.5
   inChase: 1
   turn: 1
-  target: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
+  targetList: []
+  indice: 0
   initialRotation: 1
-  roundSpeed: 6
-  angle: 0
+  roundSpeed: 40
+  distanceMinOfRotation: 6
+  distanceSwitchRotation: 0.3
+  distanceMinOfDance: 10
+  doTheDance: 0
   distanceMinToTarget: 1
   angleMinToTarget: 10
 --- !u!1 &6257954812259491117

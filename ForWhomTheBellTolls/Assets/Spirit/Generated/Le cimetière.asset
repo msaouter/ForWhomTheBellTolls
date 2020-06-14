@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: "Le cimeti\xE8re"
   m_EditorClassIdentifier: 
   spiritName: "Le cimeti\xE8re"
-  description: "La maison o\xF9 les mor... / ...ts sont li\xE9s"
+  description: "Je suis d'abord un lieu de pri\xE8res./ On me voit malheureusement
+    trop souvent comme une fin/ Mais je suis surtout le lien entre les vivants et
+    les morts"
   moves:
-  - bellToToll: 05000000
-    tolls: 0
-    timeInBetween: 10
   - bellToToll: 02000000
     tolls: 0
-    timeInBetween: 10
-  - bellToToll: 03000000
+    timeInBetween: 30
+  - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 10
+    timeInBetween: 30
+  - bellToToll: 00000000
+    tolls: 0
+    timeInBetween: 30

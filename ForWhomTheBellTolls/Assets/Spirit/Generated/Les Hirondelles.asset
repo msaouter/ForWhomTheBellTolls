@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87bcb59c6b85bfa41b2fc4b411a417e3, type: 3}
+  m_Name: Les Hirondelles
+  m_EditorClassIdentifier: 
+  spiritName: Les Hirondelles
+  description: "Nos histoires commencent avec une coquille. Notre premi\xE8re demeure.
+    La douceur et la chaleur nous ont toujours tenue compagnie jusqu'\xE0 ce que
+    notre impatience de voir le monde nous la fasse quitter./ Arrive ensuite le grand
+    saut dans l'inconnu... Les ailes d\xE9ploy\xE9es; domptant la r\xE9sistance de
+    l'air; transcendant les distances. Nous volons partout o\xF9 le vent nous m\xE8ne./
+    Le cycle doit se perp\xE9tuer continuellement. Les plus jeunes d'entre nous doivent
+    aussi faire ce voyage; inscrit dans leurs g\xE8nes; parcourant inlassablement
+    la Terre; sans avoir jamais une fois dout\xE9."
+  moves:
+  - bellToToll: 02000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 04000000
+    tolls: 0
+    timeInBetween: 30
+  - bellToToll: 0000000004000000
+    tolls: 0
+    timeInBetween: 30

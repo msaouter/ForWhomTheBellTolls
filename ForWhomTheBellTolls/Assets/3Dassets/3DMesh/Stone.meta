@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:ForWhomTheBellTolls/Assets/StreamingAssets/Bells.bank.meta
+guid: abee12dd95903b84fad21393c8126831
+labels:
+- FMOD
+=======
 guid: 1d43e021169076547855ee5af3d1d3c2
 folderAsset: yes
+>>>>>>> master:ForWhomTheBellTolls/Assets/3Dassets/3DMesh/Stone.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

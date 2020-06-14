@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:ForWhomTheBellTolls/Assets/StreamingAssets/Esprit.bank.meta
+guid: bc6399718f789224fa78552f750ea34f
+labels:
+- FMOD
+=======
 guid: b4b4c833b92e23e409eab9d19c09202f
 folderAsset: yes
+>>>>>>> master:ForWhomTheBellTolls/Assets/3Dassets/3DMesh/Trees.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

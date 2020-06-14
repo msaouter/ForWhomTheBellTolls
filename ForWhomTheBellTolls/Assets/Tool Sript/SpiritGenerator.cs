@@ -15,7 +15,7 @@ public class SpiritGenerator : ScriptableObject
             TextAsset csvFile = Resources.Load<TextAsset>(spiritFileName);
             string[] data = csvFile.text.Split('\n');
 
-            GameObject prefab = Resources.Load<GameObject>("Prefab/A_Spirit");
+            GameObject prefab = Resources.Load<GameObject>("Prefab/SpiritFinal/Base");
             for (int i = 1; i < data.Length; ++i)
             {
                 string[] spiritText = data[i].Split(',');

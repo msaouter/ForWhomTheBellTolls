@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
      * 4. Esprit apaisé, on remet un nouvel esprit
      * */
 
+     /* Pour scale utiser le scale + strenth 
+      * lightnig * 2
+      * FarLightning
+      * Particule de l'expension
+      */
+
     public static GameManager _instance;
     public static GameManager Instance
     {
@@ -33,29 +39,65 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public Camera camera;
+
 
     //private bool OnGame = true;
     //private int i = 0;
+    public bool inTutorial = true;
 
     private float timer = 0f;
+    private float timerInput = 0f;
+
+    [SerializeField]
+    private float detectionTime = 2f;
+
+    private bool inputDetected = false;
     
     [SerializeField]
     private float gameDuration = 480f;
 
     public List<GameObject> spirits;
-    public int nbSpirit = 5;
+    private List<SpiritObject> appaisedSpirits = new List<SpiritObject>();
 
-    public List<GameObject> spawnPoints;
+    public List<Transform> spawnPoints;
     
-    public List<GameObject> currentSpirits;
+    public List<SpiritObject> currentSpirits = new List<SpiritObject>();
 
+    /* 0 Arche
+     * 1 Statue
+     * 2 Maison
+     * 3 Cadran
+     * 4 Dyson
+     * 5 Stele
+     */
     public List<GameObject> bells;
 
-    int rand = 0;
-    int randPos = 0;
+    public GameObject CM_vcam1_Main;
+    public GameObject CM_vcam1_Statue;
+    public GameObject CM_vcam1_DysonSphere;
+    public GameObject CM_vcam1_Sundial;
+    public GameObject CM_vcam1_Arch;
+    public GameObject CM_vcam1_Stele;
+    public GameObject CM_vcam1_Temple;
 
-    Toll intermediateList;
+    /* Grand mère
+     * Hiver
+     * Etoile
+     * Mort Humain
+     * Cimetiere
+     * Hirondelles
+     * Table
+     * Roi
+     * DiviniteOubliee
+     * Musique
+     */
+    public bool[] spiritToSpawn;
+
+    public float timeCameraTutorial = 3;
+    private float tutotime = -1;
+    private bool[] tutoBell;
+
+
     Toll bellsTolled;
 
     private WaitForSeconds waitSeconds = new WaitForSeconds(5f);
@@ -78,139 +120,79 @@ public class GameManager : MonoBehaviour
     [FMODUnity.EventRef, SerializeField]
     private string newSpirit;
 
-
+    public GameObject canva;
 
     // Start is called before the first frame update
     void Start()
     {
-        /* Init spirit */
-        if (nbSpirit <= 0)
-        {
-            nbSpirit = 1;
-        }
-
         List<BellName> bellNames = new List<BellName>();
-        List<BellName> bellNamesInter = new List<BellName>();
-
-        intermediateList = new Toll(bellNamesInter, TypesOfTolls.one);
+        
         bellsTolled = new Toll(bellNames, TypesOfTolls.one);
 
-        for(int i = 0; i < nbSpirit; i++){
-            rand = Random.Range(0, spirits.Count);
+        tutoBell = new bool[6];
 
-            randPos = Random.Range(0, spawnPoints.Count);
-
-            float x = spirits[i].transform.position.x + spawnPoints[randPos].transform.position.x;
-            float y = spirits[i].transform.position.y + spawnPoints[randPos].transform.position.y;
-            float z = spirits[i].transform.position.z + spawnPoints[randPos].transform.position.z;
-
-            currentSpirits.Add(Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity));
-
-            currentSpirits[i].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
-
-        }
-
-        /* Init sound */
-         //soundevent = FMODUnity.RuntimeManager.CreateInstance(houseRing);
-
-
-    StartCoroutine(gameloop());
-
+        spiritToSpawn = new bool[spirits.Count];
     }
 
-    void generateRandomSpirit(int index)
+    
+
+    IEnumerator GenerateSpirit(float timeWated)
     {
-        /* destroy the spirit apaised */
-        Destroy(currentSpirits[index]);
+        int i = 0;
+        for (int IndexToSpawn = 0;IndexToSpawn < spirits.Count;++IndexToSpawn)
+        {
+            if (spiritToSpawn[IndexToSpawn]) { 
+                yield return new WaitForSeconds(timeWated);
+                /* LIGNE COM SUIVANTE A IMPLEMENTER */
+                if (i < spawnPoints.Count)
+                {
+                    currentSpirits.Add(Instantiate(spirits[IndexToSpawn].gameObject, spawnPoints[i].position, Quaternion.identity).GetComponent<SpiritObject>());
+                }
+                else
+                    currentSpirits.Add(Instantiate(spirits[IndexToSpawn].gameObject, new Vector3(), Quaternion.identity).GetComponent<SpiritObject>());
 
-        /* LIGNE COM SUIVANTE A IMPLEMENTER */
-        /* Dire qu'un emplacement est déjà occupé pour ne pas spaw 2 esprits au même point */
-        rand = Random.Range(0, spirits.Count);
-        randPos = Random.Range(0, spawnPoints.Count);
-
-        float x = spirits[index].transform.position.x + spawnPoints[randPos].transform.position.x;
-        float y = spirits[index].transform.position.y + spawnPoints[randPos].transform.position.y;
-        float z = spirits[index].transform.position.z + spawnPoints[randPos].transform.position.z;
-
-        currentSpirits[index] = Instantiate(spirits[rand], new Vector3(x, y, z), Quaternion.identity);
-
-        currentSpirits[index].GetComponent<SpiritObject>().target = spawnPoints[randPos].transform;
-
-        RuntimeManager.PlayOneShot(newSpirit, currentSpirits[index].transform.position);
-
-
+                RuntimeManager.PlayOneShot(newSpirit, currentSpirits[i].transform.position);
+                ++i;
+            }
+        }
+        yield break;
     }
-
 
     void checkingSpirits()
     {
         for (int j = 0; j < currentSpirits.Count; j++)
         {
             /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
-            if (currentSpirits[j].GetComponent<SpiritObject>().TollBell(bellsTolled))
+            if (currentSpirits[j].TollBell(bellsTolled))
             {
-                //currentSpirits[j].GetComponent<SpiritObject>().target = [une des bonnes cloches sonnées]
-            }
-            else
-            {
-                //currentSpirits[j].GetComponent<SpiritObject>().target = [un des spawn points]
-            }
-
-
-            if (currentSpirits[j].GetComponent<SpiritObject>().IsApaised())
-            {
-                Debug.Log("Spirit apaised");
-                RuntimeManager.PlayOneShot(apaisedSpirit, currentSpirits[j].transform.position);
-                generateRandomSpirit(j);
+                currentSpirits[j].SetTargetRound(bells[BellNameToIndex(bellsTolled.bellToToll[0])].transform.position);
+                if (currentSpirits[j].IsApaised())
+                {
+                    Debug.Log("Spirit apaised");
+                    RuntimeManager.PlayOneShot(apaisedSpirit, currentSpirits[j].transform.position);
+                    currentSpirits[j].playApaised();
+                    currentSpirits[j].DoTheDance();
+                    appaisedSpirits.Add(currentSpirits[j]);
+                    currentSpirits.RemoveAt(j);
+                    j--;
+                }
             }
         }
     }
 
-    private int countItem(List<BellName> bellNames, BellName bellToCount)
-    {
-        int count = 0;
-
-        foreach(BellName b in bellNames)
-        {
-            if(b == bellToCount)
-            {
-                count++;
-            }
-        }
-        return count;
-    }
 
 
     public void registerBell(BellName bellName)
     {
-        /* Add every input return to an intermediate list */
-        intermediateList.bellToToll.Add(bellName);
+        inputDetected = true;
 
-        /* Séparation volley/one à faire */
-         /* si + 3 fois même cloche dans la liste -> volley
-          * sinon one */
-
-        if(countItem(intermediateList.bellToToll, bellName) > 3)
-        {
-            bellsTolled.tolls = TypesOfTolls.volley;
-        }
-
-        else
-        {
-            bellsTolled.tolls = TypesOfTolls.one;
-        }
+        bellsTolled.tolls = TypesOfTolls.one;
 
         if (!bellsTolled.bellToToll.Contains(bellName))
         {
             bellsTolled.bellToToll.Add(bellName);
-            //checkList(bellsTolled, "bellsTolled");
+            ringBells(bellName);
         }
-
-        /*if(countItem(bellsTolled.bellToToll, bellName) > 1)
-        {
-            Debug.LogError("Bell entered twice");
-        }*/
-
     }
 
     /* Check if gameDuration time have been spend in game */
@@ -239,65 +221,240 @@ public class GameManager : MonoBehaviour
         Debug.Log(listString);
     }
 
-    public void ringBells()
+    public void ringBells(BellName b)
     {
-        //int index;
-        foreach(BellName b in bellsTolled.bellToToll)
+        /* remettre instructions pour sonner les cloches */
+        switch (b)
         {
-            /* remettre instructions pour sonner les cloches */
-            switch (b)
+            case BellName.Dyson:
+                //Debug.Log("Dyson distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position, camera.transform.position));
+                RuntimeManager.PlayOneShot(dysonRing, bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position);
+                //yield return new WaitForSeconds(1f);
+                break;
+
+            case BellName.Arch:
+                //Debug.Log("Arch distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position, camera.transform.position));
+                RuntimeManager.PlayOneShot(archRing, bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position);
+                //yield return new WaitForSeconds(1f);
+                break;
+
+            case BellName.House:
+                //Debug.Log("House distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Temple").transform.position, camera.transform.position));
+                RuntimeManager.PlayOneShot(houseRing, bells.Find(x => x.name == "S_VBell_Temple").transform.position);
+                //yield return new WaitForSeconds(4f);
+                break;
+
+            case BellName.Statue:
+                //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position, camera.transform.position));
+                RuntimeManager.PlayOneShot(statueRing, bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position);
+                //yield return new WaitForSeconds(4f);
+                break;
+
+            case BellName.Stele:
+                //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position, camera.transform.position));
+                RuntimeManager.PlayOneShot(steleRing, bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position);
+                //yield return new WaitForSeconds(4f);
+                break;
+
+            case BellName.Sundial:
+                //Debug.Log("Sundial distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position, camera.transform.position));
+                //yield return new WaitForSeconds(4f);
+                RuntimeManager.PlayOneShot(sundialRing, bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position);
+                break;
+        }
+
+        bells[BellNameToIndex(b)].GetComponentInChildren<ParticleSystem>().Play();
+    }
+
+    void Update()
+    {
+        if (inputDetected)
+        {
+            timerInput += Time.deltaTime;
+        }
+
+        if (tutotime>-1)
+        {
+            tutotime += Time.deltaTime;
+            if (tutotime > timeCameraTutorial)
             {
-                case BellName.Dyson:
-                    //Debug.Log("Dyson distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position, camera.transform.position));
-                    RuntimeManager.PlayOneShot(dysonRing, bells.Find(x => x.name == "S_VBell_Sphere_LP").transform.position);
-                    break;
+                TutorialCinematic();
+                tutotime = -1;
+            }
+        }
 
-                case BellName.Arch:
-                    //Debug.Log("Arch distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position, camera.transform.position));
-                    RuntimeManager.PlayOneShot(archRing, bells.Find(x => x.name == "S_VBell_Arch_LP_01").transform.position);
-                    break;
-
-                case BellName.House:
-                    //Debug.Log("House distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Temple").transform.position, camera.transform.position));
-                    RuntimeManager.PlayOneShot(houseRing, bells.Find(x => x.name == "S_VBell_Temple").transform.position);
-                    break;
-
-                case BellName.Statue:
-                    //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position, camera.transform.position));
-                    RuntimeManager.PlayOneShot(statueRing, bells.Find(x => x.name == "S_VBell_Statue_LP_02").transform.position);
-                    break;
-
-                case BellName.Stele:
-                    //Debug.Log("Statue distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position, camera.transform.position));
-                    RuntimeManager.PlayOneShot(steleRing, bells.Find(x => x.name == "S_VBell_Stele_LP").transform.position);
-                    break;
-
-                case BellName.Sundial:
-                    //Debug.Log("Sundial distance : " + Vector3.Distance(bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position, camera.transform.position));
-                    RuntimeManager.PlayOneShot(sundialRing, bells.Find(x => x.name == "S_VBell_Sundial_LP_01").transform.position);
-                    break;
+        if(timerInput >= detectionTime)
+        {
+            inputDetected = false;
+            timerInput = 0f;
+            if (inTutorial)
+            {
+                if (bellsTolled.bellToToll.Count != 1)
+                {
+                    TutorialCinematic();
+                    bellsTolled.bellToToll.Clear();
+                }
+                else 
+                { 
+                    TutorialCinematic(bellsTolled.bellToToll[0]);
+                    tutotime = 0;
+                    tutoBell[BellNameToIndex(bellsTolled.bellToToll[0])] = true;
+                    bellsTolled.bellToToll.Clear();
+                    inTutorial = !(tutoBell[0] && tutoBell[1] && tutoBell[2] && tutoBell[3] && tutoBell[4] && tutoBell[5]);
+                    if (!inTutorial)
+                    {
+                        //event fin de tutorial
+                        StartGame();
+                    }
+                }
+            } else
+            {
+                checkingSpirits();
+                
+                /* Reset list after every check */
+                bellsTolled.bellToToll.Clear();
+                bellsTolled.tolls = TypesOfTolls.one;
             }
         }
     }
 
-    private IEnumerator gameloop()
+    private int BellNameToIndex(BellName name)
     {
-        while (!isGameOver()) {
-            checkingSpirits();
-
-            /* Pour chaque cloche présente dans la liste, activer son son */
-            ringBells();
-
-            /* Reset list after every check */
-            bellsTolled.bellToToll.Clear();
-            bellsTolled.tolls = TypesOfTolls.one;
-
-            intermediateList.bellToToll.Clear();
-
-            yield return waitSeconds;
-        
+        switch (name)
+        {
+            case BellName.Arch:
+                return 0;
+            case BellName.Statue:
+                return 1;
+            case BellName.House:
+                return 2;
+            case BellName.Sundial:
+                return 3;
+            case BellName.Dyson:
+                return 4;
+            case BellName.Stele:
+                return 5;
         }
+        return -1;
+    }
+    
+
+    
+    private void TutorialCinematic(BellName name) {
+        if (name == BellName.Dyson) // Dysonsphere
+        {
+            CM_vcam1_DysonSphere.SetActive(true);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.Statue) // Statue
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(true);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.Stele) // Stele
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(true);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.House) // Temple
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(true);
+            return;
+        }
+
+        if (name == BellName.Arch) // Arch
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(false);
+            CM_vcam1_Arch.SetActive(true);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+
+        if (name == BellName.Sundial) // Sundial
+        {
+            CM_vcam1_DysonSphere.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Statue.SetActive(false);
+            CM_vcam1_Sundial.SetActive(true);
+            CM_vcam1_Arch.SetActive(false);
+            CM_vcam1_Stele.SetActive(false);
+            CM_vcam1_Temple.SetActive(false);
+            return;
+        }
+    }
+
+    private void TutorialCinematic()
+    {
+        CM_vcam1_DysonSphere.SetActive(false);
+        CM_vcam1_Main.SetActive(true);
+        CM_vcam1_Statue.SetActive(false);
+        CM_vcam1_Sundial.SetActive(false);
+        CM_vcam1_Arch.SetActive(false);
+        CM_vcam1_Stele.SetActive(false);
+        CM_vcam1_Temple.SetActive(false);
+    }
+
+    public void TutorialStart()
+    {
+        tutotime = -1;
+        for (int i = 0; i < tutoBell.Length; ++i)
+            tutoBell[i] = false;
+        inTutorial = true;
+        canva.SetActive(false);
+    }
+
+    public void Restart()
+    {
+        Debug.Log("StartGame");
+        foreach (SpiritObject s in currentSpirits)
+            Destroy(s.gameObject);
+        foreach (SpiritObject s in appaisedSpirits)
+            Destroy(s.gameObject);
+
+        currentSpirits.Clear();
+        appaisedSpirits.Clear();
+        timer = 0f;
+        timerInput = 0f;
+        canva.SetActive(true);
+    }
+
+
+    public float timeBeteweenSpawn = 2f;
+    private void StartGame()
+    {
+        Debug.Log("StartGame");
         
-        yield return null;
+        StartCoroutine(GenerateSpirit(timeBeteweenSpawn));
     }
 }

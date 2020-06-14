@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:ForWhomTheBellTolls/Assets/StreamingAssets/Master.strings.bank.meta
+guid: 7e25b2927abce814989e48c4f17902eb
+labels:
+- FMOD
+=======
 guid: ed817f91ef4e8044fa9aea18049aa7ef
 folderAsset: yes
+>>>>>>> master:ForWhomTheBellTolls/Assets/3Dassets/Material/M_Ground.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
