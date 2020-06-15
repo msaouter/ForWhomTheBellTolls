@@ -9,7 +9,6 @@ public class UI : MonoBehaviour
     public void LaGrandMere(bool b)
     {
         gm.spiritToSpawn[0] = b;
-        Debug.Log(b);
     }
     public void LHiver(bool b)
     {

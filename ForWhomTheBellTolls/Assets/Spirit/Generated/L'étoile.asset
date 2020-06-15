@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: "L'\xE9toile"
   m_EditorClassIdentifier: 
   spiritName: "L'\xE9toile"
-  description: "Je naquis dans des temps imm\xE9moriaux de ce que vous pensez \xEAtre
-    une immense explosion;/ J'\xE9claire et anime tout ce qui m'entoure; je vois
-    na\xEEtre mes premiers enfants gravitant autour de moi/ Puis dans dernier souffle;
-    je me disperse et jusqu'\xE0 ce jour; vous avez de moi en vous."
+  description: "J'ai v\xE9cu des milliers d'ann\xE9es; plus brillante que jamais;/
+    vous m'observiez \xE0 travers votre lunette; cherchant \xE0 percer le moindre
+    de mes myst\xE8res. Mais aujourd'hui je vous offrirais le plus beau des spectacles;/
+    je vous montrerais tout ce que peux faire une derni\xE8re fois avant de moi-m\xEAme
+    rendre mon dernier souffle."
   moves:
   - bellToToll: 03000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 60
   - bellToToll: 04000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 60
   - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 60

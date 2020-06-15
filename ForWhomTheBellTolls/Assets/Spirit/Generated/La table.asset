@@ -16,23 +16,22 @@ MonoBehaviour:
   description: "J'ai grandi avec mes semblables; de fiers bouleaux./ Lorsque j'ai
     rencontr\xE9 pour la premi\xE8re fois ces bip\xE8des avec leur machine destructrice;
     j'ai cru que c'\xE9tait la fin ... On m'a coup\xE9; r\xE9duit; ramen\xE9 de l\xE0
-    o\xF9 je m'\xE9tais \xE9lev\xE9e; couch\xE9 sur le sol \xE9pineux./ Finalement;
-    je me suis juste transform\xE9; j'ai entam\xE9 ma deuxi\xE8me vie aux c\xF4t\xE9s
-    d'une petite bande d'humains./ Ma principale activit\xE9 ? J'ai port\xE9 tout
-    types de mets pendant des ann\xE9es; ceux qu'on partage; j'ai port\xE9 tout types
+    ou je m'\xE9tais \xE9lev\xE9e; couch\xE9 sur le sol \xE9pineux./ Finalement;
+    je me suis juste transform\xE9; j'ai entamm\xE9 ma deuxi\xE8me vie aux cot\xE9s
+    d'une petite bande d'humain./ Ma principale activit\xE9 ? J'ai port\xE9 tous
+    types de mets pendant des ann\xE9es; ceux qu'on partage; j'ai port\xE9 tous types
     de discussion de la chamaillerie enfantine aux r\xE9primandes parentales; du
-    deuil aux f\xEAtes; cela me rappelle ce que j'avais avec mes fr\xE8res... \xD4
-    lecteur; je t'en prie; fais moi vivre de nouveau."
+    deil au f\xEAtes; cela me rappelle ce que j'avais avec mes fr\xE8res..."
   moves:
   - bellToToll: 03000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 60
   - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 60
   - bellToToll: 01000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 60
   - bellToToll: 00000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 60

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
+using FMODUnity;
 
 using Unity.Jobs;
 
@@ -98,6 +99,21 @@ public class SpiritObject : MonoBehaviour
 
     public bool doTheDance = false;
 
+    [FMODUnity.EventRef, SerializeField]
+    private string corruptSpirit;
+
+    /*[FMODUnity.EventRef, SerializeField]
+    private string recorruption;
+
+    [FMODUnity.EventRef, SerializeField]
+    private string waveSound;*/
+
+    private FMOD.Studio.EventInstance instanceCorruptionSpirit;
+
+    public int getCurrentMove()
+    {
+        return this.currentMove;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -108,8 +124,10 @@ public class SpiritObject : MonoBehaviour
         startingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
         this.transform.position += new Vector3(distanceMinOfRotation,0,0);
         SetTargetInitialRound();
-        visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
-
+        instanceCorruptionSpirit = RuntimeManager.CreateInstance(corruptSpirit);
+        instanceCorruptionSpirit.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        UpdateCorruption();
+        instanceCorruptionSpirit.start();
     }
 
     // Update is called once per frame
@@ -306,19 +324,18 @@ public class SpiritObject : MonoBehaviour
             {
                 if (!t.bellToToll.Contains(b))
                 {
-                    Debug.Log("Doesn't contain right bell");
                     Frangipane();
                     currentMove = 0;
-                    visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
+                    UpdateCorruption();
                     //timer = 0;
                     return false;
                 }
             }
-            Debug.Log("Right move");
             ++currentMove;
-            visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
+            UpdateCorruption();
             wave.SetActive(false);
             wave.SetActive(true);
+            //RuntimeManager.PlayOneShot(waveSound, this.transform.position);
             //timer = 0;
             return true;
         }
@@ -326,10 +343,16 @@ public class SpiritObject : MonoBehaviour
         {
             Frangipane();
             currentMove = 0;
-            visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
+            UpdateCorruption();
             //timer = 0;
             return false;
         }
+    }
+
+    void UpdateCorruption()
+    {
+        visual.SetFloat("Corruption Amount", 1 - (float)(currentMove) / spirit.moves.Capacity);
+        instanceCorruptionSpirit.setParameterByName("Apaisement", (float)(currentMove) / spirit.moves.Capacity);
     }
 
     /*
@@ -486,9 +509,11 @@ public class SpiritObject : MonoBehaviour
 
     public void Frangipane()
     {
-        Debug.Log("reset");
         if (currentMove != 0)
+        {
             SetTargetInitialRound(2);
+            //RuntimeManager.PlayOneShot(recorruption, this.transform.position);
+        }
     }
 
     protected List<Vector3> RoundMoveIntermadiaryPoints(int numberOfPoint, Vector3 target)

@@ -47,10 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spirit: {fileID: 0}
   currentMove: 0
-  selfRotationForward: 0
-  selfRotationSpeedForward: 1
-  delayOnAttTargInSec: 1
-  vfxPointer: {fileID: 0}
   upDownMove: 1
   maxY: 7
   minY: 4
@@ -74,6 +70,7 @@ MonoBehaviour:
   visual: {fileID: 7451552200663701224}
   wave: {fileID: 3302733859682829743}
   doTheDance: 0
+  corruptSpirit: event:/Esprit/Mechant
   distanceMinToTarget: 1
   angleMinToTarget: 10
   danceSpeed: 20
