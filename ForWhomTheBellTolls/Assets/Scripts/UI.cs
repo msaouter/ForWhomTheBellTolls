@@ -6,6 +6,8 @@ using UnityEngine;
 public class UI : MonoBehaviour
 {
     public GameManager gm;
+    private bool skipTutorial;
+
     public void LaGrandMere(bool b)
     {
         gm.spiritToSpawn[0] = b;
@@ -47,8 +49,19 @@ public class UI : MonoBehaviour
         gm.spiritToSpawn[9] = b;
     }
 
+    public void SkipTutorial(bool b)
+    {
+        skipTutorial = b;
+    }
+
     public void playButon()
     {
-        gm.TutorialStart();
+        if (skipTutorial)
+        {
+            gm.StartGame();
+            gm.inTutorial = false;
+            this.gameObject.SetActive(false);
+        } else
+            gm.TutorialStart();
     }
 }

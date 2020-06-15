@@ -493,7 +493,7 @@ public class GameManager : MonoBehaviour
 
 
     public float timeBeteweenSpawn = 2f;
-    private void StartGame()
+    public void StartGame()
     {
         Debug.Log("StartGame");
         instanceLayerSpirit.setParameterByName("Nombre Esprit",1);

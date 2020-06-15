@@ -477,7 +477,7 @@ public class SpiritObject : MonoBehaviour
     public void SetTargetRound(Vector3 tar)
     {
         this.target = tar;
-        targetList = RoundMoveIntermadiaryPoints(2, target);
+        targetList = RoundMoveIntermadiaryPoints(3, target);
         inChase = true;
         initialRotation = true;
         indice = 0;
@@ -515,6 +515,7 @@ public class SpiritObject : MonoBehaviour
             //RuntimeManager.PlayOneShot(recorruption, this.transform.position);
         }
     }
+    
 
     protected List<Vector3> RoundMoveIntermadiaryPoints(int numberOfPoint, Vector3 target)
     {
@@ -569,7 +570,6 @@ public class SpiritObject : MonoBehaviour
 
     public void DoTheDance()
     {
-        Debug.Log("do the dance");
         doTheDance = true;
         target = new Vector3();
     }

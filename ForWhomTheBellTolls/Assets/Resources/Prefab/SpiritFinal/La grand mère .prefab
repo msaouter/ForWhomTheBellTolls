@@ -64,7 +64,7 @@ MonoBehaviour:
   indice: 0
   initialRotation: 1
   roundSpeed: 40
-  distanceMinOfRotation: 4
+  distanceMinOfRotation: 3
   distanceSwitchRotation: -0.1
   distanceMinOfDance: 25
   visual: {fileID: 3812907821085720227}
@@ -73,6 +73,7 @@ MonoBehaviour:
   corruptSpirit: event:/Esprit/Mechant
   distanceMinToTarget: 1
   angleMinToTarget: 10
+  deltaDisctanceFinal: 0
   danceSpeed: 20
 --- !u!1 &255121511371932593
 GameObject:
