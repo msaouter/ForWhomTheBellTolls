@@ -52,6 +52,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "a13a3312-3cf0-42fc-b5c7-00a51e43089f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -118,6 +126,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "House",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "60f09832-195f-49ac-94d2-a709050d7d5f",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Restart",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

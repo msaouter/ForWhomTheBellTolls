@@ -19,6 +19,7 @@ public class Human : MonoBehaviour
         }
     }
 
+    
     public void checkBells()
     {
         if (Gamepad.current == null)
@@ -40,7 +41,7 @@ public class Human : MonoBehaviour
         {
             gameManager.registerBell(BellName.Statue);
         }
-       
+
         /*stele*/
         if (Gamepad.current.buttonNorth.wasPressedThisFrame)
         {
@@ -52,13 +53,13 @@ public class Human : MonoBehaviour
         {
             gameManager.registerBell(BellName.Arch);
         }
-        
+
         /*sundial*/
-       if (Gamepad.current.leftTrigger.wasPressedThisFrame)
+        if (Gamepad.current.leftTrigger.wasPressedThisFrame)
         {
             gameManager.registerBell(BellName.Sundial);
         }
-        
+
 
         /*house*/
         if (Gamepad.current.rightTrigger.wasPressedThisFrame)
@@ -72,9 +73,37 @@ public class Human : MonoBehaviour
             gameManager.Restart();
         }
     }
-
+    
     void Update()
     {
-        checkBells();
+        //checkBells();
+    }
+
+    public void House(){
+        gameManager.registerBell(BellName.House);
+    }
+    public void Sundial()
+    {
+        gameManager.registerBell(BellName.Sundial);
+    }
+    public void Arch()
+    {
+        gameManager.registerBell(BellName.Arch);
+    }
+    public void Stele()
+    {
+        gameManager.registerBell(BellName.Stele);
+    }
+    public void Statue()
+    {
+        gameManager.registerBell(BellName.Statue);
+    }
+    public void Dyson()
+    {
+        gameManager.registerBell(BellName.Dyson);
+    }
+    public void Restart()
+    {
+        gameManager.Restart();
     }
 }
