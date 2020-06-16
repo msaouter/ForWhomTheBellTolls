@@ -21,7 +21,7 @@ MonoBehaviour:
   - bellToToll: 0100000004000000
     tolls: 0
     timeInBetween: 60
-  - bellToToll: 0100000004000000
+  - bellToToll: 0500000004000000
     tolls: 0
     timeInBetween: 60
   - bellToToll: 02000000
