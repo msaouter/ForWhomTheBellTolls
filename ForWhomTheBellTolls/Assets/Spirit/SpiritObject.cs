@@ -122,8 +122,10 @@ public class SpiritObject : MonoBehaviour
         //lastPosition = new List<Vector3>();
         upDownMove = upDownMove && (minY < maxY);
         startingPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        this.transform.position += new Vector3(distanceMinOfRotation,0,0);
-        SetTargetInitialRound();
+        target = startingPosition;
+        this.transform.position += new Vector3(distanceMinOfRotation-0.01f,0,0);
+        inChase = false;
+        initialRotation = false;
         instanceCorruptionSpirit = RuntimeManager.CreateInstance(corruptSpirit);
         instanceCorruptionSpirit.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
         UpdateCorruption();
@@ -451,8 +453,8 @@ public class SpiritObject : MonoBehaviour
         if (Vector2.Angle(new Vector2(this.transform.forward.x, this.transform.forward.z), new Vector2(target.x - this.transform.position.x, target.z - this.transform.position.z)) == 90)
             return false;
 
-        this.transform.position += (this.transform.forward * forwardTurnSpeed * Time.deltaTime);
-        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target - transform.position).z, 0, (target - transform.position).x), turnSpeedChase * Time.deltaTime, 0.0f));
+        this.transform.position += (this.transform.forward * speedChase*.5f * Time.deltaTime);
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(target - transform.position).z, 0, (target - transform.position).x), speedChase * Time.deltaTime, 0.0f));
 
 
         return true;
@@ -477,7 +479,7 @@ public class SpiritObject : MonoBehaviour
     public void SetTargetRound(Vector3 tar)
     {
         this.target = tar;
-        targetList = RoundMoveIntermadiaryPoints(3, target);
+        targetList = RoundMoveIntermadiaryPoints(3, target);//3
         inChase = true;
         initialRotation = true;
         indice = 0;
@@ -525,7 +527,7 @@ public class SpiritObject : MonoBehaviour
         {
             result.Add(new Vector3((- this.gameObject.transform.position.x + target.x) * (2*i-1) / (numberOfPoint*2) + this.gameObject.transform.position.x, this.gameObject.transform.position.y, (- this.gameObject.transform.position.z + target.z) * (2 * i - 1) / (numberOfPoint * 2) + this.gameObject.transform.position.z));
         }
-        result.Add(target);
+        //result.Add(target);
         return result;
     }
 
@@ -544,22 +546,22 @@ public class SpiritObject : MonoBehaviour
                 > distanceSwitchRotation)
             {
                 ++indice;
-                transform.RotateAround(targetList[indice], Vector3.up, Mathf.Pow(-1, indice) * roundSpeed * Time.deltaTime);
-                this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, Mathf.Pow(-1, indice) * new Vector3(-(targetList[indice] - transform.position).z, 0, (targetList[indice] - transform.position).x), 100, 0.0f));
+                /*transform.RotateAround(targetList[indice], Vector3.up, Mathf.Pow(-1, indice) * roundSpeed * Time.deltaTime);
+                this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, Mathf.Pow(-1, indice) * new Vector3(-(targetList[indice] - transform.position).z, 0, (targetList[indice] - transform.position).x), 100, 0.0f));*/
                 
             }
-        }/*
+        }
         else if (initialRotation)
         {
             inChase = false;
             initialRotation = InitialRotation();
-        }*/
+        }
         else
         {
             inChase = false;
             if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinOfRotation)
             {
-                this.transform.position += (new Vector3(this.gameObject.transform.position.x - target.x, 0, this.gameObject.transform.position.z - target.z).normalized * speedChase * Time.deltaTime);
+                this.transform.position += (new Vector3(this.gameObject.transform.position.x - target.x, 0, this.gameObject.transform.position.z - target.z).normalized * speedChase/2 * Time.deltaTime) + this.transform.forward * speedChase/2 * Time.deltaTime;
                 //this.transform.Translate((this.transform.position - target).normalized * speedChase * Time.deltaTime); 
             } else
             {
@@ -567,6 +569,8 @@ public class SpiritObject : MonoBehaviour
             }
         }
     }
+
+
 
     public void DoTheDance()
     {

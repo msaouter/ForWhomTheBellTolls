@@ -53,7 +53,7 @@ MonoBehaviour:
   speedUpDown: 3
   upAndDownSlowDown: 2.5
   minDistanceOfTarget: 0.5
-  distanceMinToTargetFinal: 3
+  distanceMinToTargetFinal: 3.5
   speedChase: 5
   turnSpeedChase: 1
   forwardTurnSpeed: 1
@@ -65,7 +65,7 @@ MonoBehaviour:
   initialRotation: 1
   roundSpeed: 40
   distanceMinOfRotation: 3
-  distanceSwitchRotation: -0.1
+  distanceSwitchRotation: -0.01
   distanceMinOfDance: 25
   visual: {fileID: 3812907821085720227}
   wave: {fileID: 4222464100927909676}
@@ -73,7 +73,6 @@ MonoBehaviour:
   corruptSpirit: event:/Esprit/Mechant
   distanceMinToTarget: 1
   angleMinToTarget: 10
-  deltaDisctanceFinal: 0
   danceSpeed: 20
 --- !u!1 &255121511371932593
 GameObject:
