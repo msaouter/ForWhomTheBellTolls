@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class Human : MonoBehaviour
 {
+    //enable gamepad tests
+    //public bool gamepad = true;
     PlayerInput inputs;
     public static GameManager gameManager;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArduinoListener : MonoBehaviour
 {
     public static GameManager gameManager;
-    public bool activated = false;
+    //public bool activated = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +26,8 @@ public class ArduinoListener : MonoBehaviour
         
     }*/
 
-    /* /!\ 1 : pas de contact
-     * 0 : contact */
+    /* 1 : contact
+     * 0 : pas contact */
     void PrintStringParsing(string[] parsed)
     {
         for(int i = 0; i < parsed.Length; i++)
@@ -46,10 +46,10 @@ public class ArduinoListener : MonoBehaviour
     {
         string[] dataParsed = data.Split(','); //Data parsing
 
-        //If there's a 0, it means a bell have been rang
+        //If there's a 1, it means a bell have been rang
         for(int i = 0; i < dataParsed.Length; i++)
         {
-            if (dataParsed[i].Equals("1"))
+            if (dataParsed[i].Equals("0"))
             {
                 /* remplacer cette instruction par register bells */
                 //activated = true;
