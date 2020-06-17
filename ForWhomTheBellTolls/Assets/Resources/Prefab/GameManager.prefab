@@ -1,0 +1,270 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3395501520868230234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3395501520868230238}
+  - component: {fileID: 3395501520868230233}
+  - component: {fileID: 3395501520868230235}
+  - component: {fileID: 3395501520868230232}
+  - component: {fileID: 3395501520868230239}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3395501520868230238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395501520868230234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10, y: 15, z: -20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3395501520868230233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395501520868230234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c195d783f7836c34b8d04e3fc7848878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3395501520868230235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395501520868230234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463e6361e981a114a94e19d4661574a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inTutorial: 1
+  detectionTime: 2
+  gameDuration: 600
+  spirits:
+  - {fileID: 181475736270490693, guid: 51a42aa61e5181449ab1a2d6c0d4ee88, type: 3}
+  - {fileID: 6745486212860396336, guid: 6499ef6d0158daf4987e3e07b48573cb, type: 3}
+  - {fileID: 4823355197879600986, guid: 1a02ec3cc18d587468267aca9d61b449, type: 3}
+  - {fileID: 5331667509341031467, guid: 1de340b91bec997469f2390a60eabc62, type: 3}
+  - {fileID: 6052054895749635491, guid: 01bb687e2fb974049b3d197a408b7000, type: 3}
+  - {fileID: 6325312465576671681, guid: cba73f7b3530b994a90faa3b4c8101d7, type: 3}
+  - {fileID: 5421483424811980426, guid: 8b460b1ecaeb20144a036413a8fdba6a, type: 3}
+  - {fileID: 6852710325220137761, guid: 1adbd34beed476646953c78a1d68c194, type: 3}
+  - {fileID: 4889379466774226576, guid: d2e2c2d608ba8a94dbe895165616c363, type: 3}
+  - {fileID: 8425965820665225596, guid: 7d774d040016f9b4ab99c6b1552ba5d4, type: 3}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentSpirits: []
+  bells:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  CM_vcam1_Main: {fileID: 0}
+  CM_vcam1_Statue: {fileID: 0}
+  CM_vcam1_DysonSphere: {fileID: 0}
+  CM_vcam1_Sundial: {fileID: 0}
+  CM_vcam1_Arch: {fileID: 0}
+  CM_vcam1_Stele: {fileID: 0}
+  CM_vcam1_Temple: {fileID: 0}
+  spiritToSpawn: 
+  timeCameraTutorial: 3
+  dysonRing: event:/Bells/Bell_Sphere
+  steleRing: event:/Bells/Bell_Stele
+  statueRing: event:/Bells/Bell_Statue
+  sundialRing: event:/Bells/Bell_Sundial
+  archRing: event:/Bells/Bell_Arch
+  houseRing: event:/Bells/Bell_Temple
+  apaisedSpirit: event:/Esprit/Apaise
+  newSpirit: event:/Esprit/Nouveau
+  layerSpirit: event:/Ambiance/Couche_Esprit
+  Ouverture: event:/Ambiance/Ouverture
+  fermeture: event:/Ambiance/Fermeture
+  recorruption: event:/Esprit/Redevient Mechant
+  waveSound: event:/Esprit/Onde Bonne
+  canva: {fileID: 0}
+  timeBeteweenSpawn: 4
+--- !u!114 &3395501520868230232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395501520868230234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Ambiance/AMB_Fixe
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
+--- !u!114 &3395501520868230239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395501520868230234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 58d1a13f7e40ac944a9e6a797d250c9f,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3395501520868230233}
+        m_MethodName: Dyson
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b2275821-3278-468f-bd1f-310cd79f7423
+    m_ActionName: Toll/Dyson
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3395501520868230233}
+        m_MethodName: Statue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3c51f438-1439-46f6-a092-28c1ab17a413
+    m_ActionName: Toll/Statue
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3395501520868230233}
+        m_MethodName: Stele
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4ba83845-00ec-4f8e-b25a-703509c02e6d
+    m_ActionName: Toll/Stele
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3395501520868230233}
+        m_MethodName: Arch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c55398f9-3ac3-45d3-b82d-925fbb6f225d
+    m_ActionName: Toll/Arch
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3395501520868230233}
+        m_MethodName: Sundial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b47591a4-0e06-414c-8e01-5aaafc951ce6
+    m_ActionName: Toll/Sundial
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3395501520868230233}
+        m_MethodName: House
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9fa7a943-2a04-491a-bbe3-8f36b755ec23
+    m_ActionName: Toll/House
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3395501520868230233}
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a13a3312-3cf0-42fc-b5c7-00a51e43089f
+    m_ActionName: Toll/Restart
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Toll
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
