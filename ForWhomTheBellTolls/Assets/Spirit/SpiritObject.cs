@@ -555,7 +555,7 @@ public class SpiritObject : MonoBehaviour
             inChase = false;
             if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinOfRotation)
             {
-                this.transform.position += (new Vector3(this.gameObject.transform.position.x - target.x, 0, this.gameObject.transform.position.z - target.z).normalized * speedChase/2 * Time.deltaTime) + this.transform.forward * speedChase/2 * Time.deltaTime;
+                this.transform.position += (new Vector3(this.gameObject.transform.position.x - target.x, 0, this.gameObject.transform.position.z - target.z).normalized * speedChase/4 * Time.deltaTime) + this.transform.forward * speedChase/4 * Time.deltaTime;
                 //this.transform.Translate((this.transform.position - target).normalized * speedChase * Time.deltaTime); 
             } else
             {
