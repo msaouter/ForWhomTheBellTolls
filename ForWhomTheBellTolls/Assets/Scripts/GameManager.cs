@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
         if (!gamepad)
         {
             // Disable gamepad && enable arduino support
-            GetComponent<Human>().enabled = !GetComponent<Human>().enabled;
+            //GetComponent<Human>().enabled = !GetComponent<Human>().enabled;
             GetComponent<SerialController>().enabled = GetComponent<SerialController>().enabled;
             arduinoListener.enabled = arduinoListener.enabled;
         }
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
         else
         {
             //Enable gamepad && disable arduino support
-            GetComponent<Human>().enabled = GetComponent<Human>().enabled;
+            //GetComponent<Human>().enabled = GetComponent<Human>().enabled;
             GetComponent<SerialController>().enabled = !GetComponent<SerialController>().enabled;
             arduinoListener.enabled = !arduinoListener.enabled;
         }
