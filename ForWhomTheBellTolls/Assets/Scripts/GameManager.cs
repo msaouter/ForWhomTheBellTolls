@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
 
                 RuntimeManager.PlayOneShot(newSpirit, currentSpirits[i].transform.position);
                 ++i;
-                instanceLayerSpirit.setParameterByName("Nombre Esprit", i);
+                //instanceLayerSpirit.setParameterByName("Nombre Esprit", i);
             }
         }
         yield break;
@@ -209,9 +209,9 @@ public class GameManager : MonoBehaviour
             }
             i = 0;
         }
-        instanceLayerSpirit.setParameterByName("Nombre Esprit", currentSpirits.Count);
-        if (currentSpirits.Count == 0)
-            RuntimeManager.PlayOneShot(fermeture, this.transform.position);
+        //instanceLayerSpirit.setParameterByName("Nombre Esprit", currentSpirits.Count);
+        //if (currentSpirits.Count == 0)
+            //RuntimeManager.PlayOneShot(fermeture, this.transform.position);
     }
 
 
@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
 
     private void gameOver()
     {
-        RuntimeManager.PlayOneShot(fermeture, this.transform.position);
+        //RuntimeManager.PlayOneShot(fermeture, this.transform.position);
     }
 
     /* Check if gameDuration time have been spend in game */
