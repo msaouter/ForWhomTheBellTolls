@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
     private string apaisedSpirit;
     [FMODUnity.EventRef, SerializeField]
     private string newSpirit;
-    /*
+    
     [FMODUnity.EventRef, SerializeField]
     private string layerSpirit;
 
@@ -129,14 +129,23 @@ public class GameManager : MonoBehaviour
     [FMODUnity.EventRef, SerializeField]
     private string fermeture;
 
+    [FMODUnity.EventRef, SerializeField]
+    private string recorruption;
+
+    [FMODUnity.EventRef, SerializeField]
+    private string waveSound;
+
+
+
     private FMOD.Studio.EventInstance instanceLayerSpirit;
-    */
+    
     public GameObject canva;
 
     // Start is called before the first frame update
     void Start()
     {
-        //instanceLayerSpirit = RuntimeManager.CreateInstance(layerSpirit);
+        instanceLayerSpirit = RuntimeManager.CreateInstance(layerSpirit);
+        
 
         List<BellName> bellNames = new List<BellName>();
         
@@ -166,7 +175,7 @@ public class GameManager : MonoBehaviour
 
                 RuntimeManager.PlayOneShot(newSpirit, currentSpirits[i].transform.position);
                 ++i;
-                //instanceLayerSpirit.setParameterByName("Nombre Esprit", i);
+                instanceLayerSpirit.setParameterByName("Nombre Esprit", i);
             }
         }
         yield break;
@@ -174,12 +183,15 @@ public class GameManager : MonoBehaviour
 
     void checkingSpirits()
     {
+        int i = 0;
         for (int j = 0; j < currentSpirits.Count; j++)
         {
+            i = currentSpirits[j].getCurrentMove();
             /* If true, rights bells have been rang with right tempo so we set spirit target to one of the right bells */
             if (currentSpirits[j].TollBell(bellsTolled))
             {
                 currentSpirits[j].SetTargetRound(bells[BellNameToIndex(bellsTolled.bellToToll[0])].transform.position);
+                RuntimeManager.PlayOneShot(waveSound, currentSpirits[j].transform.position);
                 if (currentSpirits[j].IsApaised())
                 {
                     Debug.Log("Spirit apaised");
@@ -191,11 +203,15 @@ public class GameManager : MonoBehaviour
                     currentSpirits.RemoveAt(j);
                     j--;
                 }
+            } else if(i != 0)
+            {
+                RuntimeManager.PlayOneShot(recorruption, currentSpirits[j].transform.position);
             }
+            i = 0;
         }
-        //instanceLayerSpirit.setParameterByName("Nombre Esprit", currentSpirits.Count);
-        //if (currentSpirits.Count == 0)
-            //RuntimeManager.PlayOneShot(fermeture, this.transform.position);
+        instanceLayerSpirit.setParameterByName("Nombre Esprit", currentSpirits.Count);
+        if (currentSpirits.Count == 0)
+            RuntimeManager.PlayOneShot(fermeture, this.transform.position);
     }
 
 
@@ -215,7 +231,7 @@ public class GameManager : MonoBehaviour
 
     private void gameOver()
     {
-        //RuntimeManager.PlayOneShot(fermeture, this.transform.position);
+        RuntimeManager.PlayOneShot(fermeture, this.transform.position);
     }
 
     /* Check if gameDuration time have been spend in game */
@@ -339,6 +355,7 @@ public class GameManager : MonoBehaviour
                 bellsTolled.tolls = TypesOfTolls.one;
             }
         }
+
     }
 
     private int BellNameToIndex(BellName name)
@@ -455,11 +472,13 @@ public class GameManager : MonoBehaviour
             tutoBell[i] = false;
         inTutorial = true;
         canva.SetActive(false);
+        RuntimeManager.PlayOneShot(Ouverture, this.transform.position);
     }
 
     public void Restart()
     {
-        Debug.Log("StartGame");
+        Debug.Log("RestartGame");
+        RuntimeManager.MuteAllEvents(true);
         foreach (SpiritObject s in currentSpirits)
             Destroy(s.gameObject);
         foreach (SpiritObject s in appaisedSpirits)
@@ -474,12 +493,12 @@ public class GameManager : MonoBehaviour
 
 
     public float timeBeteweenSpawn = 2f;
-    private void StartGame()
+    public void StartGame()
     {
         Debug.Log("StartGame");
-        //instanceLayerSpirit.setParameterByName("Nombre Esprit",0);
-        //instanceLayerSpirit.start();
-        //RuntimeManager.PlayOneShot(Ouverture, this.transform.position);
+        instanceLayerSpirit.setParameterByName("Nombre Esprit",1);
+        instanceLayerSpirit.start();
+        
         StartCoroutine(GenerateSpirit(timeBeteweenSpawn));
     }
 }

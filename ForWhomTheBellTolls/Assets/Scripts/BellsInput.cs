@@ -65,6 +65,14 @@ public class @BellsInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""a13a3312-3cf0-42fc-b5c7-00a51e43089f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -131,6 +139,17 @@ public class @BellsInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""House"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60f09832-195f-49ac-94d2-a709050d7d5f"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Restart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -208,6 +227,7 @@ public class @BellsInput : IInputActionCollection, IDisposable
         m_Toll_Arch = m_Toll.FindAction("Arch", throwIfNotFound: true);
         m_Toll_Sundial = m_Toll.FindAction("Sundial", throwIfNotFound: true);
         m_Toll_House = m_Toll.FindAction("House", throwIfNotFound: true);
+        m_Toll_Restart = m_Toll.FindAction("Restart", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -263,6 +283,7 @@ public class @BellsInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Toll_Arch;
     private readonly InputAction m_Toll_Sundial;
     private readonly InputAction m_Toll_House;
+    private readonly InputAction m_Toll_Restart;
     public struct TollActions
     {
         private @BellsInput m_Wrapper;
@@ -273,6 +294,7 @@ public class @BellsInput : IInputActionCollection, IDisposable
         public InputAction @Arch => m_Wrapper.m_Toll_Arch;
         public InputAction @Sundial => m_Wrapper.m_Toll_Sundial;
         public InputAction @House => m_Wrapper.m_Toll_House;
+        public InputAction @Restart => m_Wrapper.m_Toll_Restart;
         public InputActionMap Get() { return m_Wrapper.m_Toll; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +322,9 @@ public class @BellsInput : IInputActionCollection, IDisposable
                 @House.started -= m_Wrapper.m_TollActionsCallbackInterface.OnHouse;
                 @House.performed -= m_Wrapper.m_TollActionsCallbackInterface.OnHouse;
                 @House.canceled -= m_Wrapper.m_TollActionsCallbackInterface.OnHouse;
+                @Restart.started -= m_Wrapper.m_TollActionsCallbackInterface.OnRestart;
+                @Restart.performed -= m_Wrapper.m_TollActionsCallbackInterface.OnRestart;
+                @Restart.canceled -= m_Wrapper.m_TollActionsCallbackInterface.OnRestart;
             }
             m_Wrapper.m_TollActionsCallbackInterface = instance;
             if (instance != null)
@@ -322,6 +347,9 @@ public class @BellsInput : IInputActionCollection, IDisposable
                 @House.started += instance.OnHouse;
                 @House.performed += instance.OnHouse;
                 @House.canceled += instance.OnHouse;
+                @Restart.started += instance.OnRestart;
+                @Restart.performed += instance.OnRestart;
+                @Restart.canceled += instance.OnRestart;
             }
         }
     }
@@ -379,5 +407,6 @@ public class @BellsInput : IInputActionCollection, IDisposable
         void OnArch(InputAction.CallbackContext context);
         void OnSundial(InputAction.CallbackContext context);
         void OnHouse(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
     }
 }
