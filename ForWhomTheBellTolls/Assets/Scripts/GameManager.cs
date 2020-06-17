@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> bells;
 
     public GameObject CM_vcam1_Main;
+    public GameObject CM_vcam1_Tuto;
     public GameObject CM_vcam1_Statue;
     public GameObject CM_vcam1_DysonSphere;
     public GameObject CM_vcam1_Sundial;
@@ -145,7 +146,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instanceLayerSpirit = RuntimeManager.CreateInstance(layerSpirit);
-        
+
+        TutorialCinematic();
 
         List<BellName> bellNames = new List<BellName>();
         
@@ -384,72 +386,78 @@ public class GameManager : MonoBehaviour
         if (name == BellName.Dyson) // Dysonsphere
         {
             CM_vcam1_DysonSphere.SetActive(true);
-            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Tuto.SetActive(false);
             CM_vcam1_Statue.SetActive(false);
             CM_vcam1_Sundial.SetActive(false);
             CM_vcam1_Arch.SetActive(false);
             CM_vcam1_Stele.SetActive(false);
             CM_vcam1_Temple.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
             return;
         }
 
         if (name == BellName.Statue) // Statue
         {
             CM_vcam1_DysonSphere.SetActive(false);
-            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Tuto.SetActive(false);
             CM_vcam1_Statue.SetActive(true);
             CM_vcam1_Sundial.SetActive(false);
             CM_vcam1_Arch.SetActive(false);
             CM_vcam1_Stele.SetActive(false);
             CM_vcam1_Temple.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
             return;
         }
 
         if (name == BellName.Stele) // Stele
         {
             CM_vcam1_DysonSphere.SetActive(false);
-            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Tuto.SetActive(false);
             CM_vcam1_Statue.SetActive(false);
             CM_vcam1_Sundial.SetActive(false);
             CM_vcam1_Arch.SetActive(false);
             CM_vcam1_Stele.SetActive(true);
             CM_vcam1_Temple.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
             return;
         }
 
         if (name == BellName.House) // Temple
         {
             CM_vcam1_DysonSphere.SetActive(false);
-            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Tuto.SetActive(false);
             CM_vcam1_Statue.SetActive(false);
             CM_vcam1_Sundial.SetActive(false);
             CM_vcam1_Arch.SetActive(false);
             CM_vcam1_Stele.SetActive(false);
             CM_vcam1_Temple.SetActive(true);
+            CM_vcam1_Main.SetActive(false);
             return;
         }
 
         if (name == BellName.Arch) // Arch
         {
             CM_vcam1_DysonSphere.SetActive(false);
-            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Tuto.SetActive(false);
             CM_vcam1_Statue.SetActive(false);
             CM_vcam1_Sundial.SetActive(false);
             CM_vcam1_Arch.SetActive(true);
             CM_vcam1_Stele.SetActive(false);
             CM_vcam1_Temple.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
             return;
         }
 
         if (name == BellName.Sundial) // Sundial
         {
             CM_vcam1_DysonSphere.SetActive(false);
-            CM_vcam1_Main.SetActive(false);
+            CM_vcam1_Tuto.SetActive(false);
             CM_vcam1_Statue.SetActive(false);
             CM_vcam1_Sundial.SetActive(true);
             CM_vcam1_Arch.SetActive(false);
             CM_vcam1_Stele.SetActive(false);
             CM_vcam1_Temple.SetActive(false);
+            CM_vcam1_Main.SetActive(false);
             return;
         }
     }
@@ -457,12 +465,13 @@ public class GameManager : MonoBehaviour
     private void TutorialCinematic()
     {
         CM_vcam1_DysonSphere.SetActive(false);
-        CM_vcam1_Main.SetActive(true);
+        CM_vcam1_Tuto.SetActive(true);
         CM_vcam1_Statue.SetActive(false);
         CM_vcam1_Sundial.SetActive(false);
         CM_vcam1_Arch.SetActive(false);
         CM_vcam1_Stele.SetActive(false);
         CM_vcam1_Temple.SetActive(false);
+        CM_vcam1_Main.SetActive(false);
     }
 
     public void TutorialStart()
@@ -495,6 +504,16 @@ public class GameManager : MonoBehaviour
     public float timeBeteweenSpawn = 2f;
     public void StartGame()
     {
+        tutotime = -1;
+        CM_vcam1_DysonSphere.SetActive(false);
+        CM_vcam1_Tuto.SetActive(false);
+        CM_vcam1_Statue.SetActive(false);
+        CM_vcam1_Sundial.SetActive(false);
+        CM_vcam1_Arch.SetActive(false);
+        CM_vcam1_Stele.SetActive(false);
+        CM_vcam1_Temple.SetActive(false);
+        CM_vcam1_Main.SetActive(true);
+
         Debug.Log("StartGame");
         instanceLayerSpirit.setParameterByName("Nombre Esprit",1);
         instanceLayerSpirit.start();

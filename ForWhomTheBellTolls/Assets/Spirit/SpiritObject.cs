@@ -102,12 +102,6 @@ public class SpiritObject : MonoBehaviour
     [FMODUnity.EventRef, SerializeField]
     private string corruptSpirit;
 
-    /*[FMODUnity.EventRef, SerializeField]
-    private string recorruption;
-
-    [FMODUnity.EventRef, SerializeField]
-    private string waveSound;*/
-
     private FMOD.Studio.EventInstance instanceCorruptionSpirit;
 
     public int getCurrentMove()
@@ -576,16 +570,22 @@ public class SpiritObject : MonoBehaviour
     {
         doTheDance = true;
         target = new Vector3();
+        targetList.Clear();
+        if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinOfDance)
+        {
+            targetList.Add(this.transform.position + (new Vector3(this.gameObject.transform.position.x - target.x, 0, this.gameObject.transform.position.z - target.z).normalized * (distanceMinOfDance - Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)))/2));
+        }
     }
 
     public float danceSpeed = 20;
+    public float dancePrecision = 0.001f;
     public void TurnAroudnCenter()
     {
 
-        if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) < distanceMinOfDance)
+        if (Vector2.Distance(new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.z), new Vector2(target.x, target.z)) + dancePrecision < distanceMinOfDance)
         {
-            this.transform.position +=(new Vector3(this.gameObject.transform.position.x - target.x, 0 , this.gameObject.transform.position.z - target.z).normalized * speedChase * Time.deltaTime);
-            
+            transform.RotateAround(targetList[0], Vector3.up, roundSpeed * Time.deltaTime);
+            this.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, new Vector3(-(targetList[0] - transform.position).z, 0, (targetList[0] - transform.position).x), 100, 0.0f));
             //this.transform.Translate((this.transform.position - target).normalized * speedChase * Time.deltaTime); 
         }
         else
