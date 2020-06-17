@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
     private string apaisedSpirit;
     [FMODUnity.EventRef, SerializeField]
     private string newSpirit;
-
+    /*
     [FMODUnity.EventRef, SerializeField]
     private string layerSpirit;
 
@@ -130,13 +130,13 @@ public class GameManager : MonoBehaviour
     private string fermeture;
 
     private FMOD.Studio.EventInstance instanceLayerSpirit;
-
+    */
     public GameObject canva;
 
     // Start is called before the first frame update
     void Start()
     {
-        instanceLayerSpirit = RuntimeManager.CreateInstance(layerSpirit);
+        //instanceLayerSpirit = RuntimeManager.CreateInstance(layerSpirit);
 
         List<BellName> bellNames = new List<BellName>();
         
@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
 
                 RuntimeManager.PlayOneShot(newSpirit, currentSpirits[i].transform.position);
                 ++i;
-                instanceLayerSpirit.setParameterByName("Nombre Esprit", i);
+                //instanceLayerSpirit.setParameterByName("Nombre Esprit", i);
             }
         }
         yield break;
@@ -193,9 +193,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        instanceLayerSpirit.setParameterByName("Nombre Esprit", currentSpirits.Count);
-        if (currentSpirits.Count == 0)
-            RuntimeManager.PlayOneShot(fermeture, this.transform.position);
+        //instanceLayerSpirit.setParameterByName("Nombre Esprit", currentSpirits.Count);
+        //if (currentSpirits.Count == 0)
+            //RuntimeManager.PlayOneShot(fermeture, this.transform.position);
     }
 
 
@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
 
     private void gameOver()
     {
-        RuntimeManager.PlayOneShot(fermeture, this.transform.position);
+        //RuntimeManager.PlayOneShot(fermeture, this.transform.position);
     }
 
     /* Check if gameDuration time have been spend in game */
@@ -477,9 +477,9 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         Debug.Log("StartGame");
-        instanceLayerSpirit.setParameterByName("Nombre Esprit",0);
-        instanceLayerSpirit.start();
-        RuntimeManager.PlayOneShot(Ouverture, this.transform.position);
+        //instanceLayerSpirit.setParameterByName("Nombre Esprit",0);
+        //instanceLayerSpirit.start();
+        //RuntimeManager.PlayOneShot(Ouverture, this.transform.position);
         StartCoroutine(GenerateSpirit(timeBeteweenSpawn));
     }
 }
