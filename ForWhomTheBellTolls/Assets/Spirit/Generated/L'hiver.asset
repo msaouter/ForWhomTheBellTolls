@@ -13,18 +13,17 @@ MonoBehaviour:
   m_Name: L'hiver
   m_EditorClassIdentifier: 
   spiritName: L'hiver
-  description: "Apr\xE8s la chaleur de l'\xE9t\xE9 et la douceur de l'automne; je
-    me d\xE9voile dans mon habit glacial. Je reste \xE0 vos c\xF4t\xE9 pendant trois
-    mois/ avant que votre astre ne se soit enfin rapproch\xE9 de la lumi\xE8re pour
-    faire fondre mon coeur de glace. Pendant ce temps; vous profitez de soir\xE9es
-    en famille au coin du feu apr\xE8s avoir jou\xE9 avec mon manteau blanc."
+  description: "Pendant trois mois; la terre devient mon terrain de jeu avant d'\xEAtre
+    chass\xE9 par mon grand fr\xE8re./ J'enveloppe le monde de mon manteau blanc
+    et danse avec vous./ Je viens tous vous saluer; de l'enfant jouant dehors au
+    vieillard dans son lit.. Je vous en prie; revenez jouer avec moi."
   moves:
   - bellToToll: 03000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90
   - bellToToll: 04000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90
   - bellToToll: 01000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90

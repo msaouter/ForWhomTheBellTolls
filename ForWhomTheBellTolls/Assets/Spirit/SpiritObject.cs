@@ -92,7 +92,7 @@ public class SpiritObject : MonoBehaviour
     public bool initialRotation = true;
     public float roundSpeed = 40;
     public float distanceMinOfRotation = 4;
-    public float distanceSwitchRotation = -.1f;
+    public float distanceSwitchRotation = -.01f;
     public float distanceMinOfDance = 20;
     public VisualEffect visual;
     public GameObject wave;

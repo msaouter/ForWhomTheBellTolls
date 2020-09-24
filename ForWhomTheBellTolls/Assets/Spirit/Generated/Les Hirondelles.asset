@@ -19,15 +19,15 @@ MonoBehaviour:
     saut dans l'inconnu... Les ailes d\xE9ploy\xE9es; domptant la r\xE9sistance de
     l'air; transcendant les distances. Nous volons partout o\xF9 le vent nous m\xE8ne./
     Le cycle doit se perp\xE9tuer continuellement. Les plus jeunes d'entre nous doivent
-    aussi faire ce voyage; inscrit dans leurs g\xE8nes; parcourant inlassablement
+    ainsi faire ce voyage; inscrit dans leurs g\xE8nes; parcourant inlassablement
     la Terre; sans avoir jamais une fois dout\xE9."
   moves:
   - bellToToll: 02000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 90
   - bellToToll: 04000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 90
   - bellToToll: 0000000004000000
     tolls: 0
-    timeInBetween: 30
+    timeInBetween: 90

@@ -139,13 +139,15 @@ public class GameManager : MonoBehaviour
 
 
     private FMOD.Studio.EventInstance instanceLayerSpirit;
-    
+    private FMOD.Studio.EventInstance instanceFermeture;
+
     public GameObject canva;
 
     // Start is called before the first frame update
     void Start()
     {
         instanceLayerSpirit = RuntimeManager.CreateInstance(layerSpirit);
+        instanceFermeture = RuntimeManager.CreateInstance(fermeture);
 
         TutorialCinematic();
 
@@ -233,7 +235,7 @@ public class GameManager : MonoBehaviour
 
     private void gameOver()
     {
-        RuntimeManager.PlayOneShot(fermeture, this.transform.position);
+        instanceFermeture.start();
     }
 
     /* Check if gameDuration time have been spend in game */
@@ -319,7 +321,12 @@ public class GameManager : MonoBehaviour
             tutotime += Time.deltaTime;
             if (tutotime > timeCameraTutorial)
             {
-                TutorialCinematic();
+                if (inTutorial)
+                    TutorialCinematic();
+                else
+                {
+                    mainCam();
+                }
                 tutotime = -1;
             }
         }
@@ -380,7 +387,17 @@ public class GameManager : MonoBehaviour
         return -1;
     }
     
-
+    public void mainCam()
+    {
+        CM_vcam1_DysonSphere.SetActive(false);
+        CM_vcam1_Tuto.SetActive(false);
+        CM_vcam1_Statue.SetActive(false);
+        CM_vcam1_Sundial.SetActive(false);
+        CM_vcam1_Arch.SetActive(false);
+        CM_vcam1_Stele.SetActive(false);
+        CM_vcam1_Temple.SetActive(false);
+        CM_vcam1_Main.SetActive(true);
+    }
     
     private void TutorialCinematic(BellName name) {
         if (name == BellName.Dyson) // Dysonsphere
@@ -487,12 +504,12 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         Debug.Log("RestartGame");
-        RuntimeManager.MuteAllEvents(true);
+        
         foreach (SpiritObject s in currentSpirits)
             Destroy(s.gameObject);
         foreach (SpiritObject s in appaisedSpirits)
             Destroy(s.gameObject);
-
+        instanceFermeture.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         currentSpirits.Clear();
         appaisedSpirits.Clear();
         timer = 0f;
@@ -504,16 +521,8 @@ public class GameManager : MonoBehaviour
     public float timeBeteweenSpawn = 2f;
     public void StartGame()
     {
-        tutotime = -1;
-        CM_vcam1_DysonSphere.SetActive(false);
-        CM_vcam1_Tuto.SetActive(false);
-        CM_vcam1_Statue.SetActive(false);
-        CM_vcam1_Sundial.SetActive(false);
-        CM_vcam1_Arch.SetActive(false);
-        CM_vcam1_Stele.SetActive(false);
-        CM_vcam1_Temple.SetActive(false);
-        CM_vcam1_Main.SetActive(true);
 
+        
         Debug.Log("StartGame");
         instanceLayerSpirit.setParameterByName("Nombre Esprit",1);
         instanceLayerSpirit.start();

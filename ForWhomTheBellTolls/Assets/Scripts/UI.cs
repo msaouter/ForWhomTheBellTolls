@@ -60,6 +60,7 @@ public class UI : MonoBehaviour
         {
             gm.StartGame();
             gm.inTutorial = false;
+            gm.mainCam();
             this.gameObject.SetActive(false);
         } else
             gm.TutorialStart();

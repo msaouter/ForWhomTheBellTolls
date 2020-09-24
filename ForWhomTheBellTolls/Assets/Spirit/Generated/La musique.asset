@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spiritName: La musique
   description: Mais au fond; je suis la pulsation qui fait battre le coeur des Hommes.
-  moves: []
+  moves:
+  - bellToToll: 0100000003000000
+    tolls: 0
+    timeInBetween: 90

@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: "La divinit\xE9 oubli\xE9e"
   m_EditorClassIdentifier: 
   spiritName: "La divinit\xE9 oubli\xE9e"
-  description: 
-  moves: []
+  description: "Comment ai-je pu \xEAtre effac\xE9 m\xEAme de la derni\xE8re gravure
+    ? oubli\xE9e ? "
+  moves:
+  - bellToToll: 05000000
+    tolls: 0
+    timeInBetween: 90

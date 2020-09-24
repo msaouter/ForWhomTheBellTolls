@@ -7,26 +7,54 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-<<<<<<< HEAD
-[LOG] AsyncManager::init                       : manager 000002CF428351A8 isAsync 0 updatePeriod 0.02
-=======
-[LOG] AsyncManager::init                       : manager 0000022FDF4F9AA8 isAsync 0 updatePeriod 0.02
->>>>>>> Graph_02
+[LOG] AsyncManager::init                       : manager 000002A2A16F8A38 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] PlaybackSystem::init                     : done
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Priority: 0, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
-[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
+[LOG] SoundI::release                          : Fin plus douce + percu (000002A2A1CFEAC8)
+[LOG] SoundI::release                          :     Fin plus douce + percu (000002A209A857D8)
+[LOG] SoundI::release                          :     Fin plus douce + percu (000002A2A1CFEC78)
 [LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-<<<<<<< HEAD
+[LOG] Manager::readBank                        : fileversion = 125, compatVersion = 119 (oldest = 44, newest = 125)
+[LOG] SystemI::createSound                     : filename = Assets/Fmod/Build/Desktop/AMB.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000002A20DFBCB18 : node = 000002A25CA4DDF0
+[LOG] SystemI::createSound                     : add node to async list : head = 000002A20DC2F808.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000002A20DFBCB18
+[LOG] SystemI::createSoundInternal             :     Create name='Assets/Fmod/Build/Desktop/AMB.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 15545632
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 9888
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000002A25CA4DF00
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Fin plus douce + percu', format=2, channels=2, frequency=48000, lengthbytes=879168, lengthpcm=3576000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.503072.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000002A20DFBCB18
+[LOG] SoundI::getSubSound                      : sound 000002A20DFBCB18.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Fin plus douce + percu (000002A20DFBCB18)
+[LOG] SoundI::release                          :     Fin plus douce + percu (000002A209A85B18)
+[LOG] SoundI::release                          :     Fin plus douce + percu (000002A20DFBD6E8)
+[LOG] SoundI::release                          : Esprit_Mechant_Final (000002A1F160DE08)
+[LOG] SoundI::release                          :     Esprit_Mechant_Final (000002A209A85158)
+[LOG] SoundI::release                          :     Esprit_Mechant_Final (000002A1F160D088)
+[LOG] SoundI::release                          : AMB_Fixe_Bells (000002A20DFBE468)
+[LOG] SoundI::release                          :     AMB_Fixe_Bells (000002A20DC23558)
+[LOG] SoundI::release                          :     AMB_Fixe_Bells (000002A20DFBD538)
+[LOG] SoundI::release                          :  (000002A25C9BDFE8)
+[LOG] SoundI::release                          :     Bell_Arch_Essai4 (000002A209A82D98)
+[LOG] SoundI::release                          :  (000002A25C9BA0A8)
+[LOG] SoundI::release                          :     Bell_Temple_Essai7 (000002A209A85638)
+[LOG] SoundI::release                          :  (000002A25C9BE9F8)
+[LOG] SoundI::release                          :     Onde_Bonne11 (000002A209A842B8)
+[LOG] SoundI::release                          :  (000002A25C9BF408)
+[LOG] SoundI::release                          :     Esprit_Apaisé7 (000002A209A84938)
+[LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
@@ -34,5 +62,12 @@
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
 [LOG] SystemI::close                           : Closed.
-=======
->>>>>>> Graph_02
+[LOG] Thread::callback                         : FMOD Studio bank load thread finished.
+[LOG] Thread::callback                         : FMOD Studio sample load thread finished.
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] Thread::callback                         : FMOD stream thread finished.
+[LOG] Thread::callback                         : FMOD mixer thread finished.
+[LOG] Thread::callback                         : FMOD nonblocking thread (0) finished.
+[LOG] Thread::callback                         : FMOD file thread finished.
+[LOG] SystemI::close                           : Closed.

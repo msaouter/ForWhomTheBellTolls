@@ -53,7 +53,7 @@ MonoBehaviour:
   speedUpDown: 3
   upAndDownSlowDown: 2.5
   minDistanceOfTarget: 0.5
-  distanceMinToTargetFinal: 3
+  distanceMinToTargetFinal: 3.5
   speedChase: 5
   turnSpeedChase: 1
   forwardTurnSpeed: 1
@@ -64,8 +64,8 @@ MonoBehaviour:
   indice: 0
   initialRotation: 1
   roundSpeed: 40
-  distanceMinOfRotation: 4
-  distanceSwitchRotation: -0.1
+  distanceMinOfRotation: 3
+  distanceSwitchRotation: -0.01
   distanceMinOfDance: 25
   visual: {fileID: 7451552200663701224}
   wave: {fileID: 3302733859682829743}
@@ -74,6 +74,7 @@ MonoBehaviour:
   distanceMinToTarget: 1
   angleMinToTarget: 10
   danceSpeed: 20
+  dancePrecision: 0.001
 --- !u!1 &3512495474141768753
 GameObject:
   m_ObjectHideFlags: 0

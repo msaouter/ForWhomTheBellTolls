@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: Le roi sans divertissement
   m_EditorClassIdentifier: 
   spiritName: Le roi sans divertissement
-  description: "De tous je suis le plus puissant et instruit de mes paires.../ Mais
-    \xE0 quoi bon car cela n'est rien fasse \xE0 la connaissance de ma propre condition
+  description: "De tous je suis le plus puissant et instruit de mes pairs.../ Mais
+    \xE0 quoi bon ? Cela n'est rien face \xE0 la connaissance de ma propre condition
     de mortel.../ Qui viendra me sauver ? Dieu ?/ Un Homme ?/ Un esprit de la for\xEAt
     ?.../  Non; ma seule issue fut une ultime balade; fumant; explosant mon humanit\xE9."
   moves:
   - bellToToll: 0100000004000000
     tolls: 0
-    timeInBetween: 60
-  - bellToToll: 0500000004000000
+    timeInBetween: 90
+  - bellToToll: 0400000005000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90
   - bellToToll: 02000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90
   - bellToToll: 01000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90
   - bellToToll: 0000000002000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90
   - bellToToll: 0100000005000000
     tolls: 0
-    timeInBetween: 60
+    timeInBetween: 90
