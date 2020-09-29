@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Statue
   guid: 9063eee246f07845a10a9dabc7c8a06e
   Banks:
-  - {fileID: 6842329295994177404}
+  - {fileID: -5171109209216830870}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -41,6 +41,42 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &-7907550757800895538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637277457848218085
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-6074056869198252963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Esprit.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/Esprit.bank
+  SubDir: 
+  lastModified: 637280383746801048
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-5664801148259776017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,7 +92,7 @@ MonoBehaviour:
   Path: event:/Esprit/Nouveau
   guid: 91b85bfba5128e4d8128fe3cbcd1697e
   Banks:
-  - {fileID: -8776408185914316771}
+  - {fileID: -6074056869198252963}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -79,15 +115,33 @@ MonoBehaviour:
   Path: event:/Esprit/Mechant
   guid: 5056f1dbc96fed40af8855a5d7c99caa
   Banks:
-  - {fileID: -8776408185914316771}
+  - {fileID: -6074056869198252963}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 7956961940540150343}
+  - {fileID: 9199811938482468864}
   MinDistance: 0
   MaxDistance: 80
   Length: 0
+--- !u!114 &-5171109209216830870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Bells.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/Bells.bank
+  SubDir: 
+  lastModified: 637278216895674397
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-3346356901533234805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +210,7 @@ MonoBehaviour:
   Path: event:/Esprit/Redevient Mechant
   guid: 48101ace17c28b4d9279fb76716c93d3
   Banks:
-  - {fileID: -8776408185914316771}
+  - {fileID: -6074056869198252963}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -178,11 +232,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Fmod/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637365479468721377
+  lastModified: 637277509559731461
   LoadResult: 0
   FileSizes:
   - Name: 
     Value: 1762
+  Exists: 1
+--- !u!114 &-1676204451583229130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Couche_Esprit/Nombre Esprit
+  m_EditorClassIdentifier: 
+  Name: Nombre Esprit
+  Min: 0
+  Max: 6
+  Default: 0
   Exists: 1
 --- !u!114 &-1070021631870736752
 MonoBehaviour:
@@ -199,12 +270,12 @@ MonoBehaviour:
   Path: event:/Ambiance/Couche_Esprit
   guid: 60a9236e7c9f6845add387959980e142
   Banks:
-  - {fileID: -2962948286889847414}
+  - {fileID: 6895966904376616974}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -3336794654431913621}
+  - {fileID: -1676204451583229130}
   MinDistance: 0
   MaxDistance: 0
   Length: 0
@@ -222,11 +293,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -2750285572050714179}
-  - {fileID: -2962948286889847414}
-  - {fileID: 6842329295994177404}
-  - {fileID: -8776408185914316771}
-  - {fileID: -3346356901533234805}
-  - {fileID: 5937047764427757525}
+  - {fileID: 6895966904376616974}
+  - {fileID: -5171109209216830870}
+  - {fileID: -6074056869198252963}
+  - {fileID: 146452115651756935}
+  - {fileID: -7907550757800895538}
   EditorEvents:
   - {fileID: 3481129628856728033}
   - {fileID: 8639038697695575602}
@@ -246,11 +317,29 @@ MonoBehaviour:
   - {fileID: 1311470845284210404}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 5937047764427757525}
+  - {fileID: -7907550757800895538}
   StringsBanks:
   - {fileID: -2750285572050714179}
-  stringsBankWriteTime: 637365479468721377
+  stringsBankWriteTime: 637277509559731461
   cacheVersion: 3
+--- !u!114 &146452115651756935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/FeedBakcs.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/FeedBakcs.bank
+  SubDir: 
+  lastModified: 637278130698956151
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &1311470845284210404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +355,7 @@ MonoBehaviour:
   Path: event:/Esprit/Onde Mauvaise
   guid: f0d052ecc7b90a4dbfa5073a8ff2b30b
   Banks:
-  - {fileID: -8776408185914316771}
+  - {fileID: -6074056869198252963}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -289,7 +378,7 @@ MonoBehaviour:
   Path: event:/Esprit/Apaise
   guid: 3775633ddae54d4ab136f6f9b3564e4e
   Banks:
-  - {fileID: -8776408185914316771}
+  - {fileID: -6074056869198252963}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -312,7 +401,7 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Sphere
   guid: fc94f47a49d14347b89ffc0c7b45a000
   Banks:
-  - {fileID: 6842329295994177404}
+  - {fileID: -5171109209216830870}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -335,7 +424,7 @@ MonoBehaviour:
   Path: event:/Ambiance/Fermeture
   guid: f4bcf152826f65429f3b4a260142923f
   Banks:
-  - {fileID: -2962948286889847414}
+  - {fileID: 6895966904376616974}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -358,7 +447,7 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Stele
   guid: 084be84bf4702f4493d1ce3d52305c1a
   Banks:
-  - {fileID: 6842329295994177404}
+  - {fileID: -5171109209216830870}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -381,7 +470,7 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Arch
   guid: bd01f9a813ed5f44a99451eba55bed2d
   Banks:
-  - {fileID: 6842329295994177404}
+  - {fileID: -5171109209216830870}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -404,7 +493,7 @@ MonoBehaviour:
   Path: event:/Ambiance/Ouverture
   guid: 0831313bddf5f74dbdb97ab3359ae6fd
   Banks:
-  - {fileID: -2962948286889847414}
+  - {fileID: 6895966904376616974}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -427,7 +516,7 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Sundial
   guid: 031156d571906b4fa614cdd5ea823aa7
   Banks:
-  - {fileID: 6842329295994177404}
+  - {fileID: -5171109209216830870}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -450,7 +539,7 @@ MonoBehaviour:
   Path: event:/Esprit/Onde Bonne
   guid: 4405eb8bd5366846aa6e49ce345515dc
   Banks:
-  - {fileID: -8776408185914316771}
+  - {fileID: -6074056869198252963}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -494,6 +583,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &6895966904376616974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/AMB.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Fmod/Build/Desktop/AMB.bank
+  SubDir: 
+  lastModified: 637280383748260153
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &7956961940540150343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,7 +633,7 @@ MonoBehaviour:
   Path: event:/Ambiance/AMB_Fixe
   guid: 48820007ce243749a15338bf6e26a4c7
   Banks:
-  - {fileID: -2962948286889847414}
+  - {fileID: 6895966904376616974}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -549,7 +656,7 @@ MonoBehaviour:
   Path: event:/Bells/Bell_Temple
   guid: 21fd1ccbb18d45449a82a6fce3fb9e17
   Banks:
-  - {fileID: 6842329295994177404}
+  - {fileID: -5171109209216830870}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -557,3 +664,20 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 55
   Length: 3992
+--- !u!114 &9199811938482468864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Mechant/Apaisement
+  m_EditorClassIdentifier: 
+  Name: Apaisement
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
