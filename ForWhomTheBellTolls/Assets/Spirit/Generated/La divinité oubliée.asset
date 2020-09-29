@@ -18,4 +18,4 @@ MonoBehaviour:
   moves:
   - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10

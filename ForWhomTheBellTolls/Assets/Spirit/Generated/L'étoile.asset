@@ -16,14 +16,14 @@ MonoBehaviour:
   description: "Je naquis dans des temps imm\xE9moriaux de ce que vous pensez \xEAtre
     une immense explosion;/ J'\xE9claire et anime tout ce qui m'entoure; je vois
     na\xEEtre mes premiers enfants gravitant autour de moi/ Puis dans dernier souffle;
-    je me disperse et jusqu'\xE0 ce jour; vous avez de moi en vous."
+    je me disperse en cr\xE9ant de nombreux \xEAtres dont vous."
   moves:
   - bellToToll: 03000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 04000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10

@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: Le mort humain
   m_EditorClassIdentifier: 
   spiritName: Le mort humain
-  description: "Qui suis-je?/ O\xF9 suis-je ?/ Que m'est il arriv\xE9 ?"
+  description: "Je ne me souviens de rien... qui... Qui suis-je?/ Mais d'abord quelle
+    est cet endroit...O\xF9 suis-je ?/Que... Que m'est il arriv\xE9 ?"
   moves:
   - bellToToll: 01000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 02000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 05000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10

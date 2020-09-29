@@ -15,14 +15,14 @@ MonoBehaviour:
   spiritName: "La grand m\xE8re "
   description: "O\xF9 \xEAtes-vous mes petits-enfants ?; je n'arrive pas \xE0 vous
     voir.../ J'ai peur de ne pas vous avoir transmis tout mon savoir.../ Sonnez la
-    cloche de ma derni\xE8re demeure pour que vos anc\xEAtres vous restent en m\xE9moire..."
+    cloche de ma derni\xE8re demeure pour garder mes conseils en m\xE9moire..."
   moves:
   - bellToToll: 01000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 0000000004000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 02000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10

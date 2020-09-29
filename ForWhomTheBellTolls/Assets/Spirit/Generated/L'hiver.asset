@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spiritName: L'hiver
   description: "Pendant trois mois; la terre devient mon terrain de jeu avant d'\xEAtre
-    chass\xE9 par mon grand fr\xE8re./ J'enveloppe le monde de mon manteau blanc
+    chass\xE9 par mon grand fr\xE8re./ Je recouvre le monde de mon manteau blanc
     et danse avec vous./ Je viens tous vous saluer; de l'enfant jouant dehors au
     vieillard dans son lit.. Je vous en prie; revenez jouer avec moi."
   moves:
   - bellToToll: 03000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 04000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
   - bellToToll: 01000000
     tolls: 0
-    timeInBetween: 90
+    timeInBetween: 10
